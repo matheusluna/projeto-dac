@@ -10,6 +10,10 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Entrevista {
 
+    @Id
+    @GeneratedValue
+    private Integer id;
+
     private Float notaDoCandidato;
 
     @Temporal(TemporalType.TIME)
@@ -28,14 +32,23 @@ public class Entrevista {
 
     }
 
-    public Entrevista(Float notaDoCandidato, LocalDateTime diaDaEntrevista,
+    public Entrevista(Integer id, Float notaDoCandidato, LocalDateTime diaDaEntrevista,
                       LocalDateTime horarioDaEntrevista, Enum<ClassificacaoEnum> classificacaoDoCandito,
                       Candidatura candidatura) {
+        this.id = id;
         this.notaDoCandidato = notaDoCandidato;
         this.diaDaEntrevista = diaDaEntrevista;
         this.horarioDaEntrevista = horarioDaEntrevista;
         this.classificacaoDoCandito = classificacaoDoCandito;
         this.candidatura = candidatura;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Float getNotaDoCandidato() {
@@ -86,8 +99,13 @@ public class Entrevista {
 
         Entrevista that = (Entrevista) o;
 
-        if (!diaDaEntrevista.equals(that.diaDaEntrevista)) return false;
-        if (!horarioDaEntrevista.equals(that.horarioDaEntrevista)) return false;
+        if (!id.equals(that.id)) return false;
+        if (notaDoCandidato != null ? !notaDoCandidato.equals(that.notaDoCandidato) : that.notaDoCandidato != null)
+            return false;
+        if (diaDaEntrevista != null ? !diaDaEntrevista.equals(that.diaDaEntrevista) : that.diaDaEntrevista != null)
+            return false;
+        if (horarioDaEntrevista != null ? !horarioDaEntrevista.equals(that.horarioDaEntrevista) : that.horarioDaEntrevista != null)
+            return false;
         if (classificacaoDoCandito != null ? !classificacaoDoCandito.equals(that.classificacaoDoCandito) : that.classificacaoDoCandito != null)
             return false;
         return candidatura.equals(that.candidatura);
@@ -96,9 +114,10 @@ public class Entrevista {
     @Override
     public int hashCode() {
 
-        int result = notaDoCandidato != null ? notaDoCandidato.hashCode() : 0;
-        result = 31 * result + diaDaEntrevista.hashCode();
-        result = 31 * result + horarioDaEntrevista.hashCode();
+        int result = id.hashCode();
+        result = 31 * result + (notaDoCandidato != null ? notaDoCandidato.hashCode() : 0);
+        result = 31 * result + (diaDaEntrevista != null ? diaDaEntrevista.hashCode() : 0);
+        result = 31 * result + (horarioDaEntrevista != null ? horarioDaEntrevista.hashCode() : 0);
         result = 31 * result + (classificacaoDoCandito != null ? classificacaoDoCandito.hashCode() : 0);
         result = 31 * result + candidatura.hashCode();
         return result;
@@ -108,7 +127,8 @@ public class Entrevista {
     public String toString() {
 
         final StringBuilder sb = new StringBuilder("Entrevista{");
-        sb.append("notaDoCandidato=").append(notaDoCandidato);
+        sb.append("id=").append(id);
+        sb.append(", notaDoCandidato=").append(notaDoCandidato);
         sb.append(", diaDaEntrevista=").append(diaDaEntrevista);
         sb.append(", horarioDaEntrevista=").append(horarioDaEntrevista);
         sb.append(", classificacaoDoCandito=").append(classificacaoDoCandito);
