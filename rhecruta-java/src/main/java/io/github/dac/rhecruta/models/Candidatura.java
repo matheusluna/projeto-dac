@@ -11,6 +11,10 @@ import java.time.LocalDate;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Candidatura {
 
+    @Id
+    @GeneratedValue
+    private Integer id;
+
     private Integer vagaId;
 
     @Lob
@@ -37,6 +41,14 @@ public class Candidatura {
         this.parecer = parecer;
         this.dataCandidatura = dataCandidatura;
         this.candidato = candidato;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getVagaId() {
@@ -87,9 +99,9 @@ public class Candidatura {
 
         Candidatura that = (Candidatura) o;
 
+        if (!id.equals(that.id)) return false;
         if (!vagaId.equals(that.vagaId)) return false;
-        if (curriculoCandidato != null ? !curriculoCandidato.equals(that.curriculoCandidato) : that.curriculoCandidato != null)
-            return false;
+        if (!curriculoCandidato.equals(that.curriculoCandidato)) return false;
         if (parecer != null ? !parecer.equals(that.parecer) : that.parecer != null) return false;
         if (!dataCandidatura.equals(that.dataCandidatura)) return false;
         return candidato.equals(that.candidato);
@@ -98,8 +110,9 @@ public class Candidatura {
     @Override
     public int hashCode() {
 
-        int result = vagaId.hashCode();
-        result = 31 * result + (curriculoCandidato != null ? curriculoCandidato.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + vagaId.hashCode();
+        result = 31 * result + curriculoCandidato.hashCode();
         result = 31 * result + (parecer != null ? parecer.hashCode() : 0);
         result = 31 * result + dataCandidatura.hashCode();
         result = 31 * result + candidato.hashCode();
@@ -110,7 +123,8 @@ public class Candidatura {
     public String toString() {
 
         final StringBuilder sb = new StringBuilder("Candidatura{");
-        sb.append("vagaId=").append(vagaId);
+        sb.append("id=").append(id);
+        sb.append(", vagaId=").append(vagaId);
         sb.append(", curriculoCandidato=").append(curriculoCandidato);
         sb.append(", parecer=").append(parecer);
         sb.append(", dataCandidatura=").append(dataCandidatura);
