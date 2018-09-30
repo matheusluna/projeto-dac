@@ -1,5 +1,6 @@
 package io.github.dac.rhecruta.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.dac.rhecruta.enums.ParecerEnum;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.io.File;
 import java.time.LocalDate;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Candidatura {
 
     private Integer vagaId;

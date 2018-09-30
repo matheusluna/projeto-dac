@@ -1,11 +1,13 @@
 package io.github.dac.rhecruta.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.dac.rhecruta.enums.ClassificacaoEnum;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Entrevista {
 
     private Float notaDoCandidato;

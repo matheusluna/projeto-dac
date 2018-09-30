@@ -1,5 +1,8 @@
 package io.github.dac.rhecruta.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Vaga {
 
     private int id;
