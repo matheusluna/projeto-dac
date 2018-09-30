@@ -17,7 +17,7 @@ public class Candidato {
     private String nome;
 
     @Column(length = 20, nullable = false, unique = true)
-    private String login;
+    private String email;
 
     @Column(length = 60, nullable = false)
     private String senha;
@@ -30,9 +30,9 @@ public class Candidato {
 
     }
 
-    public Candidato(String nome, String login, String cpf, List<Integer> interesses) {
+    public Candidato(String nome, String email, String cpf, List<Integer> interesses) {
         this.nome = nome;
-        this.login = login;
+        this.email = email;
         this.cpf = cpf;
         this.interesses = interesses;
     }
@@ -45,12 +45,20 @@ public class Candidato {
         this.nome = nome;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getCpf() {
@@ -69,6 +77,7 @@ public class Candidato {
         this.interesses = interesses;
     }
 
+
     @Override
     public boolean equals(Object o) {
 
@@ -77,18 +86,20 @@ public class Candidato {
 
         Candidato candidato = (Candidato) o;
 
-        if (!nome.equals(candidato.nome)) return false;
-        if (!login.equals(candidato.login)) return false;
         if (!cpf.equals(candidato.cpf)) return false;
+        if (!nome.equals(candidato.nome)) return false;
+        if (!email.equals(candidato.email)) return false;
+        if (!senha.equals(candidato.senha)) return false;
         return interesses != null ? interesses.equals(candidato.interesses) : candidato.interesses == null;
     }
 
     @Override
     public int hashCode() {
 
-        int result = nome.hashCode();
-        result = 31 * result + login.hashCode();
-        result = 31 * result + cpf.hashCode();
+        int result = cpf.hashCode();
+        result = 31 * result + nome.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + senha.hashCode();
         result = 31 * result + (interesses != null ? interesses.hashCode() : 0);
         return result;
     }
@@ -97,9 +108,10 @@ public class Candidato {
     public String toString() {
 
         final StringBuilder sb = new StringBuilder("Candidato{");
-        sb.append("nome='").append(nome).append('\'');
-        sb.append(", login='").append(login).append('\'');
-        sb.append(", cpf='").append(cpf).append('\'');
+        sb.append("cpf='").append(cpf).append('\'');
+        sb.append(", nome='").append(nome).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", senha='").append(senha).append('\'');
         sb.append(", interesses=").append(interesses);
         sb.append('}');
         return sb.toString();

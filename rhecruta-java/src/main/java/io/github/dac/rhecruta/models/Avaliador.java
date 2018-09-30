@@ -15,7 +15,7 @@ public class Avaliador {
     private String nome;
 
     @Column(length = 20, nullable = false, unique = true)
-    private String login;
+    private String email;
 
     @Column(length = 60, nullable = false)
     private String senha;
@@ -24,9 +24,9 @@ public class Avaliador {
 
     }
 
-    public Avaliador(String nome, String login, String senha, String cpf) {
+    public Avaliador(String nome, String email, String senha, String cpf) {
         this.nome = nome;
-        this.login = login;
+        this.email = email;
         this.senha = senha;
         this.cpf = cpf;
     }
@@ -39,12 +39,12 @@ public class Avaliador {
         this.nome = nome;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSenha() {
@@ -72,7 +72,7 @@ public class Avaliador {
         Avaliador avaliador = (Avaliador) o;
 
         if (!nome.equals(avaliador.nome)) return false;
-        if (!login.equals(avaliador.login)) return false;
+        if (!email.equals(avaliador.email)) return false;
         if (!senha.equals(avaliador.senha)) return false;
         return cpf.equals(avaliador.cpf);
     }
@@ -81,7 +81,7 @@ public class Avaliador {
     public int hashCode() {
 
         int result = nome.hashCode();
-        result = 31 * result + login.hashCode();
+        result = 31 * result + email.hashCode();
         result = 31 * result + senha.hashCode();
         result = 31 * result + cpf.hashCode();
         return result;
@@ -92,7 +92,7 @@ public class Avaliador {
 
         final StringBuilder sb = new StringBuilder("Avaliador{");
         sb.append("nome='").append(nome).append('\'');
-        sb.append(", login='").append(login).append('\'');
+        sb.append(", email='").append(email).append('\'');
         sb.append(", senha='").append(senha).append('\'');
         sb.append(", cpf='").append(cpf).append('\'');
         sb.append('}');
