@@ -5,7 +5,7 @@ import io.github.dac.rhecruta.models.Candidatura;
 
 import java.util.List;
 
-public interface CandidaturaInterface {
+public interface CandidaturaDaoInterface {
 
     public void salvar(Candidatura candidatura);
     public void remover(Candidatura candidatura);

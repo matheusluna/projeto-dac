@@ -1,6 +1,6 @@
 package io.github.dac.rhecruta.dao.implementations;
 
-import io.github.dac.rhecruta.dao.interfaces.CandidaturaInterface;
+import io.github.dac.rhecruta.dao.interfaces.CandidaturaDaoInterface;
 import io.github.dac.rhecruta.models.Candidato;
 import io.github.dac.rhecruta.models.Candidatura;
 
@@ -13,12 +13,12 @@ import java.util.List;
 
 @Local
 @Stateless(name = "CadidaturaDao")
-public class CandidaturaDao implements CandidaturaInterface {
+public class CandidaturaDaoDao implements CandidaturaDaoInterface {
 
     @PersistenceContext
     private final EntityManager entityManager;
 
-    public CandidaturaDao() {
+    public CandidaturaDaoDao() {
         this.entityManager = Persistence.createEntityManagerFactory("rhecruta").createEntityManager();
     }
 
