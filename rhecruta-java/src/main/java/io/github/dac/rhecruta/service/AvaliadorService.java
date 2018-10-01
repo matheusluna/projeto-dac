@@ -4,9 +4,11 @@ import io.github.dac.rhecruta.dao.interfaces.AvaliadorDaoInterface;
 import io.github.dac.rhecruta.models.Avaliador;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.util.List;
 
+@Local
 @Stateless
 public class AvaliadorService {
 
