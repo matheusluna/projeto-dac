@@ -2,6 +2,7 @@ package io.github.dac.rhecruta.rest.controllers;
 
 import javax.ejb.Stateless;
 import javax.json.Json;
+import javax.json.JsonValue;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
