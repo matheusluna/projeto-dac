@@ -4,11 +4,15 @@ import io.github.dac.rhecruta.dao.interfaces.CandidaturaInterface;
 import io.github.dac.rhecruta.models.Candidato;
 import io.github.dac.rhecruta.models.Candidatura;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Local
+@Stateless(name = "CadidaturaDao")
 public class CandidaturaDao implements CandidaturaInterface {
 
     @PersistenceContext

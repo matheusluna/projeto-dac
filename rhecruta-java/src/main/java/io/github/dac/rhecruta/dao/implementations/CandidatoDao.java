@@ -3,11 +3,15 @@ package io.github.dac.rhecruta.dao.implementations;
 import io.github.dac.rhecruta.dao.interfaces.CandidatoDaoInterface;
 import io.github.dac.rhecruta.models.Candidato;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Local
+@Stateless(name = "CandidatoDao")
 public class CandidatoDao implements CandidatoDaoInterface {
 
     @PersistenceContext
