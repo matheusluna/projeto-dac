@@ -27,7 +27,7 @@ public class Candidatura {
     @Temporal(TemporalType.DATE)
     private LocalDate dataCandidatura;
 
-    @OneToOne
+    @ManyToOne
     private Candidato candidato;
 
     public Candidatura() {

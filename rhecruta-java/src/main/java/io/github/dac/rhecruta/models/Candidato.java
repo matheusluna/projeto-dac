@@ -3,9 +3,9 @@ package io.github.dac.rhecruta.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
@@ -25,7 +25,7 @@ public class Candidato {
     @Column(length = 60, nullable = false)
     private String senha;
 
-    @OneToMany
+    @ElementCollection
     //Lista com o id das vagas em interesse
     private List<Integer> interesses;
 
