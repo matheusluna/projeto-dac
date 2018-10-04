@@ -16,8 +16,9 @@ public class CandidaturaService {
     @EJB
     private CandidaturaDaoInterface candidaturaDao;
 
-    public void salvar(Candidatura candidatura) {
+    public Integer salvar(Candidatura candidatura) {
         candidaturaDao.salvar(candidatura);
+        return candidatura.getId();
     }
 
     public void remover(Candidatura candidatura) {

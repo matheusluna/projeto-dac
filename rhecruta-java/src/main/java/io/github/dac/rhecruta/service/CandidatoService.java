@@ -19,8 +19,9 @@ public class CandidatoService {
         return candidatoDao.listarTodos();
     }
 
-    public void salvar(Candidato candidato) {
+    public String salvar(Candidato candidato) {
         candidatoDao.salvar(candidato);
+        return candidato.getCpf();
     }
 
     public void remover(Candidato candidato) {

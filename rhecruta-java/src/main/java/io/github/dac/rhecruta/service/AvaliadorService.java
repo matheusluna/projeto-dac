@@ -19,8 +19,9 @@ public class AvaliadorService {
         return avaliadorDao.listarTodos();
     }
 
-    public void salvar(Avaliador avaliador) {
+    public String salvar(Avaliador avaliador) {
         avaliadorDao.salvar(avaliador);
+        return avaliador.getCpf();
     }
 
     public void remover(Avaliador avaliador) {

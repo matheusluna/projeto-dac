@@ -16,8 +16,9 @@ public class EntrevistaService {
     @EJB
     private EntrevistaDaoInterface entrevistaDao;
 
-    public void salvar(Entrevista entrevista) {
+    public Integer salvar(Entrevista entrevista) {
         entrevistaDao.salvar(entrevista);
+        return entrevista.getId();
     }
 
     public void remover(Entrevista entrevista) {
