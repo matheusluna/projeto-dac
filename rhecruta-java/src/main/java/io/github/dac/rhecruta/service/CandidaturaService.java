@@ -29,6 +29,10 @@ public class CandidaturaService {
         candidaturaDao.atualizar(candidatura);
     }
 
+    public Candidatura candidaturaComId(Integer id) {
+        return this.candidaturaDao.candidaturaComId(id);
+    }
+
     public List<Candidatura> candidaturasPorCandidato(Candidato candidato) {
         return candidaturaDao.candidaturasPorCandidato(candidato);
     }

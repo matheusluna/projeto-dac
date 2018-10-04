@@ -13,12 +13,12 @@ import java.util.List;
 
 @Local
 @Stateless(name = "CadidaturaDao")
-public class CandidaturaDaoDao implements CandidaturaDaoInterface {
+public class CandidaturaDao implements CandidaturaDaoInterface {
 
     @PersistenceContext
     private final EntityManager entityManager;
 
-    public CandidaturaDaoDao() {
+    public CandidaturaDao() {
         this.entityManager = Persistence.createEntityManagerFactory("rhecruta").createEntityManager();
     }
 
@@ -36,6 +36,11 @@ public class CandidaturaDaoDao implements CandidaturaDaoInterface {
     @Override
     public void atualizar(Candidatura candidatura) {
         entityManager.merge(candidatura);
+    }
+
+    @Override
+    public Candidatura candidaturaComId(Integer id) {
+        return entityManager.find(Candidatura.class, id);
     }
 
     @Override

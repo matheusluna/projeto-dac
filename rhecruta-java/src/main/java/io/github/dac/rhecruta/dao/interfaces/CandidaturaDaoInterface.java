@@ -10,5 +10,6 @@ public interface CandidaturaDaoInterface {
     public void salvar(Candidatura candidatura);
     public void remover(Candidatura candidatura);
     public void atualizar(Candidatura candidatura);
+    public Candidatura candidaturaComId(Integer id);
     public List<Candidatura> candidaturasPorCandidato(Candidato candidato);
 }
