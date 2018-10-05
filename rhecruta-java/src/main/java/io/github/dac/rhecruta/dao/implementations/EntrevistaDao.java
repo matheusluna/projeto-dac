@@ -1,6 +1,7 @@
 package io.github.dac.rhecruta.dao.implementations;
 
 import io.github.dac.rhecruta.dao.interfaces.EntrevistaDaoInterface;
+import io.github.dac.rhecruta.models.Candidato;
 import io.github.dac.rhecruta.models.Candidatura;
 import io.github.dac.rhecruta.models.Entrevista;
 
@@ -36,6 +37,14 @@ public class EntrevistaDao implements EntrevistaDaoInterface {
     @Override
     public void atualizar(Entrevista entrevista) {
         entityManager.merge(entrevista);
+    }
+
+    @Override
+    public List<Entrevista> entrevistasPorCandidato(String candidatoEmail) {
+        return entityManager
+                .createQuery("FROM Entrevista e WHERE e.candidatura.candidato.email = :candidatoEmail")
+                .setParameter("candidatoEmail", candidatoEmail)
+                .getResultList();
     }
 
     @Override
