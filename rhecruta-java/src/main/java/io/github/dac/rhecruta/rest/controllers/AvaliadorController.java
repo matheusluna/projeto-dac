@@ -58,9 +58,13 @@ public class AvaliadorController {
         if (cpf == null || cpf.isEmpty() || cpf.length() < 11 || cpf.length() > 14)
             return Response.status(Response.Status.BAD_REQUEST).build();
 
-        return Response.ok(
-                this.avaliadorService.avaliadorComCPF(cpf)
-        ).build();
+        Avaliador avaliador = avaliadorService.avaliadorComCPF(cpf);
+
+        if (avaliador == null)
+            return Response.status(Response.Status.NO_CONTENT).build();
+        else
+            return Response.ok(avaliador).build();
+
     }
 
     @GET
@@ -71,8 +75,12 @@ public class AvaliadorController {
         if (email == null || email.isEmpty() || email.length() <= 0 || !email.contains("@"))
             return Response.status(Response.Status.BAD_REQUEST).build();
 
-        return Response.ok(
-                this.avaliadorService.avaliadorComEmail(email)
-        ).build();
+        Avaliador avaliador = avaliadorService.avaliadorComEmail(email);
+
+        if (avaliador == null)
+            return Response.status(Response.Status.NO_CONTENT).build();
+        else
+            return Response.ok(avaliador).build();
+
     }
 }

@@ -6,6 +6,7 @@ import io.github.dac.rhecruta.models.Avaliador;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -44,26 +45,46 @@ public class AvaliadorDao implements AvaliadorDaoInterface {
 
     @Override
     public Avaliador avaliadorComCPF(String cpf) {
-        return (Avaliador) entityManager
-                .createQuery("FROM Avaliador a WHERE a.cpf = :cpf")
-                .setParameter("cpf", cpf)
-                .getSingleResult();
+
+        try {
+            return (Avaliador) entityManager
+                    .createQuery("FROM Avaliador a WHERE a.cpf = :cpf")
+                    .setParameter("cpf", cpf)
+                    .getSingleResult();
+
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
     @Override
     public Avaliador avaliadorComEmail(String email) {
-        return (Avaliador) entityManager
-                .createQuery("FROM Avaliador a WHERE a.email = :email")
-                .setParameter("email", email)
-                .getSingleResult();
+
+        try {
+            return (Avaliador) entityManager
+                    .createQuery("FROM Avaliador a WHERE a.email = :email")
+                    .setParameter("email", email)
+                    .getSingleResult();
+
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 
     @Override
     public Boolean login(String email, String password) {
-        return entityManager
-                .createQuery("FROM Avaliador a WHERE a.email = :email AND a.senha = :senha")
-                .setParameter("email", email)
-                .setParameter("senha", password)
-                .getSingleResult() == null;
+
+        try {
+            return entityManager
+                    .createQuery("FROM Avaliador a WHERE a.email = :email AND a.senha = :senha")
+                    .setParameter("email", email)
+                    .setParameter("senha", password)
+                    .getSingleResult() == null;
+            
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 }
