@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class Candidatura {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private Integer vagaId;
@@ -27,7 +27,7 @@ public class Candidatura {
     @Temporal(TemporalType.DATE)
     private LocalDate dataCandidatura;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Candidato candidato;
 
     public Candidatura() {

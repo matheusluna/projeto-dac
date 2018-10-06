@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class Entrevista {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private Float notaDoCandidato;
@@ -25,7 +25,7 @@ public class Entrevista {
     @Enumerated
     private Enum<ClassificacaoEnum> classificacaoDoCandito;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Candidatura candidatura;
 
     public Entrevista() {
