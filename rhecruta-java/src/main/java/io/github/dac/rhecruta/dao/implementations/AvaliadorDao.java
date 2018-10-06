@@ -43,7 +43,9 @@ public class AvaliadorDao implements AvaliadorDaoInterface {
     @Override
     public void remover(Avaliador avaliador) {
         Avaliador avaliadorToRemove = entityManager.find(Avaliador.class, avaliador.getCpf());
-        entityManager.remove(avaliadorToRemove);
+
+        if (avaliadorToRemove != null)
+            entityManager.remove(avaliadorToRemove);
     }
 
     @Override

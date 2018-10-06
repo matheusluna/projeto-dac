@@ -43,7 +43,9 @@ public class CandidatoDao implements CandidatoDaoInterface {
     @Override
     public void remover(Candidato candidato) {
         Candidato candidatoToRemove = entityManager.find(Candidato.class, candidato.getCpf());
-        entityManager.remove(candidatoToRemove);
+
+        if (candidatoToRemove != null)
+            entityManager.remove(candidatoToRemove);
     }
 
     @Override
