@@ -55,7 +55,7 @@ public class CandidatoDao implements CandidatoDaoInterface {
     public Candidato candidatoComCPF(String cpf) {
         try {
             return (Candidato) entityManager
-                    .createQuery("FROM Candidato c WHERE c.Cpf = :cpf")
+                    .createQuery("FROM Candidato c WHERE c.cpf = :cpf")
                     .setParameter("cpf", cpf)
                     .getSingleResult();
 
@@ -69,7 +69,7 @@ public class CandidatoDao implements CandidatoDaoInterface {
     public Candidato candidatoComEmail(String email) {
         try {
             return (Candidato) entityManager
-                    .createQuery("FROM Candidato c where c.Email = :email")
+                    .createQuery("FROM Candidato c where c.email = :email")
                     .setParameter("email", email)
                     .getSingleResult();
 
@@ -83,7 +83,7 @@ public class CandidatoDao implements CandidatoDaoInterface {
     public Boolean login(String email, String password) {
         try {
             return entityManager
-                    .createQuery("FROM Candidadto c where c.Email = :email AND c.Senha = :senha")
+                    .createQuery("FROM Candidato c where c.email = :email AND c.senha = :senha")
                     .setParameter("email", email)
                     .setParameter("senha", password)
                     .getSingleResult() == null;
