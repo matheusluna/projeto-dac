@@ -45,15 +45,15 @@ public class AvaliadorDao implements AvaliadorDaoInterface {
     @Override
     public Avaliador avaliadorComCPF(String cpf) {
         return (Avaliador) entityManager
-                .createQuery("FROM Avaliador a WHERE a.CPF = :cpf")
+                .createQuery("FROM Avaliador a WHERE a.cpf = :cpf")
                 .setParameter("cpf", cpf)
-                .getResultList();
+                .getSingleResult();
     }
 
     @Override
     public Avaliador avaliadorComEmail(String email) {
         return (Avaliador) entityManager
-                .createQuery("FROM Avaliador a WHERE a.Email = :email")
+                .createQuery("FROM Avaliador a WHERE a.email = :email")
                 .setParameter("email", email)
                 .getSingleResult();
     }
@@ -61,7 +61,7 @@ public class AvaliadorDao implements AvaliadorDaoInterface {
     @Override
     public Boolean login(String email, String password) {
         return entityManager
-                .createQuery("FROM Avaliador a WHERE a.Email = :email AND a.Senha = :senha")
+                .createQuery("FROM Avaliador a WHERE a.email = :email AND a.senha = :senha")
                 .setParameter("email", email)
                 .setParameter("senha", password)
                 .getSingleResult() == null;
