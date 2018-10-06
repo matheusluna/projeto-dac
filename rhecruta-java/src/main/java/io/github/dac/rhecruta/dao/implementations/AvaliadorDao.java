@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import java.util.Collections;
 import java.util.List;
 
 @Local
@@ -24,7 +25,14 @@ public class AvaliadorDao implements AvaliadorDaoInterface {
 
     @Override
     public List<Avaliador> listarTodos() {
-        return entityManager.createQuery("FROM Avaliador a").getResultList();
+
+        try {
+            return entityManager.createQuery("FROM Avaliador a").getResultList();
+
+        } catch (NoResultException ex) {
+            return Collections.emptyList();
+        }
+
     }
 
     @Override
@@ -81,7 +89,7 @@ public class AvaliadorDao implements AvaliadorDaoInterface {
                     .setParameter("email", email)
                     .setParameter("senha", password)
                     .getSingleResult() == null;
-            
+
         } catch (NoResultException ex) {
             return null;
         }
