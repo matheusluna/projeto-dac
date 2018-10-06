@@ -42,6 +42,9 @@ public class CandidatoController {
     @Path("{cpf}")
     public Response deletarCandidato(@PathParam("cpf") String cpf) {
 
+        if (cpf == null || cpf.isEmpty() || cpf.length() != 11)
+            return Response.status(Response.Status.BAD_REQUEST).build();
+
         Candidato candidato = new Candidato();
         candidato.setCpf(cpf);
 
@@ -54,18 +57,31 @@ public class CandidatoController {
     @Path("{cpf}")
     public Response candidatoComCpf(@PathParam("cpf") String cpf) {
 
-        return Response.ok(
-                this.candidatoService.candidatoComCPF(cpf)
-        ).build();
+        if (cpf == null || cpf.isEmpty() || cpf.length() != 11)
+            return Response.status(Response.Status.BAD_REQUEST).build();
+
+        Candidato candidato = candidatoService.candidatoComCPF(cpf);
+
+        if (candidato == null)
+            return Response.status(Response.Status.NO_CONTENT).build();
+        else
+            return Response.ok(candidato).build();
+
     }
 
     @GET
     @Path("buscar/{email}")
     public Response candidatoComEmail(@PathParam("email") String email) {
 
-        return Response.ok(
-                this.candidatoService.candidatoComEmail(email)
-        ).build();
+        if (email == null || email.length() < 3 || !email.contains("@"))
+            return Response.status(Response.Status.BAD_REQUEST).build();
+
+        Candidato candidato = candidatoService.candidatoComEmail(email);
+
+        if (candidato == null)
+            return Response.status(Response.Status.NO_CONTENT).build();
+        else
+            return Response.ok(candidato).build();
     }
-    
+
 }
