@@ -2,6 +2,8 @@ package io.github.dac.rhecruta.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.dac.rhecruta.enums.ClassificacaoEnum;
+import io.github.dac.rhecruta.models.converters.DateConverter;
+import io.github.dac.rhecruta.models.converters.TimeConverter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,14 +18,14 @@ public class Entrevista {
 
     private Float notaDoCandidato;
 
-    @Temporal(TemporalType.TIME)
+    @Convert(converter = DateConverter.class)
     private LocalDateTime diaDaEntrevista;
 
-    @Temporal(TemporalType.DATE)
+    @Convert(converter = TimeConverter.class)
     private LocalDateTime horarioDaEntrevista;
 
-    @Enumerated
-    private Enum<ClassificacaoEnum> classificacaoDoCandito;
+    @Enumerated(EnumType.STRING)
+    private ClassificacaoEnum classificacaoDoCandito;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Candidatura candidatura;
@@ -33,7 +35,7 @@ public class Entrevista {
     }
 
     public Entrevista(Integer id, Float notaDoCandidato, LocalDateTime diaDaEntrevista,
-                      LocalDateTime horarioDaEntrevista, Enum<ClassificacaoEnum> classificacaoDoCandito,
+                      LocalDateTime horarioDaEntrevista, ClassificacaoEnum classificacaoDoCandito,
                       Candidatura candidatura) {
         this.id = id;
         this.notaDoCandidato = notaDoCandidato;
@@ -75,11 +77,11 @@ public class Entrevista {
         this.horarioDaEntrevista = horarioDaEntrevista;
     }
 
-    public Enum<ClassificacaoEnum> getClassificacaoDoCandito() {
+    public ClassificacaoEnum getClassificacaoDoCandito() {
         return classificacaoDoCandito;
     }
 
-    public void setClassificacaoDoCandito(Enum<ClassificacaoEnum> classificacaoDoCandito) {
+    public void setClassificacaoDoCandito(ClassificacaoEnum classificacaoDoCandito) {
         this.classificacaoDoCandito = classificacaoDoCandito;
     }
 

@@ -2,6 +2,7 @@ package io.github.dac.rhecruta.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.dac.rhecruta.enums.ParecerEnum;
+import io.github.dac.rhecruta.models.converters.DateConverter;
 
 import javax.persistence.*;
 import java.io.File;
@@ -21,10 +22,10 @@ public class Candidatura {
     @Basic(fetch = FetchType.LAZY)
     private File curriculoCandidato;
 
-    @Enumerated
-    private Enum<ParecerEnum> parecer;
+    @Enumerated(EnumType.STRING)
+    private ParecerEnum parecer;
 
-    @Temporal(TemporalType.DATE)
+    @Convert(converter = DateConverter.class)
     private LocalDate dataCandidatura;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,7 +35,7 @@ public class Candidatura {
 
     }
 
-    public Candidatura(Integer vagaId, File curriculoCandidato, Enum<ParecerEnum> parecer,
+    public Candidatura(Integer vagaId, File curriculoCandidato, ParecerEnum parecer,
                        LocalDate dataCandidatura, Candidato candidato) {
         this.vagaId = vagaId;
         this.curriculoCandidato = curriculoCandidato;
@@ -67,11 +68,11 @@ public class Candidatura {
         this.curriculoCandidato = curriculoCandidato;
     }
 
-    public Enum<ParecerEnum> getParecer() {
+    public ParecerEnum getParecer() {
         return parecer;
     }
 
-    public void setParecer(Enum<ParecerEnum> parecer) {
+    public void setParecer(ParecerEnum parecer) {
         this.parecer = parecer;
     }
 
