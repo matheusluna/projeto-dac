@@ -40,6 +40,11 @@ public class EntrevistaDao implements EntrevistaDaoInterface {
     }
 
     @Override
+    public Entrevista entrevistaComId(Integer id) {
+        return entityManager.find(Entrevista.class, id);
+    }
+
+    @Override
     public List<Entrevista> entrevistasPorCandidato(String candidatoEmail) {
         return entityManager
                 .createQuery("FROM Entrevista e WHERE e.candidatura.candidato.email = :candidatoEmail")

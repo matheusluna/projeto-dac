@@ -11,6 +11,7 @@ public interface EntrevistaDaoInterface {
     public void salvar(Entrevista entrevista);
     public void remover(Entrevista entrevista);
     public void atualizar(Entrevista entrevista);
+    public Entrevista entrevistaComId(Integer id);
     public List<Entrevista> entrevistasPorCandidato(String candidatoEmail);
     public List<Entrevista> entrevistasPorCandidatura(Candidatura candidatura);
 }

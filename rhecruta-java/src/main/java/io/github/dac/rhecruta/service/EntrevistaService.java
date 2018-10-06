@@ -29,6 +29,10 @@ public class EntrevistaService {
         entrevistaDao.atualizar(entrevista);
     }
 
+    public Entrevista entrevistaComId(Integer id) {
+        return this.entrevistaDao.entrevistaComId(id);
+    }
+
     public List<Entrevista> entrevistasPorCandidato(String candidatoEmail) {
         return this.entrevistaDao.entrevistasPorCandidato(candidatoEmail);
     }
