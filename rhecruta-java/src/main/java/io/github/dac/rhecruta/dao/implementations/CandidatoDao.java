@@ -6,8 +6,10 @@ import io.github.dac.rhecruta.models.Candidato;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import java.util.Collections;
 import java.util.List;
 
 @Local
@@ -23,7 +25,14 @@ public class CandidatoDao implements CandidatoDaoInterface {
 
     @Override
     public List<Candidato> listarTodos() {
-        return entityManager.createQuery("FROM Candidato c").getResultList();
+
+        try {
+            return entityManager.createQuery("FROM Candidato c").getResultList();
+
+        } catch (NoResultException ex) {
+            return Collections.emptyList();
+        }
+
     }
 
     @Override
@@ -44,26 +53,44 @@ public class CandidatoDao implements CandidatoDaoInterface {
 
     @Override
     public Candidato candidatoComCPF(String cpf) {
-        return (Candidato) entityManager
-                .createQuery("FROM Candidato c WHERE c.Cpf = :cpf")
-                .setParameter("cpf", cpf)
-                .getSingleResult();
+        try {
+            return (Candidato) entityManager
+                    .createQuery("FROM Candidato c WHERE c.Cpf = :cpf")
+                    .setParameter("cpf", cpf)
+                    .getSingleResult();
+
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 
     @Override
     public Candidato candidatoComEmail(String email) {
-        return (Candidato) entityManager
-                .createQuery("FROM Candidato c where c.Email = :email")
-                .setParameter("email", email)
-                .getSingleResult();
+        try {
+            return (Candidato) entityManager
+                    .createQuery("FROM Candidato c where c.Email = :email")
+                    .setParameter("email", email)
+                    .getSingleResult();
+
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 
     @Override
     public Boolean login(String email, String password) {
-        return entityManager
-                .createQuery("FROM Candidadto c where c.Email = :email AND c.Senha = :senha")
-                .setParameter("email", email)
-                .setParameter("senha", password)
-                .getSingleResult() == null;
+        try {
+            return entityManager
+                    .createQuery("FROM Candidadto c where c.Email = :email AND c.Senha = :senha")
+                    .setParameter("email", email)
+                    .setParameter("senha", password)
+                    .getSingleResult() == null;
+
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 }
