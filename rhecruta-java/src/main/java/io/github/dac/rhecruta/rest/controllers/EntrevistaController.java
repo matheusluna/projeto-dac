@@ -9,10 +9,8 @@ import io.github.dac.rhecruta.service.EntrevistaService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.*;
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -72,7 +70,8 @@ public class EntrevistaController {
     public Response agendarEntrevista(@PathParam("idCandidatura") Integer id,
                                       @FormParam("diaDaEntrevista") String diaDaEntrevista,
                                       @FormParam("horarioDaEntrevista") String horarioDaEntrevista,
-                                      @Context SecurityContext securityContext) {
+                                      @Context SecurityContext securityContext,
+                                      @Context UriInfo uriInfo) {
 
         if (id == null || id <= 0)
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -98,8 +97,13 @@ public class EntrevistaController {
 
         entrevistaService.salvar(entrevista);
 
-        //  TODO por código create?
-        return Response.ok().build();
+        URI uri = uriInfo
+                .getAbsolutePathBuilder()
+                .path(
+                        entrevista.getId().toString()
+                ).build();
+
+        return Response.created(uri).build();
     }
 
     @DELETE
