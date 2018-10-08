@@ -71,13 +71,16 @@ public class VagaService {
 
         JsonArray jsonArray = recuperarVagas();
 
-
         return jsonArray.stream()
-                .filter(
-                        jsonValue -> jsonValue
-                                .asJsonObject()
-                                .getString("company_name")
-                                .equals(nomeEmpresa)
+                .filter(jsonValue -> {
+                            String companyName = jsonValue
+                                    .asJsonObject()
+                                    .getString("company_name")
+                                    .toLowerCase();
+
+                            companyName = filterAcentos(companyName);
+                            return companyName.contains(nomeEmpresa);
+                        }
                 )
                 .collect(JsonCollectors.toJsonArray());
     }
