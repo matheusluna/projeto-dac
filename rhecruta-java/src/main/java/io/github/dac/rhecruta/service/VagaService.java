@@ -45,7 +45,7 @@ public class VagaService {
                             .toLowerCase();
 
                     workplace = filterAcentos(workplace);
-                    return workplace.contains(nomeCidade);
+                    return workplace.contains(nomeCidade.toLowerCase());
                 })
                 .collect(JsonCollectors.toJsonArray());
     }
@@ -62,7 +62,7 @@ public class VagaService {
                             .toLowerCase();
 
                     description = filterAcentos(description);
-                    return description.contains(query);
+                    return description.contains(query.toLowerCase());
                 })
                 .collect(JsonCollectors.toJsonArray());
     }
@@ -79,7 +79,7 @@ public class VagaService {
                                     .toLowerCase();
 
                             companyName = filterAcentos(companyName);
-                            return companyName.contains(nomeEmpresa);
+                            return companyName.contains(nomeEmpresa.toLowerCase());
                         }
                 )
                 .collect(JsonCollectors.toJsonArray());
