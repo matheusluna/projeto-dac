@@ -8,8 +8,10 @@ import io.github.dac.rhecruta.models.Entrevista;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import java.util.Collections;
 import java.util.List;
 
 @Local
@@ -30,8 +32,13 @@ public class EntrevistaDao implements EntrevistaDaoInterface {
 
     @Override
     public void remover(Entrevista entrevista) {
-        Entrevista entrevistaToRemove = entityManager.find(Entrevista.class, entrevista.getId());
-        entityManager.remove(entrevistaToRemove);
+        try {
+            Entrevista entrevistaToRemove = entityManager.find(Entrevista.class, entrevista.getId());
+            entityManager.remove(entrevistaToRemove);
+
+        } catch (NoResultException ex) {
+//            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -41,22 +48,41 @@ public class EntrevistaDao implements EntrevistaDaoInterface {
 
     @Override
     public Entrevista entrevistaComId(Integer id) {
-        return entityManager.find(Entrevista.class, id);
+        try {
+            return entityManager.find(Entrevista.class, id);
+
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 
     @Override
     public List<Entrevista> entrevistasPorCandidato(String candidatoEmail) {
-        return entityManager
-                .createQuery("FROM Entrevista e WHERE e.candidatura.candidato.email = :candidatoEmail")
-                .setParameter("candidatoEmail", candidatoEmail)
-                .getResultList();
+        try {
+            return entityManager
+                    .createQuery("FROM Entrevista e WHERE e.candidatura.candidato.email = :candidatoEmail")
+                    .setParameter("candidatoEmail", candidatoEmail)
+                    .getResultList();
+
+        } catch (NoResultException ex) {
+            return Collections.emptyList();
+        }
+
+
     }
 
     @Override
     public List<Entrevista> entrevistasPorCandidatura(Candidatura candidatura) {
-        return entityManager
-                .createQuery("FROM Entrevista e WHERE e.Candidatura.Id = :candidaturaId")
-                .setParameter("candidaturaId", candidatura.getId())
-                .getResultList();
+        try {
+            return entityManager
+                    .createQuery("FROM Entrevista e WHERE e.Candidatura.id = :candidaturaId")
+                    .setParameter("candidaturaId", candidatura.getId())
+                    .getResultList();
+
+        } catch (NoResultException ex) {
+            return Collections.emptyList();
+        }
+
     }
 }
