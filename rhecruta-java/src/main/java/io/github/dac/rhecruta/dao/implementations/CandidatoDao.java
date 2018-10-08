@@ -67,7 +67,7 @@ public class CandidatoDao implements CandidatoDaoInterface {
                 .createQuery("FROM Candidato c where c.email = :email AND c.senha = :senha")
                 .setParameter("email", email)
                 .setParameter("senha", password)
-                .getSingleResult() == null;
+                .getSingleResult() != null;
 
     }
 }

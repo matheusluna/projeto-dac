@@ -23,10 +23,10 @@ public class LoginController {
     public Response realizarLogin(@FormParam("email") String email,
                                   @FormParam("senha") String senha) {
 
-        if (email == null || email.length() <= 0 || !email.contains("@"))
+        if (email == null || email.isEmpty() || !email.contains("@"))
             return Response.status(Response.Status.BAD_REQUEST).build();
 
-        if (senha == null || senha.length() <= 0)
+        if (senha == null || senha.isEmpty())
             return Response.status(Response.Status.BAD_REQUEST).build();
 
         if (!candidatoService.login(email, senha))
@@ -40,4 +40,5 @@ public class LoginController {
 
         return Response.ok(candidato).build();
     }
+
 }
