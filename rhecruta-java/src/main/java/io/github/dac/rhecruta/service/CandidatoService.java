@@ -6,6 +6,7 @@ import io.github.dac.rhecruta.models.Candidato;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Local
@@ -25,7 +26,12 @@ public class CandidatoService {
     }
 
     public void remover(Candidato candidato) {
-        candidatoDao.remover(candidato);
+        try {
+            candidatoDao.remover(candidato);
+
+        } catch (NoResultException ex) {
+//            ex.printStackTrace();
+        }
     }
 
     public void atualizar(Candidato candidato) {
@@ -33,14 +39,32 @@ public class CandidatoService {
     }
 
     public Candidato candidatoComCPF(String cpf) {
-        return candidatoDao.candidatoComCPF(cpf);
+        try {
+            return candidatoDao.candidatoComCPF(cpf);
+
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 
     public Candidato candidatoComEmail(String email) {
-        return candidatoDao.candidatoComEmail(email);
+        try {
+            return candidatoDao.candidatoComEmail(email);
+
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 
     public Boolean login(String email, String password) {
-        return candidatoDao.login(email, password);
+        try {
+            return candidatoDao.login(email, password);
+
+        } catch (NoResultException ex) {
+            return false;
+        }
+
     }
 }

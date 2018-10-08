@@ -7,6 +7,8 @@ import io.github.dac.rhecruta.models.Entrevista;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
+import java.util.Collections;
 import java.util.List;
 
 @Local
@@ -22,7 +24,12 @@ public class EntrevistaService {
     }
 
     public void remover(Entrevista entrevista) {
-        entrevistaDao.remover(entrevista);
+        try {
+            entrevistaDao.remover(entrevista);
+
+        } catch (NoResultException ex) {
+//            ex.printStackTrace();
+        }
     }
 
     public void atualizar(Entrevista entrevista) {
@@ -30,14 +37,33 @@ public class EntrevistaService {
     }
 
     public Entrevista entrevistaComId(Integer id) {
-        return this.entrevistaDao.entrevistaComId(id);
+        try {
+            return this.entrevistaDao.entrevistaComId(id);
+
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 
     public List<Entrevista> entrevistasPorCandidato(String candidatoEmail) {
-        return this.entrevistaDao.entrevistasPorCandidato(candidatoEmail);
+        try {
+            return this.entrevistaDao.entrevistasPorCandidato(candidatoEmail);
+
+        } catch (NoResultException ex) {
+            return Collections.emptyList();
+        }
+
     }
 
     public List<Entrevista> entrevistasPorCandidatura(Candidatura candidatura) {
-        return entrevistaDao.entrevistasPorCandidatura(candidatura);
+        try {
+            return entrevistaDao.entrevistasPorCandidatura(candidatura);
+
+        } catch (NoResultException ex) {
+            return Collections.emptyList();
+        }
+
     }
+
 }
