@@ -48,7 +48,9 @@ public class EntrevistaService {
 
     public List<Entrevista> entrevistasPorCandidato(String candidatoEmail) {
         try {
-            return this.entrevistaDao.entrevistasPorCandidato(candidatoEmail);
+            return Collections.unmodifiableList(
+                    this.entrevistaDao.entrevistasPorCandidato(candidatoEmail)
+            );
 
         } catch (NoResultException ex) {
             return Collections.emptyList();
@@ -58,7 +60,9 @@ public class EntrevistaService {
 
     public List<Entrevista> entrevistasPorCandidatura(Candidatura candidatura) {
         try {
-            return entrevistaDao.entrevistasPorCandidatura(candidatura);
+            return Collections.unmodifiableList(
+                    entrevistaDao.entrevistasPorCandidatura(candidatura)
+            );
 
         } catch (NoResultException ex) {
             return Collections.emptyList();

@@ -48,7 +48,9 @@ public class CandidaturaService {
 
     public List<Candidatura> candidaturasPorCandidato(Candidato candidato) {
         try {
-            return candidaturaDao.candidaturasPorCandidato(candidato);
+            return Collections.unmodifiableList(
+                    candidaturaDao.candidaturasPorCandidato(candidato)
+            );
 
         } catch (NoResultException ex) {
             return Collections.emptyList();
