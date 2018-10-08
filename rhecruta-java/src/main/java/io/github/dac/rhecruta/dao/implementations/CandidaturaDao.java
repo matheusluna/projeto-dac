@@ -7,6 +7,7 @@ import io.github.dac.rhecruta.models.Candidatura;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -28,7 +29,7 @@ public class CandidaturaDao implements CandidaturaDaoInterface {
     }
 
     @Override
-    public void remover(Candidatura candidatura) {
+    public void remover(Candidatura candidatura) throws NoResultException {
         Candidatura candidaturaToRemove = entityManager.find(Candidatura.class, candidatura.getId());
         entityManager.remove(candidaturaToRemove);
     }
@@ -39,15 +40,17 @@ public class CandidaturaDao implements CandidaturaDaoInterface {
     }
 
     @Override
-    public Candidatura candidaturaComId(Integer id) {
+    public Candidatura candidaturaComId(Integer id) throws NoResultException {
         return entityManager.find(Candidatura.class, id);
     }
 
     @Override
-    public List<Candidatura> candidaturasPorCandidato(Candidato candidato) {
+    public List<Candidatura> candidaturasPorCandidato(Candidato candidato) throws NoResultException {
         return entityManager
                 .createQuery("FROM Candidatura c WHERE c.Candidato.Cpf = :candidatoCpf")
                 .setParameter("candidatoCpf", candidato.getCpf())
                 .getResultList();
+
     }
+
 }

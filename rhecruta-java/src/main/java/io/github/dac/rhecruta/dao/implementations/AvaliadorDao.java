@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
 import java.util.List;
 
 @Local
@@ -24,15 +23,8 @@ public class AvaliadorDao implements AvaliadorDaoInterface {
     }
 
     @Override
-    public List<Avaliador> listarTodos() {
-
-        try {
-            return entityManager.createQuery("FROM Avaliador a").getResultList();
-
-        } catch (NoResultException ex) {
-            return Collections.emptyList();
-        }
-
+    public List<Avaliador> listarTodos() throws NoResultException {
+        return entityManager.createQuery("FROM Avaliador a").getResultList();
     }
 
     @Override
@@ -41,11 +33,9 @@ public class AvaliadorDao implements AvaliadorDaoInterface {
     }
 
     @Override
-    public void remover(Avaliador avaliador) {
+    public void remover(Avaliador avaliador) throws NoResultException {
         Avaliador avaliadorToRemove = entityManager.find(Avaliador.class, avaliador.getCpf());
-
-        if (avaliadorToRemove != null)
-            entityManager.remove(avaliadorToRemove);
+        entityManager.remove(avaliadorToRemove);
     }
 
     @Override
@@ -54,47 +44,30 @@ public class AvaliadorDao implements AvaliadorDaoInterface {
     }
 
     @Override
-    public Avaliador avaliadorComCPF(String cpf) {
-
-        try {
-            return (Avaliador) entityManager
-                    .createQuery("FROM Avaliador a WHERE a.cpf = :cpf")
-                    .setParameter("cpf", cpf)
-                    .getSingleResult();
-
-        } catch (NoResultException ex) {
-            return null;
-        }
-    }
-
-    @Override
-    public Avaliador avaliadorComEmail(String email) {
-
-        try {
-            return (Avaliador) entityManager
-                    .createQuery("FROM Avaliador a WHERE a.email = :email")
-                    .setParameter("email", email)
-                    .getSingleResult();
-
-        } catch (NoResultException ex) {
-            return null;
-        }
+    public Avaliador avaliadorComCPF(String cpf) throws NoResultException {
+        return (Avaliador) entityManager
+                .createQuery("FROM Avaliador a WHERE a.cpf = :cpf")
+                .setParameter("cpf", cpf)
+                .getSingleResult();
 
     }
 
     @Override
-    public Boolean login(String email, String password) {
+    public Avaliador avaliadorComEmail(String email) throws NoResultException {
+        return (Avaliador) entityManager
+                .createQuery("FROM Avaliador a WHERE a.email = :email")
+                .setParameter("email", email)
+                .getSingleResult();
 
-        try {
-            return entityManager
-                    .createQuery("FROM Avaliador a WHERE a.email = :email AND a.senha = :senha")
-                    .setParameter("email", email)
-                    .setParameter("senha", password)
-                    .getSingleResult() == null;
+    }
 
-        } catch (NoResultException ex) {
-            return null;
-        }
+    @Override
+    public Boolean login(String email, String password) throws NoResultException {
+        return entityManager
+                .createQuery("FROM Avaliador a WHERE a.email = :email AND a.senha = :senha")
+                .setParameter("email", email)
+                .setParameter("senha", password)
+                .getSingleResult() == null;
 
     }
 }

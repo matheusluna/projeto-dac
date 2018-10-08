@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
 import java.util.List;
 
 @Local
@@ -24,15 +23,8 @@ public class CandidatoDao implements CandidatoDaoInterface {
     }
 
     @Override
-    public List<Candidato> listarTodos() {
-
-        try {
-            return entityManager.createQuery("FROM Candidato c").getResultList();
-
-        } catch (NoResultException ex) {
-            return Collections.emptyList();
-        }
-
+    public List<Candidato> listarTodos() throws NoResultException {
+        return entityManager.createQuery("FROM Candidato c").getResultList();
     }
 
     @Override
@@ -41,11 +33,9 @@ public class CandidatoDao implements CandidatoDaoInterface {
     }
 
     @Override
-    public void remover(Candidato candidato) {
+    public void remover(Candidato candidato) throws NoResultException {
         Candidato candidatoToRemove = entityManager.find(Candidato.class, candidato.getCpf());
-
-        if (candidatoToRemove != null)
-            entityManager.remove(candidatoToRemove);
+        entityManager.remove(candidatoToRemove);
     }
 
     @Override
@@ -54,45 +44,30 @@ public class CandidatoDao implements CandidatoDaoInterface {
     }
 
     @Override
-    public Candidato candidatoComCPF(String cpf) {
-        try {
-            return (Candidato) entityManager
-                    .createQuery("FROM Candidato c WHERE c.cpf = :cpf")
-                    .setParameter("cpf", cpf)
-                    .getSingleResult();
-
-        } catch (NoResultException ex) {
-            return null;
-        }
+    public Candidato candidatoComCPF(String cpf) throws NoResultException {
+        return (Candidato) entityManager
+                .createQuery("FROM Candidato c WHERE c.cpf = :cpf")
+                .setParameter("cpf", cpf)
+                .getSingleResult();
 
     }
 
     @Override
-    public Candidato candidatoComEmail(String email) {
-        try {
-            return (Candidato) entityManager
-                    .createQuery("FROM Candidato c where c.email = :email")
-                    .setParameter("email", email)
-                    .getSingleResult();
-
-        } catch (NoResultException ex) {
-            return null;
-        }
+    public Candidato candidatoComEmail(String email) throws NoResultException {
+        return (Candidato) entityManager
+                .createQuery("FROM Candidato c where c.email = :email")
+                .setParameter("email", email)
+                .getSingleResult();
 
     }
 
     @Override
-    public Boolean login(String email, String password) {
-        try {
-            return entityManager
-                    .createQuery("FROM Candidato c where c.email = :email AND c.senha = :senha")
-                    .setParameter("email", email)
-                    .setParameter("senha", password)
-                    .getSingleResult() == null;
-
-        } catch (NoResultException ex) {
-            return null;
-        }
+    public Boolean login(String email, String password) throws NoResultException {
+        return entityManager
+                .createQuery("FROM Candidato c where c.email = :email AND c.senha = :senha")
+                .setParameter("email", email)
+                .setParameter("senha", password)
+                .getSingleResult() == null;
 
     }
 }
