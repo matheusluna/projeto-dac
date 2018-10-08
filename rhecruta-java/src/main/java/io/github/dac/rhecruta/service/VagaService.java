@@ -16,7 +16,7 @@ import java.io.StringReader;
 @Stateless
 public class VagaService {
 
-    private final String URL_BASE = "www.pyjobs.com.br/api/jobs/";
+    private final String URL_BASE = "http://www.pyjobs.com.br/api/jobs";
     private final WebTarget REQUEST_BASE = ClientBuilder.newClient().target(URL_BASE);
 
     public JsonArray recuperarTodasVagas() {
