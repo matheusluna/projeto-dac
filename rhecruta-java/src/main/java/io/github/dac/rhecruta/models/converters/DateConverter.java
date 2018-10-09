@@ -4,18 +4,17 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Converter(autoApply = false)
-public class DateConverter implements AttributeConverter<LocalDateTime, Date> {
+public class DateConverter implements AttributeConverter<LocalDate, Date> {
 
     @Override
-    public Date convertToDatabaseColumn(LocalDateTime localDate) {
-        return (localDate == null ? null : Date.valueOf(localDate.toLocalDate()));
+    public Date convertToDatabaseColumn(LocalDate localDate) {
+        return (localDate == null ? null : Date.valueOf(localDate));
     }
 
     @Override
-    public LocalDateTime convertToEntityAttribute(Date sqlDate) {
-        return (sqlDate == null ? null : LocalDateTime.of(sqlDate.toLocalDate(), null));
+    public LocalDate convertToEntityAttribute(Date sqlDate) {
+        return (sqlDate == null ? null : sqlDate.toLocalDate());
     }
 }

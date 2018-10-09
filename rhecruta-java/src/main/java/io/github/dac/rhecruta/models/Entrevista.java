@@ -6,6 +6,7 @@ import io.github.dac.rhecruta.models.converters.DateConverter;
 import io.github.dac.rhecruta.models.converters.TimeConverter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,7 +20,7 @@ public class Entrevista {
     private Float notaDoCandidato;
 
     @Convert(converter = DateConverter.class)
-    private LocalDateTime diaDaEntrevista;
+    private LocalDate diaDaEntrevista;
 
     @Convert(converter = TimeConverter.class)
     private LocalDateTime horarioDaEntrevista;
@@ -34,7 +35,7 @@ public class Entrevista {
 
     }
 
-    public Entrevista(Integer id, Float notaDoCandidato, LocalDateTime diaDaEntrevista,
+    public Entrevista(Integer id, Float notaDoCandidato, LocalDate diaDaEntrevista,
                       LocalDateTime horarioDaEntrevista, ClassificacaoEnum classificacaoDoCandito,
                       Candidatura candidatura) {
         this.id = id;
@@ -61,11 +62,11 @@ public class Entrevista {
         this.notaDoCandidato = notaDoCandidato;
     }
 
-    public LocalDateTime getDiaDaEntrevista() {
+    public LocalDate getDiaDaEntrevista() {
         return diaDaEntrevista;
     }
 
-    public void setDiaDaEntrevista(LocalDateTime diaDaEntrevista) {
+    public void setDiaDaEntrevista(LocalDate diaDaEntrevista) {
         this.diaDaEntrevista = diaDaEntrevista;
     }
 

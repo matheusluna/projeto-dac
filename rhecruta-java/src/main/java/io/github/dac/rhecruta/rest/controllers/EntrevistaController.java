@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -91,7 +92,7 @@ public class EntrevistaController {
 
         Entrevista entrevista = new Entrevista();
 
-        entrevista.setDiaDaEntrevista(LocalDateTime.parse(diaDaEntrevista, dateFormatter));
+        entrevista.setDiaDaEntrevista(LocalDate.parse(diaDaEntrevista, dateFormatter));
         entrevista.setHorarioDaEntrevista(LocalDateTime.parse(horarioDaEntrevista, timeFormatter));
         entrevista.setCandidatura(candidatura);
 
