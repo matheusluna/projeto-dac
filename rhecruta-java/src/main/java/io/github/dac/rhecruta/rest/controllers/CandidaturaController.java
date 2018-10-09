@@ -28,6 +28,9 @@ public class CandidaturaController {
                                          @Context UriInfo uriInfo,
                                          @Context SecurityContext securityContext) {
 
+        if (candidatura == null || candidatura.getVagaId() == null || candidatura.getId() <= 1)
+            return Response.status(Response.Status.BAD_REQUEST).build();
+
         String token = TokenManagement.getToken(securityContext);
 
         Candidato candidato = this.candidatoService.candidatoComEmail(token);
@@ -59,6 +62,9 @@ public class CandidaturaController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response recuperarCandidaturaComId(@PathParam("id") Integer id) {
 
+        if (id == null || id <= 0)
+            return Response.status(Response.Status.BAD_REQUEST).build();
+
         return Response.ok(
                 this.candidaturaService.candidaturaComId(id)
         ).build();
@@ -69,6 +75,9 @@ public class CandidaturaController {
     @DELETE
     @Path("{id}")
     public Response removerCandidatura(@PathParam("id") Integer id) {
+
+        if (id == null || id <= 0)
+            return Response.status(Response.Status.BAD_REQUEST).build();
 
         Candidatura candidatura = new Candidatura();
         candidatura.setId(id);
@@ -82,6 +91,9 @@ public class CandidaturaController {
     @Path("candidato/{cpf}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response candidaturasDoCandidato(@PathParam("cpf") String cpf) {
+
+        if (cpf == null || cpf.length() != 11)
+            return Response.status(Response.Status.BAD_REQUEST).build();
 
         Candidato candidato = new Candidato();
         candidato.setCpf(cpf);
