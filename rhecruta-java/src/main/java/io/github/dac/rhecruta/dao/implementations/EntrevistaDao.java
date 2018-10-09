@@ -45,19 +45,19 @@ public class EntrevistaDao implements EntrevistaDaoInterface {
     }
 
     @Override
-    public List<Entrevista> entrevistasPorCandidato(String candidatoEmail) throws NoResultException {
-        return entityManager
-                .createQuery("FROM Entrevista e WHERE e.candidatura.candidato.email = :candidatoEmail")
-                .setParameter("candidatoEmail", candidatoEmail)
-                .getResultList();
+    public Entrevista entrevistaDaCandidatura(Candidatura candidatura) throws NoResultException {
+        return (Entrevista) entityManager
+                .createQuery("FROM Entrevista e WHERE e.candidatura.id = :candidaturaId")
+                .setParameter("candidaturaId", candidatura.getId())
+                .getSingleResult();
 
     }
 
     @Override
-    public List<Entrevista> entrevistasPorCandidatura(Candidatura candidatura) throws NoResultException {
+    public List<Entrevista> entrevistasPorCandidato(String candidatoEmail) throws NoResultException {
         return entityManager
-                .createQuery("FROM Entrevista e WHERE e.Candidatura.id = :candidaturaId")
-                .setParameter("candidaturaId", candidatura.getId())
+                .createQuery("FROM Entrevista e WHERE e.candidatura.candidato.email = :candidatoEmail")
+                .setParameter("candidatoEmail", candidatoEmail)
                 .getResultList();
 
     }

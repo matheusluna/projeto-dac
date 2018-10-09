@@ -13,6 +13,6 @@ public interface EntrevistaDaoInterface {
     public void remover(Entrevista entrevista) throws NoResultException;
     public void atualizar(Entrevista entrevista);
     public Entrevista entrevistaComId(Integer id) throws NoResultException;
+    public Entrevista entrevistaDaCandidatura(Candidatura candidatura) throws NoResultException;
     public List<Entrevista> entrevistasPorCandidato(String candidatoEmail) throws NoResultException;
-    public List<Entrevista> entrevistasPorCandidatura(Candidatura candidatura) throws NoResultException;
 }
