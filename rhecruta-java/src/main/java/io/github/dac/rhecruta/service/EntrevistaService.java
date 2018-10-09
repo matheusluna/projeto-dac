@@ -56,7 +56,7 @@ public class EntrevistaService {
 
     }
 
-    public List<Entrevista> entrevistaPorCandidato(String candidatoEmail) {
+    public List<Entrevista> entrevistasPorCandidato(String candidatoEmail) {
         try {
             return Collections.unmodifiableList(
                     this.entrevistaDao.entrevistasPorCandidato(candidatoEmail)

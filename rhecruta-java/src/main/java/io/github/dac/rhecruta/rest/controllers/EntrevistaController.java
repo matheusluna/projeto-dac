@@ -42,11 +42,11 @@ public class EntrevistaController {
     }
 
     @GET
-    @Path("{idCandidatura}")
+    @Path("{idEntrevista}")
     @Security
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response recuperarEntrevista(@PathParam("idCandidatura") Integer id,
-                                      @Context SecurityContext securityContext) {
+    public Response recuperarEntrevista(@PathParam("idEntrevista") Integer id,
+                                        @Context SecurityContext securityContext) {
 
         if (id == null || id <= 0)
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -129,6 +129,37 @@ public class EntrevistaController {
         entrevistaService.remover(entrevista);
 
         return Response.ok().build();
+    }
+
+    @GET
+    @Path("candidatura/{idCandidatura}")
+    @Security
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response entrevistaDaCandidaturaComId(@PathParam("idCandidatura") Integer id,
+                                                 @Context SecurityContext securityContext) {
+
+        if (id == null || id <= 0)
+            return Response.status(Response.Status.BAD_REQUEST).build();
+
+        Candidatura candidatura = candidaturaService.candidaturaComId(id);
+
+        if (candidatura == null)
+            return Response.status(Response.Status.BAD_REQUEST).build();
+
+        String token = TokenManagement.getToken(securityContext);
+
+        if (!candidatura.getCandidato().getEmail().equals(token))
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+
+        Entrevista entrevista = this.entrevistaService.entrevistaDaCandidatura(candidatura);
+
+        if (entrevista == null)
+            return Response.status(Response.Status.NO_CONTENT).build();
+
+        if (entrevista.getCandidatura().getCandidato().getEmail().equals(token))
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+
+        return Response.ok(entrevista).build();
     }
 
 
