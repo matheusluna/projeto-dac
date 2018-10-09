@@ -31,6 +31,12 @@ public class Candidatura {
     @ManyToOne(fetch = FetchType.LAZY)
     private Candidato candidato;
 
+    {
+        this.curriculoCandidato = null;
+        this.dataCandidatura = LocalDate.now();
+        this.parecer = ParecerEnum.NAO_DEFINIDO;
+    }
+
     public Candidatura() {
 
     }
