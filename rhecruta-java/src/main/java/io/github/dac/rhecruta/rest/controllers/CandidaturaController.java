@@ -6,6 +6,7 @@ import io.github.dac.rhecruta.rest.infraSecurity.Security;
 import io.github.dac.rhecruta.rest.infraSecurity.TokenManagement;
 import io.github.dac.rhecruta.service.CandidatoService;
 import io.github.dac.rhecruta.service.CandidaturaService;
+import jdk.nashorn.internal.parser.Token;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -59,48 +60,50 @@ public class CandidaturaController {
 
     @GET
     @Path("{id}")
+    @Security
     @Produces(MediaType.APPLICATION_JSON)
-    public Response recuperarCandidaturaComId(@PathParam("id") Integer id) {
+    public Response recuperarCandidaturaComId(@PathParam("id") Integer id,
+                                              @Context SecurityContext securityContext) {
 
         if (id == null || id <= 0)
             return Response.status(Response.Status.BAD_REQUEST).build();
 
-        return Response.ok(
-                this.candidaturaService.candidaturaComId(id)
-        ).build();
+        String token = TokenManagement.getToken(securityContext);
+
+        Candidatura candidatura = this.candidaturaService.candidaturaComId(id);
+
+        if (!candidatura.getCandidato().getEmail().equals(token))
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        else
+            return Response.ok(candidatura).build();
+
     }
 
     //TODO Método de Atualização
 
     @DELETE
     @Path("{id}")
-    public Response removerCandidatura(@PathParam("id") Integer id) {
+    @Security
+    public Response removerCandidatura(@PathParam("id") Integer id,
+                                       @Context SecurityContext securityContext) {
 
         if (id == null || id <= 0)
             return Response.status(Response.Status.BAD_REQUEST).build();
 
-        Candidatura candidatura = new Candidatura();
-        candidatura.setId(id);
+        Candidatura candidatura = this.candidaturaService.candidaturaComId(id);
+
+        if (candidatura == null)
+            return Response.status(Response.Status.BAD_REQUEST).build();
+
+        String token = TokenManagement.getToken(securityContext);
+
+        if (!candidatura.getCandidato().getEmail().equals(token))
+            return Response.status(Response.Status.UNAUTHORIZED).build();
 
         this.candidaturaService.remover(candidatura);
 
         return Response.ok().build();
-    }
 
-    @GET
-    @Path("candidato/{cpf}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response candidaturasDoCandidato(@PathParam("cpf") String cpf) {
-
-        if (cpf == null || cpf.length() != 11)
-            return Response.status(Response.Status.BAD_REQUEST).build();
-
-        Candidato candidato = new Candidato();
-        candidato.setCpf(cpf);
-
-        return Response.ok(
-                this.candidaturaService.candidaturasPorCandidato(candidato)
-        ).build();
     }
 
 }
