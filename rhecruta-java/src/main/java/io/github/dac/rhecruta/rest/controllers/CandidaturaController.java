@@ -2,14 +2,14 @@ package io.github.dac.rhecruta.rest.controllers;
 
 import io.github.dac.rhecruta.models.Candidato;
 import io.github.dac.rhecruta.models.Candidatura;
+import io.github.dac.rhecruta.rest.infraSecurity.Security;
+import io.github.dac.rhecruta.rest.infraSecurity.TokenManagement;
+import io.github.dac.rhecruta.service.CandidatoService;
 import io.github.dac.rhecruta.service.CandidaturaService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 import java.net.URI;
 
 @Path("candidatura")
@@ -18,9 +18,21 @@ public class CandidaturaController {
     @EJB
     private CandidaturaService candidaturaService;
 
+    @EJB
+    private CandidatoService candidatoService;
+
     @POST
+    @Security
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response cadastrarCandidatura(Candidatura candidatura, @Context UriInfo uriInfo) {
+    public Response cadastrarCandidatura(Candidatura candidatura,
+                                         @Context UriInfo uriInfo,
+                                         @Context SecurityContext securityContext) {
+
+        String token = TokenManagement.getToken(securityContext);
+
+        Candidato candidato = this.candidatoService.candidatoComEmail(token);
+
+        candidatura.setCandidato(candidato);
 
         Integer id = this.candidaturaService.salvar(candidatura);
         URI uri = uriInfo.getAbsolutePathBuilder().path(id.toString()).build();
@@ -29,9 +41,23 @@ public class CandidaturaController {
     }
 
     @GET
+    @Security
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response candidaturasDoCandidato(@Context SecurityContext securityContext) {
+
+        String token = TokenManagement.getToken(securityContext);
+
+        Candidato candidato = this.candidatoService.candidatoComEmail(token);
+
+        return Response.ok(
+                this.candidaturaService.candidaturasPorCandidato(candidato)
+        ).build();
+    }
+
+    @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response recuperarCandidaturas(@PathParam("id") Integer id) {
+    public Response recuperarCandidaturaComId(@PathParam("id") Integer id) {
 
         return Response.ok(
                 this.candidaturaService.candidaturaComId(id)
@@ -53,19 +79,9 @@ public class CandidaturaController {
     }
 
     @GET
-    @Path("candidato")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response candidaturaDoCandidato(Candidato candidato) {
-
-        return Response.ok(
-                this.candidaturaService.candidaturasPorCandidato(candidato)
-        ).build();
-    }
-
-    @GET
     @Path("candidato/{cpf}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response candidaturaDoCandidato(@PathParam("cpf") String cpf) {
+    public Response candidaturasDoCandidato(@PathParam("cpf") String cpf) {
 
         Candidato candidato = new Candidato();
         candidato.setCpf(cpf);
