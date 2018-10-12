@@ -100,11 +100,15 @@ public class EntrevistaController {
 
         entrevistaService.salvar(entrevista);
 
-        URI uri = uriInfo
+
+        String uriTemp = uriInfo
                 .getAbsolutePathBuilder()
-                .replacePath(
-                        entrevista.getId().toString()
-                ).build();
+                .build()
+                .toString();
+
+        uriTemp = uriTemp.replace(id.toString(), entrevista.getId().toString());
+
+        URI uri = URI.create(uriTemp);
 
         return Response.created(uri).build();
     }
