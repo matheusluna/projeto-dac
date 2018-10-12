@@ -5,17 +5,19 @@ import javax.persistence.Converter;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Converter(autoApply = false)
-public class TimeConverter implements AttributeConverter<LocalDateTime, Time> {
+public class TimeConverter implements AttributeConverter<LocalTime, Time> {
 
     @Override
-    public Time convertToDatabaseColumn(LocalDateTime localDateTime) {
-        return (localDateTime == null ?  null : Time.valueOf(localDateTime.toLocalTime()));
+    public Time convertToDatabaseColumn(LocalTime localTime) {
+        return (localTime == null ?  null : Time.valueOf(localTime));
     }
 
     @Override
-    public LocalDateTime convertToEntityAttribute(Time time) {
-        return (time == null ? null : LocalDateTime.of(null, time.toLocalTime()));
+    public LocalTime convertToEntityAttribute(Time time) {
+        return (time == null ? null : time.toLocalTime());
     }
+
 }
