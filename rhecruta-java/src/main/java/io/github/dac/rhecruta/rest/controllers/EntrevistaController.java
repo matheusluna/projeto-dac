@@ -13,6 +13,7 @@ import javax.ws.rs.core.*;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class EntrevistaController {
         if (entrevista == null)
             return Response.status(Response.Status.NO_CONTENT).build();
 
-        if (entrevista.getCandidatura().getCandidato().getEmail().equals(token))
+        if (!entrevista.getCandidatura().getCandidato().getEmail().equals(token))
             return Response.status(Response.Status.UNAUTHORIZED).build();
 
         return Response.ok(entrevista).build();
@@ -67,7 +68,7 @@ public class EntrevistaController {
     @POST
     @Path("{idCandidatura}")
     @Security
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response agendarEntrevista(@PathParam("idCandidatura") Integer id,
                                       @FormParam("diaDaEntrevista") String diaDaEntrevista,
                                       @FormParam("horarioDaEntrevista") String horarioDaEntrevista,
@@ -84,23 +85,24 @@ public class EntrevistaController {
         if (candidatura == null)
             return Response.status(Response.Status.NO_CONTENT).build();
 
-        if (candidatura.getCandidato().getEmail().equals(token))
+        if (!candidatura.getCandidato().getEmail().equals(token))
             return Response.status(Response.Status.UNAUTHORIZED).build();
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
         Entrevista entrevista = new Entrevista();
 
         entrevista.setDiaDaEntrevista(LocalDate.parse(diaDaEntrevista, dateFormatter));
-        entrevista.setHorarioDaEntrevista(LocalDateTime.parse(horarioDaEntrevista, timeFormatter));
+        entrevista.setHorarioDaEntrevista(LocalTime.parse(horarioDaEntrevista, timeFormatter));
+
         entrevista.setCandidatura(candidatura);
 
         entrevistaService.salvar(entrevista);
 
         URI uri = uriInfo
                 .getAbsolutePathBuilder()
-                .path(
+                .replacePath(
                         entrevista.getId().toString()
                 ).build();
 
