@@ -2,5 +2,5 @@ package io.github.dac.rhecruta.enums;
 
 public enum ClassificacaoEnum {
 
-    APROVADO, REPROVADO
+    APROVADO, REPROVADO, NAO_DEFINIDO
 }

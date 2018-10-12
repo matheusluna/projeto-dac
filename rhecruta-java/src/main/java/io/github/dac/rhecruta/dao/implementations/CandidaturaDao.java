@@ -47,7 +47,7 @@ public class CandidaturaDao implements CandidaturaDaoInterface {
     @Override
     public List<Candidatura> candidaturasPorCandidato(Candidato candidato) throws NoResultException {
         return entityManager
-                .createQuery("FROM Candidatura c WHERE c.Candidato.Cpf = :candidatoCpf")
+                .createQuery("FROM Candidatura c WHERE c.candidato.cpf = :candidatoCpf")
                 .setParameter("candidatoCpf", candidato.getCpf())
                 .getResultList();
 

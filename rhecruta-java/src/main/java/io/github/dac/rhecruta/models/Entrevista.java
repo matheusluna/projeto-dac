@@ -6,7 +6,8 @@ import io.github.dac.rhecruta.models.converters.DateConverter;
 import io.github.dac.rhecruta.models.converters.TimeConverter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -19,10 +20,10 @@ public class Entrevista {
     private Float notaDoCandidato;
 
     @Convert(converter = DateConverter.class)
-    private LocalDateTime diaDaEntrevista;
+    private LocalDate diaDaEntrevista;
 
     @Convert(converter = TimeConverter.class)
-    private LocalDateTime horarioDaEntrevista;
+    private LocalTime horarioDaEntrevista;
 
     @Enumerated(EnumType.STRING)
     private ClassificacaoEnum classificacaoDoCandito;
@@ -34,8 +35,8 @@ public class Entrevista {
 
     }
 
-    public Entrevista(Integer id, Float notaDoCandidato, LocalDateTime diaDaEntrevista,
-                      LocalDateTime horarioDaEntrevista, ClassificacaoEnum classificacaoDoCandito,
+    public Entrevista(Integer id, Float notaDoCandidato, LocalDate diaDaEntrevista,
+                      LocalTime horarioDaEntrevista, ClassificacaoEnum classificacaoDoCandito,
                       Candidatura candidatura) {
         this.id = id;
         this.notaDoCandidato = notaDoCandidato;
@@ -61,19 +62,19 @@ public class Entrevista {
         this.notaDoCandidato = notaDoCandidato;
     }
 
-    public LocalDateTime getDiaDaEntrevista() {
+    public LocalDate getDiaDaEntrevista() {
         return diaDaEntrevista;
     }
 
-    public void setDiaDaEntrevista(LocalDateTime diaDaEntrevista) {
+    public void setDiaDaEntrevista(LocalDate diaDaEntrevista) {
         this.diaDaEntrevista = diaDaEntrevista;
     }
 
-    public LocalDateTime getHorarioDaEntrevista() {
+    public LocalTime getHorarioDaEntrevista() {
         return horarioDaEntrevista;
     }
 
-    public void setHorarioDaEntrevista(LocalDateTime horarioDaEntrevista) {
+    public void setHorarioDaEntrevista(LocalTime horarioDaEntrevista) {
         this.horarioDaEntrevista = horarioDaEntrevista;
     }
 

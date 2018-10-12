@@ -11,7 +11,9 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -41,11 +43,11 @@ public class EntrevistaController {
     }
 
     @GET
-    @Path("{idCandidatura}")
+    @Path("{idEntrevista}")
     @Security
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response recuperarEntrevista(@PathParam("idCandidatura") Integer id,
-                                      @Context SecurityContext securityContext) {
+    public Response recuperarEntrevista(@PathParam("idEntrevista") Integer id,
+                                        @Context SecurityContext securityContext) {
 
         if (id == null || id <= 0)
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -57,7 +59,7 @@ public class EntrevistaController {
         if (entrevista == null)
             return Response.status(Response.Status.NO_CONTENT).build();
 
-        if (entrevista.getCandidatura().getCandidato().getEmail().equals(token))
+        if (!entrevista.getCandidatura().getCandidato().getEmail().equals(token))
             return Response.status(Response.Status.UNAUTHORIZED).build();
 
         return Response.ok(entrevista).build();
@@ -66,7 +68,7 @@ public class EntrevistaController {
     @POST
     @Path("{idCandidatura}")
     @Security
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response agendarEntrevista(@PathParam("idCandidatura") Integer id,
                                       @FormParam("diaDaEntrevista") String diaDaEntrevista,
                                       @FormParam("horarioDaEntrevista") String horarioDaEntrevista,
@@ -83,25 +85,30 @@ public class EntrevistaController {
         if (candidatura == null)
             return Response.status(Response.Status.NO_CONTENT).build();
 
-        if (candidatura.getCandidato().getEmail().equals(token))
+        if (!candidatura.getCandidato().getEmail().equals(token))
             return Response.status(Response.Status.UNAUTHORIZED).build();
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
         Entrevista entrevista = new Entrevista();
 
-        entrevista.setDiaDaEntrevista(LocalDateTime.parse(diaDaEntrevista, dateFormatter));
-        entrevista.setHorarioDaEntrevista(LocalDateTime.parse(horarioDaEntrevista, timeFormatter));
+        entrevista.setDiaDaEntrevista(LocalDate.parse(diaDaEntrevista, dateFormatter));
+        entrevista.setHorarioDaEntrevista(LocalTime.parse(horarioDaEntrevista, timeFormatter));
+
         entrevista.setCandidatura(candidatura);
 
         entrevistaService.salvar(entrevista);
 
-        URI uri = uriInfo
+
+        String uriTemp = uriInfo
                 .getAbsolutePathBuilder()
-                .path(
-                        entrevista.getId().toString()
-                ).build();
+                .build()
+                .toString();
+
+        uriTemp = uriTemp.replace(id.toString(), entrevista.getId().toString());
+
+        URI uri = URI.create(uriTemp);
 
         return Response.created(uri).build();
     }
@@ -128,6 +135,37 @@ public class EntrevistaController {
         entrevistaService.remover(entrevista);
 
         return Response.ok().build();
+    }
+
+    @GET
+    @Path("candidatura/{idCandidatura}")
+    @Security
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response entrevistaDaCandidaturaComId(@PathParam("idCandidatura") Integer id,
+                                                 @Context SecurityContext securityContext) {
+
+        if (id == null || id <= 0)
+            return Response.status(Response.Status.BAD_REQUEST).build();
+
+        Candidatura candidatura = candidaturaService.candidaturaComId(id);
+
+        if (candidatura == null)
+            return Response.status(Response.Status.BAD_REQUEST).build();
+
+        String token = TokenManagement.getToken(securityContext);
+
+        if (!candidatura.getCandidato().getEmail().equals(token))
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+
+        Entrevista entrevista = this.entrevistaService.entrevistaDaCandidatura(candidatura);
+
+        if (entrevista == null)
+            return Response.status(Response.Status.NO_CONTENT).build();
+
+        if (entrevista.getCandidatura().getCandidato().getEmail().equals(token))
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+
+        return Response.ok(entrevista).build();
     }
 
 

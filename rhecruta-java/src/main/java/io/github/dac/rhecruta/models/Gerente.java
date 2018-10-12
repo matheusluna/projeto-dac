@@ -2,13 +2,13 @@ package io.github.dac.rhecruta.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
-import java.util.Collections;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Candidato {
+public class Gerente {
 
     @Id
     @Column(length = 11)
@@ -23,19 +23,15 @@ public class Candidato {
     @Column(length = 60, nullable = false)
     private String senha;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    //Lista com o id das vagas em interesse
-    private List<Integer> interesses;
-
-    public Candidato() {
+    public Gerente() {
 
     }
 
-    public Candidato(String nome, String email, String cpf, List<Integer> interesses) {
+    public Gerente(String nome, String email, String senha, String cpf) {
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
         this.cpf = cpf;
-        this.interesses = interesses;
     }
 
     public String getNome() {
@@ -70,57 +66,38 @@ public class Candidato {
         this.cpf = cpf;
     }
 
-    public List<Integer> getInteresses() {
-        return Collections.unmodifiableList(interesses);
-    }
-
-    public void setInteresses(List<Integer> interesses) {
-        this.interesses = interesses;
-    }
-
-    public void adicionarInteresse(Integer idVaga) {
-        this.interesses.add(idVaga);
-    }
-
-    public void removerInteresse(Integer idVaga) {
-        this.interesses.remove(idVaga);
-    }
-
     @Override
     public boolean equals(Object o) {
 
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Candidato candidato = (Candidato) o;
+        Gerente avaliador = (Gerente) o;
 
-        if (!cpf.equals(candidato.cpf)) return false;
-        if (!nome.equals(candidato.nome)) return false;
-        if (!email.equals(candidato.email)) return false;
-        if (!senha.equals(candidato.senha)) return false;
-        return interesses != null ? interesses.equals(candidato.interesses) : candidato.interesses == null;
+        if (!nome.equals(avaliador.nome)) return false;
+        if (!email.equals(avaliador.email)) return false;
+        if (!senha.equals(avaliador.senha)) return false;
+        return cpf.equals(avaliador.cpf);
     }
 
     @Override
     public int hashCode() {
 
-        int result = cpf.hashCode();
-        result = 31 * result + nome.hashCode();
+        int result = nome.hashCode();
         result = 31 * result + email.hashCode();
         result = 31 * result + senha.hashCode();
-        result = 31 * result + (interesses != null ? interesses.hashCode() : 0);
+        result = 31 * result + cpf.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
 
-        final StringBuilder sb = new StringBuilder("Candidato{");
-        sb.append("cpf='").append(cpf).append('\'');
-        sb.append(", nome='").append(nome).append('\'');
+        final StringBuilder sb = new StringBuilder("Gerente{");
+        sb.append("nome='").append(nome).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", senha='").append(senha).append('\'');
-        sb.append(", interesses=").append(interesses);
+        sb.append(", cpf='").append(cpf).append('\'');
         sb.append('}');
         return sb.toString();
     }

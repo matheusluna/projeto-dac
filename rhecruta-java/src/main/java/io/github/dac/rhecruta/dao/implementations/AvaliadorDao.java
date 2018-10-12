@@ -67,7 +67,7 @@ public class AvaliadorDao implements AvaliadorDaoInterface {
                 .createQuery("FROM Avaliador a WHERE a.email = :email AND a.senha = :senha")
                 .setParameter("email", email)
                 .setParameter("senha", password)
-                .getSingleResult() == null;
+                .getSingleResult() != null;
 
     }
 }
