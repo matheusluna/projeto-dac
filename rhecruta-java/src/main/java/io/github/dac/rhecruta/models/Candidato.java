@@ -3,6 +3,7 @@ package io.github.dac.rhecruta.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -70,13 +71,20 @@ public class Candidato {
     }
 
     public List<Integer> getInteresses() {
-        return interesses;
+        return Collections.unmodifiableList(interesses);
     }
 
     public void setInteresses(List<Integer> interesses) {
         this.interesses = interesses;
     }
 
+    public void adicionarInteresse(Integer idVaga) {
+        this.interesses.add(idVaga);
+    }
+
+    public void removerInteresse(Integer idVaga) {
+        this.interesses.remove(idVaga);
+    }
 
     @Override
     public boolean equals(Object o) {
