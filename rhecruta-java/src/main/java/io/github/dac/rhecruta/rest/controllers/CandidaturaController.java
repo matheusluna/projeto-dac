@@ -29,7 +29,7 @@ public class CandidaturaController {
                                          @Context UriInfo uriInfo,
                                          @Context SecurityContext securityContext) {
 
-        if (candidatura == null || candidatura.getVagaId() == null || candidatura.getId() <= 1)
+        if (candidatura == null || candidatura.getVagaId() == null)
             return Response.status(Response.Status.BAD_REQUEST).build();
 
         String token = TokenManagement.getToken(securityContext);
