@@ -23,4 +23,8 @@ public class RedirectController {
         return "candidatura.xhtml";
     }
 
+    public String meusInteresses() {
+        return "meusInteresses.xhtml";
+    }
+
 }

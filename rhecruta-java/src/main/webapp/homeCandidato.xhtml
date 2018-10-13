@@ -79,11 +79,11 @@
                             <f:facet name="header">Ações:</f:facet>
                             <button class="btn waves-effect waves-light btn light-green accent-4"
                                     jsf:action="${candidatoController.adicionarInteresse(vaga.id)}">
-                                <i class="material-icons left">search</i>Buscar
+                                <i class="material-icons left">star_rate</i>Adicionar Interesse
                             </button>
                             <button class="btn waves-effect waves-light btn light-green accent-4"
                                     jsf:action="${redirectController.candidatura()}">
-                                <i class="material-icons left">search</i>Buscar
+                                <i class="material-icons left">send</i>Candidatar-se
                             </button>
                         </h:column>
                     </h:dataTable>
@@ -96,6 +96,7 @@
                 <a jsf:action="${redirectController.buscarVagas()}">Buscar Vagas</a>
                 <a jsf:action="${redirectController.minhasEntrevistas()}">Minhas Entrevistas</a>
                 <a jsf:action="${redirectController.minhasCandidaturas()}">Minhas Candidaturas</a>
+                <a jsf:action="${redirectController.meusInteresses()}">Meus Interesses</a>
             </h:form>
         </div>
 
