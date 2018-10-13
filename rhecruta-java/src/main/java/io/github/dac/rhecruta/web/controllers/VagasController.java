@@ -48,6 +48,10 @@ public class VagasController {
         }
     }
 
+    public String tituloDaVagaComId(Integer idVaga) {
+        return this.vagaService.recuperarVagaComId(idVaga).getString("title");
+    }
+
     private List<Vaga> convertToList(JsonArray jsonArray) {
         ObjectMapper mapper = new ObjectMapper();
 

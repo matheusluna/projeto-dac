@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.5/dist/sweetalert2.all.min.js" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+</head>
+<body class="grey lighten-3">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper light-green accent-4">
+                <a class="brand-logo center">Rhecruta</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container" style="margin-top: 3%">
+
+        <div class="col s12 m6 l6 offset-m2 offset-l2">
+            <h:form>
+                <div class="card">
+                    <div class="card-content">
+                        <h:form>
+                            <h:dataTable value="${candidaturaController.listarCandidaturas()}" var="candidatura">
+                                <h:column>
+                                    <f:facet name="header">Nome da Vaga</f:facet>
+                                    ${vagasController.tituloDaVagaComId(candidatura.vagaId)}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Data De Candidatura</f:facet>
+                                    ${candidatura.dataCandidatura}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Curriculo Atribuido?</f:facet>
+                                    <div jsf:rendered="${empty candidatura.curriculoCandidato}">
+                                        Sim
+                                    </div>
+                                    <div class="red" jsf:rendered="${not empty candidatura.curriculoCandidato}">
+                                        Não
+                                    </div>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Data De Candidatura</f:facet>
+                                    ${candidatura.dataCandidatura}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Parecer</f:facet>
+                                    ${candidatura.parecer}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Ações:</f:facet>
+                                    <button class="btn waves-effect waves-light btn light-green accent-4"
+                                            jsf:action="${candidaturaController.verMais(candidatura.id)}">
+                                        <i class="material-icons left">star_rate</i>Ver Mais
+                                    </button>
+                                    <button class="btn waves-effect waves-light btn light-green accent-4"
+                                            jsf:action="${candidaturaController.excluir(candidatura.id)}">
+                                        <i class="material-icons left">send</i>Exluir
+                                    </button>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+        <div class="col s12 m2 l2 offset-m2 offset-l2">
+            <h:form>
+                <a jsf:action="${redirectController.homeCandidato()}">Home</a>
+                <a jsf:action="${redirectController.buscarVagas()}">Buscar Vagas</a>
+                <a jsf:action="${redirectController.minhasEntrevistas()}">Minhas Entrevistas</a>
+                <a jsf:action="${redirectController.meusInteresses()}">Meus Interesses</a>
+            </h:form>
+        </div>
+
+    </div>
+
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous" />
+
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" />
+
+    <script type="text/javascript">
+
+        //  Inicializa os Elementos Select do Materialize com JQuery
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+
+        //  Verifica Códigos de Erro
+        var erro = "${param.error}";
+        if(erro == "1") {
+            swal("Oops...", "Não foi possivel cadastrar, verifique os dados e tente novamente", "error");
+        } else if(erro == "2") {
+            swal("Erro", "Por favor, selecione um tipo de usuário válido", "error");
+        }
+    </script>
+</body>
+</html>
