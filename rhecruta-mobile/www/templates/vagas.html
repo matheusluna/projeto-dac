@@ -3,19 +3,27 @@
     <form id="vagas-form1" class="list">
       <label class="item item-select" id="vagas-select1">
         <span class="input-label">Filtro</span>
-        <select>
-          <option selected>Cidade</option>
-          <option>Descrição</option>
-          <option>Empresa</option>
+        <select ng-model="filtro.escolha">
+          <option selected>cidade</option>
+          <option>descricao</option>
+          <option>empresa</option>
         </select>
       </label>
-      <label class="item item-input" id="vagas-input1">
-        <span class="input-label">Buscar</span>
-        <input type="text" placeholder="">
-      </label>
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="" name="busca" ng-model="filtro.busca">
+        </label>
+        <button class="button button-small" ng-click="buscar(filtro)">
+          Buscar
+        </button>
+      </div>
     </form>
+
     <ion-list id="vagas-list2">
-      <ion-item id="vagas-list-item7" ui-sref="menu.detalhesVaga()">Item 1
+
+      <ion-item id="vagas-list-item7" ng-repeat="item in vagas">
+        <h4>{{item.title}}</h4>
+        <p>{{item.company_name}}</p>
         <ion-option-button class="button-balanced">
           Candidatar
         </ion-option-button>
@@ -23,22 +31,8 @@
           Interesse
         </ion-option-button>
       </ion-item>
-      <ion-item id="vagas-list-item8">Item 2
-        <ion-option-button class="button-balanced">
-          Candidatar
-        </ion-option-button>
-        <ion-option-button class="button-positive">
-          Interesse
-        </ion-option-button>
-      </ion-item>
-      <ion-item id="vagas-list-item9">Item 3
-        <ion-option-button class="button-balanced">
-          Candidatar
-        </ion-option-button>
-        <ion-option-button class="button-positive">
-          Interesse
-        </ion-option-button>
-      </ion-item>
+
     </ion-list>
+
   </ion-content>
 </ion-view>

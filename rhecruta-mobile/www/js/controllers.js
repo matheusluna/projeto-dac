@@ -1,12 +1,72 @@
 angular.module('app.controllers', [])
   
-.controller('vagasCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('vagasCtrl', function ($scope, $stateParams, $http, $ionicPopup) {
+	// var das enquetes
+	$scope.vagas = [];
 
+	//pegando do lacalStorage
+	var dado = localStorage.getItem("candidato");
+	$scope.candidato = angular.fromJson(dado);
 
-}])
+	//motando objeto
+	var req = {
+		method: 'GET',
+		url: "http://localhost:8080/rhecruta-java/rest/vaga",
+		headers: {
+			'Authorization': 'Bearer ' + $scope.candidato
+		}
+
+	}
+
+	$http(req).then(function (resp) {
+		$scope.vagas = resp.data;
+		//salvando na variavel
+		console.log(resp.data);
+
+	}, function (err) {
+		//alerta de erro
+		var alertPopup = $ionicPopup.alert({
+			title: 'Erro!',
+			template: 'Não foi possível carregar as vagas!'
+		});
+	});
+
+	$scope.buscar = function (filtro) {
+		
+		if (filtro.escolha == "cidade") {
+			var dados = 'cidade=' + filtro.busca
+		}else if (filtro.escolha == "descricao") {
+			var dados = 'descricao=' + filtro.busca
+		}else if (filtro.escolha == "empresa") {
+			var dados = 'empresa=' + filtro.busca
+		}
+
+		console.log(dados);
+
+		var req = {
+			method: 'POST',
+			url: 'http://localhost:8080/rhecruta-java/rest/vaga/'+ filtro.escolha,
+			data: dados,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}
+
+		$http(req).then(function (resp) {
+			$scope.vagas = resp.data;
+			//salvando na variavel
+			console.log(resp.data);
+
+		}, function (err) {
+			//alerta de erro
+		var alertPopup = $ionicPopup.alert({
+			title: 'Erro!',
+			template: 'Não foi possível buscar as vagas!'
+		});
+		});
+	}
+
+})
    
 .controller('listaDeInteressesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
@@ -33,6 +93,7 @@ function ($scope, $stateParams) {
 }])
    
 .controller('loginCtrl', function ($scope, $http, $stateParams, $ionicPopup, $state) {
+	$scope.candidato = [];
 
 	$scope.loginCandidato = function (login) {
 
@@ -46,8 +107,12 @@ function ($scope, $stateParams) {
 		}
 
 		$http(req).then(function (resp) {
+			//salvando no localStorage
+			$scope.candidato = resp.data;
+			var dados = angular.toJson($scope.candidato);
+			localStorage.setItem("candidato", dados);
 
-			console.log(resp.data);
+			console.log(dados);
 			//indo pra pagina de enquetes
 			$state.go('menu.vagas');
 
