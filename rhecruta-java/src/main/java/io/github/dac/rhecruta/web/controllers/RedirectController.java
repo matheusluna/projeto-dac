@@ -20,7 +20,7 @@ public class RedirectController {
     }
 
     public String candidatura() {
-        return "candidatura.xhtml";
+        return "confirmarCandidatura.xhtml";
     }
 
     public String meusInteresses() {

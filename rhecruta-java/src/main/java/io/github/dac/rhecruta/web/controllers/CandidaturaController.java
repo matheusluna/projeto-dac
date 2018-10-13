@@ -30,7 +30,7 @@ public class CandidaturaController {
 
     public String iniciarCandidatura(Integer idVaga) {
         this.vaga = convertToVaga(vagaService.recuperarVagaComId(idVaga));
-        return "candidatura.xhtml";
+        return "confirmarCandidatura.xhtml";
     }
 
     public String finalizarCandidatura() {
