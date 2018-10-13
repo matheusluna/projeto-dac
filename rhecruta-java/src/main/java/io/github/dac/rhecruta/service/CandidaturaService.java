@@ -1,6 +1,5 @@
 package io.github.dac.rhecruta.service;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import io.github.dac.rhecruta.dao.interfaces.CandidaturaDaoInterface;
 import io.github.dac.rhecruta.models.Candidato;
 import io.github.dac.rhecruta.models.Candidatura;
@@ -15,7 +14,7 @@ import java.util.List;
 @Local
 @Stateless
 public class CandidaturaService {
-    
+
     @EJB
     private CandidaturaDaoInterface candidaturaDao;
 
@@ -27,7 +26,7 @@ public class CandidaturaService {
     public void remover(Candidatura candidatura) {
         try {
             candidaturaDao.remover(candidatura);
-        } catch (NoResultException ex ) {
+        } catch (NoResultException ex) {
 //            ex.printStackTrace();
         }
     }
