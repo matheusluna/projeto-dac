@@ -27,4 +27,8 @@ public class RedirectController {
         return "meusInteresses.xhtml";
     }
 
+    public String homeCandidato() {
+        return "homeCandidato.xhtml";
+    }
+
 }
