@@ -1,12 +1,14 @@
 angular.module('app.controllers', [])
   
 .controller('vagasCtrl', function ($scope, $stateParams, $http, $ionicPopup) {
-	// var das enquetes
-	$scope.vagas = [];
-
-	//pegando do lacalStorage
+	//dados dos alunos
+	$scope.candidato = [];
+	//pegando os dados no localStorage
 	var dado = localStorage.getItem("candidato");
 	$scope.candidato = angular.fromJson(dado);
+
+	// var das enquetes
+	$scope.vagas = [];
 
 	//motando objeto
 	var req = {
@@ -66,15 +68,75 @@ angular.module('app.controllers', [])
 		});
 	}
 
+	$scope.interesse = function (id) {
+
+		var req = {
+			method: 'POST',
+			url: 'http://localhost:8080/rhecruta-java/rest/candidato/interesse',
+			data: 'idVaga=' + id,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+				'Authorization': 'Bearer ' + $scope.candidato.senha
+			}
+		}
+
+		$http(req).then(function (resp) {
+			//alerta de erro
+			var alertPopup = $ionicPopup.alert({
+				title: 'Sucesso!',
+				template: 'Marcado como interesse!'
+			});
+
+		}, function (err) {
+			//alerta de erro
+			var alertPopup = $ionicPopup.alert({
+				title: 'Erro!',
+				template: 'Não foi possível marcar o interesse!'
+			});
+		});
+	}
+
 })
    
-.controller('listaDeInteressesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('listaDeInteressesCtrl', function ($scope, $stateParams, $http, $ionicPopup) {
+	//
+	$scope.candidato = [];
+	$scope.interesses = [];
+	//pegando os dados no localStorage
+	var dado = localStorage.getItem("candidato");
+	$scope.candidato = angular.fromJson(dado); 
 
+	//motando objeto
+	var req = {
+		method: 'GET',
+		url: "http://localhost:8080/rhecruta-java/rest/candidato/interesse",
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Authorization': 'Bearer ' + $scope.candidato.senha
+		}
 
-}])
+	}
+
+	$http(req).then(function (resp) {
+		$scope.interesses = resp.data;
+		$scope.interesseVaga = [];
+
+		for (item of $scope.interesses){
+			$http.get("http://localhost:8080/rhecruta-java/rest/vaga/" + item).then(function (resp) {
+				$scope.interesseVaga.push(resp.data)
+				console.log($scope.interesseVaga);
+			});
+		}
+
+	}, function (err) {
+		//alerta de erro
+		var alertPopup = $ionicPopup.alert({
+			title: 'Erro!',
+			template: 'Não foi possível carregar os interesses!'
+		});
+	});
+
+})
    
 .controller('candidaturasCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
