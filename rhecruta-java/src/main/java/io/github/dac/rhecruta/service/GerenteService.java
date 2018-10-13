@@ -37,6 +37,7 @@ public class GerenteService {
         }
 
     }
+
     public Gerente gerenteComCPF(String cpf) {
 
         try {
@@ -47,6 +48,7 @@ public class GerenteService {
         }
 
     }
+
     public Gerente gerenteComEmail(String email) {
 
         try {
@@ -57,6 +59,7 @@ public class GerenteService {
         }
 
     }
+
     public Boolean login(String email, String password) {
 
         try {
