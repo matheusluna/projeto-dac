@@ -19,4 +19,8 @@ public class RedirectController {
         return "minhasCandidaturas.xhtml";
     }
 
+    public String candidatura() {
+        return "candidatura.xhtml";
+    }
+
 }
