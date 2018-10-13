@@ -28,52 +28,50 @@
 
     <div class="row">
         <div class="col s12 m6 l6 offset-m3 offset-l3">
-            <form class="login-form" action="front" method="post">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="assets/img/login.png" />
-                        <span class="card-title">
-	                        <h2 class="light-green-text text-accent-4">Login</h2>
-	                    </span>
+            <div class="card">
+                <div class="card-image">
+                    <img src="assets/img/login.png" />
+                    <span class="card-title">
+                        <h2 class="light-green-text text-accent-4">Login</h2>
+                    </span>
+                </div>
+                <div class="card-content">
+
+                    <div class="input-field">
+                        <input class="validate" name="email" type="email" required="true"
+                               jsf:id="email" jsf:value="${loginController.email}" />
+                        <label for="email">Email</label>
                     </div>
-                    <div class="card-content">
+                    <input type="hidden" name="action" value="Login"/>
 
-                        <div class="input-field">
-                            <input class="validate" name="email" type="email" required="true"
-                                   jsf:id="email" jsf:value="${loginController.email}" />
-                            <label for="email">Email</label>
-                        </div>
-                        <input type="hidden" name="action" value="Login"/>
-
-                        <div class="input-field">
-                            <input name="senha" type="password" required="true"
-                                   jsf:id="password" jsf:value="${loginController.senha}" />
-                            <label for="password">Senha</label>
-                        </div>
-
-                        <div class="input-field col s12">
-                            <h:selectOneMenu value="${loginController.tipoUsuario}">
-                                <f:selectItem itemValue="Candidato" itemLabel="Candidato" />
-                                <f:selectItem itemValue="Gerente" itemLabel="Gerente" />
-                                <f:selectItem itemValue="Avaliador" itemLabel="Avaliador" />
-                            </h:selectOneMenu>
-                            <label>Escolha seu Tipo de Usuário</label>
-                        </div>
-
+                    <div class="input-field">
+                        <input name="senha" type="password" required="true"
+                               jsf:id="password" jsf:value="${loginController.senha}" />
+                        <label for="password">Senha</label>
                     </div>
-                    <div class="card-action">
-                        <div class="center-align">
-                            <!-- POR COR INDIGO? -->
-                            <button class="btn waves-effect waves-light btn light-green accent-4"
-                                    jsf:action="#{loginController.login()}">
 
-                                <i class="material-icons left">vpn_key</i> Login
+                    <div class="input-field col s12">
+                        <h:selectOneMenu value="${loginController.tipoUsuario}">
+                            <f:selectItem itemValue="Candidato" itemLabel="Candidato" />
+                            <f:selectItem itemValue="Gerente" itemLabel="Gerente" />
+                            <f:selectItem itemValue="Avaliador" itemLabel="Avaliador" />
+                        </h:selectOneMenu>
+                        <label>Escolha seu Tipo de Usuário</label>
+                    </div>
 
-                            </button>
-                        </div>
+                </div>
+                <div class="card-action">
+                    <div class="center-align">
+                        <!-- POR COR INDIGO? -->
+                        <button class="btn waves-effect waves-light btn light-green accent-4"
+                                jsf:action="#{loginController.login()}">
+
+                            <i class="material-icons left">vpn_key</i> Login
+
+                        </button>
                     </div>
                 </div>
-            </form>
+            </div>
 
             <div class="row">
                 <div class="row center-align">
