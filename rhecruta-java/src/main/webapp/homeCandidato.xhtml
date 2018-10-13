@@ -57,24 +57,37 @@
                 </div>
             </h:form>
             <div jsf:rendered="${not empty vagasController.vagas}">
-                <h:dataTable value="${vagasController.vagas}" var="vaga">
-                    <h:column>
-                        <f:facet name="header">Título</f:facet>
-                        ${vaga.title}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Local De Trabalho</f:facet>
-                        ${vaga.workplace}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Empresa</f:facet>
-                        ${vaga.company_name}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Descrição</f:facet>
-                        ${vaga.description}
-                    </h:column>
-                </h:dataTable>
+                <h:form>
+                    <h:dataTable value="${vagasController.vagas}" var="vaga">
+                        <h:column>
+                            <f:facet name="header">Título</f:facet>
+                            ${vaga.title}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Local De Trabalho</f:facet>
+                            ${vaga.workplace}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Empresa</f:facet>
+                            ${vaga.company_name}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Descrição</f:facet>
+                            ${vaga.description}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Ações:</f:facet>
+                            <button class="btn waves-effect waves-light btn light-green accent-4"
+                                    jsf:action="${candidatoController.adicionarInteresse(vaga.id)}">
+                                <i class="material-icons left">search</i>Buscar
+                            </button>
+                            <button class="btn waves-effect waves-light btn light-green accent-4"
+                                    jsf:action="${redirectController.candidatura()}">
+                                <i class="material-icons left">search</i>Buscar
+                            </button>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
             </div>
         </div>
 
