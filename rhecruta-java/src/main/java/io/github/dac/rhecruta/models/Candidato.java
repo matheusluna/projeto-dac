@@ -31,9 +31,10 @@ public class Candidato {
 
     }
 
-    public Candidato(String nome, String email, String cpf, List<Integer> interesses) {
+    public Candidato(String nome, String email, String senha, String cpf, List<Integer> interesses) {
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
         this.cpf = cpf;
         this.interesses = interesses;
     }
