@@ -49,6 +49,7 @@ public class CandidaturaController {
 
     public String verMais(Integer idCandidatura) {
         this.candidatura = this.candidaturaService.candidaturaComId(idCandidatura);
+        this.vaga = convertToVaga(this.vagaService.recuperarVagaComId(candidatura.getVagaId()));
         return "candidatura.xhtml";
     }
 
@@ -83,5 +84,13 @@ public class CandidaturaController {
 
     public void setVaga(Vaga vaga) {
         this.vaga = vaga;
+    }
+
+    public Candidatura getCandidatura() {
+        return candidatura;
+    }
+
+    public void setCandidatura(Candidatura candidatura) {
+        this.candidatura = candidatura;
     }
 }
