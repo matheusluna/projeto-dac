@@ -27,7 +27,13 @@ public class EntrevistaController {
         Candidatura candidatura = candidaturaService.candidaturaComId(idCandidatura);
 
         this.entrevista.setCandidatura(candidatura);
-        return "entrevista.xhtml";
+        return "confirmarEntrevista.xhtml";
+    }
+
+    public String finalizarEntrevista() {
+        this.entrevistaService.salvar(this.entrevista);
+
+        return "minhasEntrevistas.xhtml";
     }
 
     public Entrevista getEntrevista() {
