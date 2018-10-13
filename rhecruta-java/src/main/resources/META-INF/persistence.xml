@@ -8,6 +8,7 @@
 
         <!-- CLASSES -->
 
+        <class>io.github.dac.rhecruta.models.Gerente</class>
         <class>io.github.dac.rhecruta.models.Avaliador</class>
         <class>io.github.dac.rhecruta.models.Candidato</class>
         <class>io.github.dac.rhecruta.models.Entrevista</class>
