@@ -1,6 +1,6 @@
 angular.module('app.controllers', [])
   
-.controller('vagasCtrl', function ($scope, $stateParams, $http, $ionicPopup) {
+.controller('vagasCtrl', function ($scope, $stateParams, $http, $ionicPopup, $window) {
 	//dados dos alunos
 	$scope.candidato = [];
 	//pegando os dados no localStorage
@@ -81,10 +81,19 @@ angular.module('app.controllers', [])
 		}
 
 		$http(req).then(function (resp) {
-			//alerta de erro
-			var alertPopup = $ionicPopup.alert({
+			//alerta de sucesso
+			var Popup = $ionicPopup.show({
 				title: 'Sucesso!',
-				template: 'Marcado como interesse!'
+				template: 'Marcado como interesse!',
+				buttons: [
+					{
+						text: '<b>Okay</b>',
+						type: 'button-positive',
+						onTap: function (e) {
+							//atualizando pagina
+							$window.location.reload(true);
+						}
+					}]
 			});
 
 		}, function (err) {
