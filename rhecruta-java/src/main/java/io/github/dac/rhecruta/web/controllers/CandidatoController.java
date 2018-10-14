@@ -20,6 +20,7 @@ public class CandidatoController implements Serializable {
     public void adicionarInteresse(Integer idVaga) {
         this.candidato.adicionarInteresse(idVaga);
         this.candidatoService.atualizar(candidato);
+        this.candidato = this.candidatoService.candidatoComEmail(this.candidato.getEmail());
     }
     
     
