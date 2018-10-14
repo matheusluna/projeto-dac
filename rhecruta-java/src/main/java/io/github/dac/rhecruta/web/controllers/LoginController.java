@@ -7,6 +7,7 @@ import io.github.dac.rhecruta.service.GerenteService;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +19,8 @@ public class LoginController {
     @EJB
     private AvaliadorService avaliadorService;
 
-    @EJB
-    private CandidatoService candidatoService;
+    @Inject
+    private CandidatoController candidatoController;
 
     @EJB
     private GerenteService gerenteService;
@@ -46,7 +47,7 @@ public class LoginController {
                     return "homeAvaliador.xhtml";
                 break;
             case "candidato":
-                if (this.candidatoService.login(email, senha))
+                if (this.candidatoController.login(email, senha))
                     return "homeCandidato.xhtml";
                 break;
             default:
