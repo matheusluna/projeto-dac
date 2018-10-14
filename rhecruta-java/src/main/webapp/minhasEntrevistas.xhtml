@@ -41,7 +41,23 @@ and open the template in the editor.
       </div>
 
       <div class="container">
-
+          <div jsf:rendered="${not empty entrevistaController.listar(candidatoController.candidato.email)}">
+            <h:form>
+                <h:dataTable value="${entrevistaController.listar(candidatoController.candidato.email)}" var="entrevista">
+                    <h:column>
+                        <f:facet name="header">Dia</f:facet>
+                        ${entrevista.diaDaEntrevista}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Ações:</f:facet>
+                        <button class="btn waves-effect waves-light btn light-green accent-4"
+                                jsf:action="${candidaturaController.iniciarCandidatura(vaga)}">
+                            <i class="material-icons left">send</i>Candidatar-se
+                        </button>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
       </div>
       <script
               src="https://code.jquery.com/jquery-3.3.1.min.js"

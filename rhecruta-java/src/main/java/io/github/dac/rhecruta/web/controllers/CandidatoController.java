@@ -25,7 +25,6 @@ public class CandidatoController implements Serializable {
     
     public Boolean login(String email, String senha) {
         if (this.candidatoService.login(email, senha)) {
-
             this.candidato = this.candidatoService.candidatoComEmail(email);
             return true;
         } else {
