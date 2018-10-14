@@ -105,6 +105,44 @@ angular.module('app.controllers', [])
 		});
 	}
 
+	$scope.candidatura = function (id) {
+
+		var req = {
+			method: 'POST',
+			url: 'http://localhost:8080/rhecruta-java/rest/candidatura',
+			data:{'vagaId': id},
+			headers: {
+				'Authorization': 'Bearer ' + $scope.candidato.senha
+			}
+		}
+
+		console.log(req.data);
+
+		$http(req).then(function (resp) {
+			//alerta de sucesso
+			var Popup = $ionicPopup.show({
+				title: 'Sucesso!',
+				template: 'Marcado como candidato!',
+				buttons: [
+					{
+						text: '<b>Okay</b>',
+						type: 'button-positive',
+						onTap: function (e) {
+							//atualizando pagina
+							$window.location.reload(true);
+						}
+					}]
+			});
+
+		}, function (err) {
+			//alerta de erro
+			var alertPopup = $ionicPopup.alert({
+				title: 'Erro!',
+				template: 'Não foi possível marcar o interesse!'
+			});
+		});
+	}
+
 })
    
 .controller('listaDeInteressesCtrl', function ($scope, $stateParams, $http, $ionicPopup) {
@@ -147,13 +185,48 @@ angular.module('app.controllers', [])
 
 })
    
-.controller('candidaturasCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('candidaturasCtrl', function ($scope, $stateParams, $http, $ionicPopup) {
+	//dados dos alunos
+	$scope.candidato = [];
+	//pegando os dados no localStorage
+	var dado = localStorage.getItem("candidato");
+	$scope.candidato = angular.fromJson(dado);
 
+	$scope.candidatura = [];
 
-}])
+	//motando objeto
+	var req = {
+		method: 'GET',
+		url: "http://localhost:8080/rhecruta-java/rest/candidatura",
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Authorization': 'Bearer ' + $scope.candidato.senha
+		}
+
+	}
+
+	$http(req).then(function (resp) {
+		$scope.candidaturaVagas = [];
+		//salvando na variavel
+		$scope.candidatura = resp.data; 
+		console.log(resp.data);
+
+		for (item of $scope.candidatura){
+			$http.get("http://localhost:8080/rhecruta-java/rest/vaga/" + item.vagaId).then(function (resp) {
+				$scope.candidaturaVagas.push(resp.data)
+				console.log($scope.candidaturaVagas);
+			});
+		}
+
+	}, function (err) {
+		//alerta de erro
+		var alertPopup = $ionicPopup.alert({
+			title: 'Erro!',
+			template: 'Não foi possível carregar a vaga!'
+		});
+	});
+
+})
    
 .controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
@@ -260,13 +333,10 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('detalhesEntrevistaCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('detalhesEntrevistaCtrl', function ($scope, $stateParams) {
 
 
-}])
+})
 
 .controller('detalhesVagaCtrl', function ($scope, $stateParams, $http, $ionicPopup,) {
 	//dados dos alunos

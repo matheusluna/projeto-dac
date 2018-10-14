@@ -1,24 +1,15 @@
 <ion-view title="Candidaturas" id="page3" style="background-color:#C73610;">
   <ion-content padding="true" class="has-header">
-    <ion-list id="candidaturas-list3">
-      <ion-item id="candidaturas-list-item10" ui-sref="menu.detalhesVaga()">Item 1
-        <!-- botao pro lado -->
-        <ion-option-button class="button-balanced" ui-sref="agendar()">
-          Agendar
-        </ion-option-button>
-      </ion-item>
-      <ion-item id="candidaturas-list-item10">Item 2
-        <!-- botao pro lado -->
-        <ion-option-button class="button-balanced">
-          Agendar
-        </ion-option-button>
-      </ion-item>
-      <ion-item id="candidaturas-list-item10">Item 3
-        <!-- botao pro lado -->
-        <ion-option-button class="button-balanced">
-          Agendar
-        </ion-option-button>
-      </ion-item>
+     <ion-list id="vagas-list2">
+
+        <ion-item  ng-repeat="item in candidaturaVagas">
+          <h4>{{item.title}}</h4>
+          <p>{{item.company_name}}</p>
+          <ion-option-button class="button-balanced">
+            Agendar
+          </ion-option-button>
+        </ion-item>
+
     </ion-list>
   </ion-content>
 </ion-view>
