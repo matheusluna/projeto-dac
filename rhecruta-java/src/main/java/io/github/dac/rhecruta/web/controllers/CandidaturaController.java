@@ -7,6 +7,7 @@ import io.github.dac.rhecruta.models.Vaga;
 import io.github.dac.rhecruta.service.CandidaturaService;
 import io.github.dac.rhecruta.service.VagaService;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -32,6 +33,11 @@ public class CandidaturaController {
     private Candidatura candidatura;
 
     private Vaga vaga;
+
+    @PostConstruct
+    public void init() {
+        this.vaga = new Vaga();
+    }
 
     public String iniciarCandidatura(Integer idVaga) {
         this.vaga = convertToVaga(vagaService.recuperarVagaComId(idVaga));
