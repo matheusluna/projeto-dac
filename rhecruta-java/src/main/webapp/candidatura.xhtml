@@ -75,14 +75,14 @@
                             <label for="parecer">Parecer</label>
                         </div>
                         <div class="input-field red" jsf:rendered="${not empty candidatura.curriculoCandidato}">
-                            <input name="curriculo" type="text" contenteditable="false"
-                                   jsf:id="curriculo" value="Sim" />
-                            <label for="curriculo">Curriculo Atribuido</label>
+                            <input name="curriculoSim" type="text" contenteditable="false"
+                                   jsf:id="curriculoSim" value="Sim" />
+                            <label for="curriculoSim">Curriculo Atribuido</label>
                         </div>
                         <div class="input-field red" jsf:rendered="${empty candidatura.curriculoCandidato}">
-                            <input name="curriculo" type="text" contenteditable="false"
-                                   jsf:id="curriculo" value="Não" />
-                            <label for="curriculo">Curriculo Atribuido</label>
+                            <input name="curriculoNao" type="text" contenteditable="false"
+                                   jsf:id="curriculoNao" value="Não" />
+                            <label for="curriculoNao">Curriculo Atribuido</label>
                         </div>
                     </div>
                     <div class="card-action">

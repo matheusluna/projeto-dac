@@ -44,10 +44,10 @@
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Curriculo Atribuido?</f:facet>
-                                    <div jsf:rendered="${empty candidatura.curriculoCandidato}">
+                                    <div jsf:rendered="${not empty candidatura.curriculoCandidato}">
                                         Sim
                                     </div>
-                                    <div class="red" jsf:rendered="${not empty candidatura.curriculoCandidato}">
+                                    <div class="red" jsf:rendered="${empty candidatura.curriculoCandidato}">
                                         Não
                                     </div>
                                 </h:column>
