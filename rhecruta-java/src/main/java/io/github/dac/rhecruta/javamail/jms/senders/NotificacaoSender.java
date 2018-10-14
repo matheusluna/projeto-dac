@@ -1,4 +1,4 @@
-package io.github.dac.rhecruta.javamail;
+package io.github.dac.rhecruta.javamail.jms.senders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.dac.rhecruta.models.Candidatura;
@@ -17,12 +17,12 @@ import java.io.IOException;
 @Stateless
 @JMSDestinationDefinition(
         interfaceName = "javax.jms.Topic",
-        name = "java:global/jms/noficicacao",
+        name = "java:global/jms/notificacao",
         resourceAdapter = "jmsra"
 )
 public class NotificacaoSender {
 
-    @Resource(lookup = "java:global/jms/noficicacao")
+    @Resource(lookup = "java:global/jms/notificacao")
     private Topic topic;
 
     @Inject
@@ -64,7 +64,7 @@ public class NotificacaoSender {
 
         try {
             Message message = context.createTextMessage(jsonEmail.toString());
-            message.setStringProperty("typeMessage", "notificarFinalizacaoRecrutamento");
+            message.setStringProperty("typeMessage", "notificacao");
             producer.send(topic, message);
         } catch (JMSException ex) {
             ex.printStackTrace();

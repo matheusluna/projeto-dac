@@ -1,4 +1,4 @@
-package io.github.dac.rhecruta.javamail;
+package io.github.dac.rhecruta.javamail.jms.senders;
 
 import io.github.dac.rhecruta.models.Entrevista;
 import io.github.dac.rhecruta.service.EntrevistaService;
@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 @Singleton
 @JMSDestinationDefinition(
         interfaceName = "javax.jms.Topic",
-        name = "java:global/jms/noficicacao",
+        name = "java:global/jms/notificacao",
         resourceAdapter = "jmsra"
 )
 public class LembreteSender {
 
-    @Resource(lookup = "java:global/jms/noficicacao")
+    @Resource(lookup = "java:global/jms/notificacao")
     private Topic topic;
 
     @Inject
