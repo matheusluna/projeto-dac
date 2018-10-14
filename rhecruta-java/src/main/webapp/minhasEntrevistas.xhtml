@@ -1,16 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
-        <title>TODO supply a title</title>
+        <title>Minhas Entrevistas</title>
         <!--Import Google Icon Font-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
@@ -41,7 +35,8 @@ and open the template in the editor.
       </div>
 
       <div class="container">
-          <div jsf:rendered="${not empty entrevistaController.listar(candidatoController.candidato.email)}">
+          <!--<div jsf:rendered="${not empty entrevistaController.listar(candidatoController.candidato.email)}">-->
+          <div>
             <h:form>
                 <h:dataTable value="${entrevistaController.listar(candidatoController.candidato.email)}" var="entrevista">
                     <h:column>
