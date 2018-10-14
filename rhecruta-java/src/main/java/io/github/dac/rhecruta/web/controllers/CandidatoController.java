@@ -21,7 +21,8 @@ public class CandidatoController implements Serializable {
         this.candidato.adicionarInteresse(idVaga);
         this.candidatoService.atualizar(candidato);
     }
-
+    
+    
     public Boolean login(String email, String senha) {
         if (this.candidatoService.login(email, senha)) {
 
