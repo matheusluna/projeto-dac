@@ -49,6 +49,10 @@
                                 jsf:action="${candidaturaController.iniciarCandidatura(vaga)}">
                             <i class="material-icons left">send</i>Candidatar-se
                         </button>
+                        <button class="btn waves-effect waves-light btn light-green accent-4"
+                                jsf:action="${candidatoController.removerInteresse(vaga)}">
+                            <i class="material-icons left">send</i>Remover
+                        </button>
                     </h:column>
                 </h:dataTable>
             </h:form>

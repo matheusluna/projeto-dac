@@ -22,6 +22,12 @@ public class CandidatoController implements Serializable {
         this.candidatoService.atualizar(candidato);
         this.candidato = this.candidatoService.candidatoComEmail(this.candidato.getEmail());
     }
+
+    public void removerInteresse(Integer idVaga) {
+        this.candidato.removerInteresse(idVaga);
+        this.candidatoService.atualizar(candidato);
+        this.candidato = this.candidatoService.candidatoComEmail(this.candidato.getEmail());
+    }
     
     
     public Boolean login(String email, String senha) {
