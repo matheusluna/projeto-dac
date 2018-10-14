@@ -18,12 +18,20 @@ public class CandidatoController implements Serializable {
     private Candidato candidato;
 
     public void adicionarInteresse(Integer idVaga) {
+
+        if (candidato.getInteresses().contains(idVaga))
+            return;
+
         this.candidato.adicionarInteresse(idVaga);
         this.candidatoService.atualizar(candidato);
         this.candidato = this.candidatoService.candidatoComEmail(this.candidato.getEmail());
     }
 
     public void removerInteresse(Integer idVaga) {
+
+        if (!candidato.getInteresses().contains(idVaga))
+            return;
+
         this.candidato.removerInteresse(idVaga);
         this.candidatoService.atualizar(candidato);
         this.candidato = this.candidatoService.candidatoComEmail(this.candidato.getEmail());
