@@ -50,6 +50,14 @@ public class Candidatura {
         this.candidato = candidato;
     }
 
+    private Candidatura(Candidatura candidatura) {
+        this.vagaId = candidatura.getVagaId();
+        this.curriculoCandidato = candidatura.getCurriculoCandidato();
+        this.parecer = candidatura.getParecer();
+        this.dataCandidatura = candidatura.getDataCandidatura();
+        this.candidato = candidatura.getCandidato();
+    }
+
     public Integer getId() {
         return id;
     }
@@ -96,6 +104,10 @@ public class Candidatura {
 
     public void setCandidato(Candidato candidato) {
         this.candidato = candidato;
+    }
+
+    public Candidatura clone() {
+        return new Candidatura(this);
     }
 
     @Override
