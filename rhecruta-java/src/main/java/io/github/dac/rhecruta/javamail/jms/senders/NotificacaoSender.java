@@ -16,14 +16,14 @@ import java.io.IOException;
 
 @Stateless
 @JMSDestinationDefinition(
-        interfaceName = "javax.jms.Topic",
-        name = "java:global/jms/notificacao",
+        interfaceName = "javax.jms.Queue",
+        name = "java:global/jms/email",
         resourceAdapter = "jmsra"
 )
 public class NotificacaoSender {
 
-    @Resource(lookup = "java:global/jms/notificacao")
-    private Topic topic;
+    @Resource(lookup = "java:global/jms/email")
+    private Queue queue;
 
     @Inject
     private JMSContext context;
@@ -62,13 +62,8 @@ public class NotificacaoSender {
                 .add("corpo", corpoEmail)
                 .build();
 
-        try {
-            Message message = context.createTextMessage(jsonEmail.toString());
-            message.setStringProperty("typeMessage", "notificacao");
-            producer.send(topic, message);
-        } catch (JMSException ex) {
-            ex.printStackTrace();
-        }
+        Message message = context.createTextMessage(jsonEmail.toString());
+        producer.send(queue, message);
 
     }
 

@@ -17,14 +17,14 @@ import java.util.stream.Collectors;
 
 @Singleton
 @JMSDestinationDefinition(
-        interfaceName = "javax.jms.Topic",
-        name = "java:global/jms/notificacao",
+        interfaceName = "javax.jms.Queue",
+        name = "java:global/jms/email",
         resourceAdapter = "jmsra"
 )
 public class LembreteSender {
 
-    @Resource(lookup = "java:global/jms/notificacao")
-    private Topic topic;
+    @Resource(lookup = "java:global/jms/email")
+    private Queue queue;
 
     @Inject
     private JMSContext context;
@@ -71,13 +71,8 @@ public class LembreteSender {
                 .add("corpo", corpoEmail)
                 .build();
 
-        try {
-            Message message = context.createTextMessage(jsonEmail.toString());
-            message.setStringProperty("typeMessage", "lembrete");
-            producer.send(topic, message);
-        } catch (JMSException ex) {
-            ex.printStackTrace();
-        }
+        Message message = context.createTextMessage(jsonEmail.toString());
+        producer.send(queue, message);
 
     }
 

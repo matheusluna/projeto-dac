@@ -15,13 +15,12 @@ import java.util.logging.Logger;
 
 @MessageDriven(
         activationConfig = {
-                @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-                @ActivationConfigProperty(propertyName = "destination", propertyValue = "topic"),
-                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:global/jms/notificacao"),
-                @ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "typeMessage='lembrete'")
+                @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+                @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue"),
+                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:global/jms/email"),
         }
 )
-public class LembreteReveicer implements MessageListener {
+public class EmailReveicer implements MessageListener {
 
     @EJB
     private EmailService emailService;
@@ -46,7 +45,7 @@ public class LembreteReveicer implements MessageListener {
             );
 
         } catch (Exception ex) {
-            Logger.getLogger(LembreteReveicer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmailReveicer.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
 
