@@ -10,7 +10,7 @@ angular.module('app.routes', [])
 
 
       .state('menu.vagas', {
-        url: '/vagas',
+        url: '/vagas:idVaga',
         views: {
           'side-menu21': {
             templateUrl: 'templates/vagas.html',
@@ -88,7 +88,7 @@ angular.module('app.routes', [])
       })
 
       .state('menu.detalhesVaga', {
-        url: '/detalhesVaga',
+        url: '/detalhesVaga/:id',
         views: {
           'side-menu21': {
             templateUrl: 'templates/detalhesVaga.html',

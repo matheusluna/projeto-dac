@@ -259,10 +259,37 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('detalhesVagaCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('detalhesVagaCtrl', function ($scope, $stateParams, $http, $ionicPopup,) {
+	//dados dos alunos
+	$scope.candidato = [];
+	//pegando os dados no localStorage
+	var dado = localStorage.getItem("candidato");
+	$scope.candidato = angular.fromJson(dado);
 
+	// var das enquetes
+	$scope.vaga = [];
 
-}])
+	//motando objeto
+	var req = {
+		method: 'GET',
+		url: "http://localhost:8080/rhecruta-java/rest/vaga/" + $stateParams.id,
+		headers: {
+			'Authorization': 'Bearer ' + $scope.candidato
+		}
+
+	}
+
+	$http(req).then(function (resp) {
+		//salvando na variavel
+		$scope.vaga = resp.data; 
+		console.log(resp.data);
+
+	}, function (err) {
+		//alerta de erro
+		var alertPopup = $ionicPopup.alert({
+			title: 'Erro!',
+			template: 'Não foi possível carregar a vaga!'
+		});
+	});
+
+})

@@ -3,19 +3,21 @@
         <div class="list card">
 
             <div class="item">
-                <h2>Titulo</h2>
-                <p>Data</p>
-                <p>Empresa</p>
-                <p>Email</p>
-                <p>Local</p>
-                <p>link</p>
+                <h3>{{vaga.title}}</h3>
+                <p>Data: {{vaga.created_at}}</p>
+                <p>Empresa: {{vaga.company_name}}</p>
+                <p>Email: {{vaga.company_email}}</p>
+                <p>Local: {{vaga.workplace}}</p>
+                <p>Link:{{vaga.application_link}}</p>
             </div>
 
             <div class="item item-body">
-                <p>
-                    Descriçao
-                </p>
+                <h3>Requisitos: </h3>
+                <p>{{vaga.requirements}}</p>
+                <h3>Descriçao: </h3>
+                <p>{{vaga.description}}</p>
             </div>
+            
         </div>
     </ion-content>
 </ion-view>

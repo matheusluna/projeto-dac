@@ -3,7 +3,7 @@
 
       <ion-list id="vagas-list2">
 
-        <ion-item  ng-repeat="item in interesseVaga">
+        <ion-item  ng-repeat="item in interesseVaga"  href="#/side-menu21/detalhesVaga/{{item.id}}">
           <h4>{{item.title}}</h4>
           <p>{{item.company_name}}</p>
           <ion-option-button class="button-balanced">
