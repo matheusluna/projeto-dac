@@ -45,6 +45,13 @@ public class EntrevistaDao implements EntrevistaDaoInterface {
     }
 
     @Override
+    public List<Entrevista> recuperarTodasEntrevistas() throws NoResultException {
+        return entityManager
+                .createQuery("FROM Entrevista")
+                .getResultList();
+    }
+
+    @Override
     public Entrevista entrevistaDaCandidatura(Candidatura candidatura) throws NoResultException {
         return (Entrevista) entityManager
                 .createQuery("FROM Entrevista e WHERE e.candidatura.id = :candidaturaId")

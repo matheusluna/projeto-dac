@@ -46,6 +46,16 @@ public class EntrevistaService {
 
     }
 
+    public List<Entrevista> recuperarTodasEntrevistas() {
+        try {
+            return Collections.unmodifiableList(this.entrevistaDao.recuperarTodasEntrevistas());
+
+        } catch (NoResultException ex) {
+            return Collections.emptyList();
+        }
+
+    }
+
     public Entrevista entrevistaDaCandidatura(Candidatura candidatura) {
         try {
             return this.entrevistaDao.entrevistaDaCandidatura(candidatura);
