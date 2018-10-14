@@ -63,11 +63,15 @@ public class CandidatoDao implements CandidatoDaoInterface {
 
     @Override
     public Boolean login(String email, String password) throws NoResultException {
-        return entityManager
-                .createQuery("FROM Candidato c where c.email = :email AND c.senha = :senha")
-                .setParameter("email", email)
-                .setParameter("senha", password)
-                .getSingleResult() != null;
+        try {
+            return entityManager
+                    .createQuery("FROM Candidato c where c.email = :email AND c.senha = :senha")
+                    .setParameter("email", email)
+                    .setParameter("senha", password)
+                    .getSingleResult() != null;
+        } catch (NoResultException ex) {
+            return false;
+        }
 
     }
 }
