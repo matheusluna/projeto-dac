@@ -2,12 +2,9 @@
   <ion-content padding="true" class="has-header">
      <ion-list id="vagas-list2">
 
-        <ion-item  ng-repeat="item in candidaturaVagas">
+        <ion-item  ng-repeat="item in candidaturaVagas" href="#/side-menu21/agendar/{{item.id}}">
           <h4>{{item.title}}</h4>
           <p>{{item.company_name}}</p>
-          <ion-option-button class="button-balanced">
-            Agendar
-          </ion-option-button>
         </ion-item>
 
     </ion-list>

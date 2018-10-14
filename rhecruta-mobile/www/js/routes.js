@@ -30,7 +30,7 @@ angular.module('app.routes', [])
       })
 
       .state('menu.candidaturas', {
-        url: '/candidatura',
+        url: '/candidatura:idCandidatura',
         views: {
           'side-menu21': {
             templateUrl: 'templates/candidaturas.html',
@@ -40,7 +40,7 @@ angular.module('app.routes', [])
       })
 
       .state('menu.entrevistas', {
-        url: '/entrevistas',
+        url: '/entrevistas:id',
         views: {
           'side-menu21': {
             templateUrl: 'templates/entrevistas.html',
@@ -68,7 +68,7 @@ angular.module('app.routes', [])
       })
 
       .state('menu.agendar', {
-        url: '/agendar',
+        url: '/agendar/:id',
         views: {
           'side-menu21': {
             templateUrl: 'templates/agendar.html',
@@ -78,7 +78,7 @@ angular.module('app.routes', [])
       })
 
       .state('menu.detalhesEntrevista', {
-        url: '/detalhesEntrevista',
+        url: '/detalhesEntrevista/:id',
         views: {
           'side-menu21': {
             templateUrl: 'templates/detalhesEntrevista.html',

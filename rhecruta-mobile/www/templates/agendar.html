@@ -3,13 +3,13 @@
     <form id="agendar-form5" class="list">
       <label class="item item-input" id="agendar-input10">
         <span class="input-label">Dia</span>
-        <input type="date" placeholder="">
+        <input type="text" placeholder="" name="dia" ng-model="data.dia">
       </label>
       <label class="item item-input" id="agendar-input11">
         <span class="input-label">Hora</span>
-        <input type="time" placeholder="">
+        <input type="text" placeholder=""  name="hora" ng-model="data.hora">
       </label>
-      <a class="button button-balanced button-block">Agendar</a>
+      <a class="button button-balanced button-block" ng-click="agendar(data)">Agendar</a>
     </form>
   </ion-content>
 </ion-view>

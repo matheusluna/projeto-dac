@@ -145,7 +145,7 @@ angular.module('app.controllers', [])
 
 })
    
-.controller('listaDeInteressesCtrl', function ($scope, $stateParams, $http, $ionicPopup) {
+.controller('listaDeInteressesCtrl', function ($scope, $stateParams, $http, $ionicPopup, $window) {
 	//
 	$scope.candidato = [];
 	$scope.interesses = [];
@@ -183,9 +183,48 @@ angular.module('app.controllers', [])
 		});
 	});
 
+	$scope.candidatura = function (id) {
+
+		var req = {
+			method: 'POST',
+			url: 'http://localhost:8080/rhecruta-java/rest/candidatura',
+			data:{'vagaId': id},
+			headers: {
+				'Authorization': 'Bearer ' + $scope.candidato.senha
+			}
+		}
+
+		console.log(req.data);
+
+		$http(req).then(function (resp) {
+			//alerta de sucesso
+			var Popup = $ionicPopup.show({
+				title: 'Sucesso!',
+				template: 'Marcado como candidato!',
+				buttons: [
+					{
+						text: '<b>Okay</b>',
+						type: 'button-positive',
+						onTap: function (e) {
+							//atualizando pagina
+							$window.location.reload(true);
+						}
+					}]
+			});
+
+		}, function (err) {
+			//alerta de erro
+			var alertPopup = $ionicPopup.alert({
+				title: 'Erro!',
+				template: 'Não foi possível marcar o interesse!'
+			});
+		});
+	}
+
+
 })
    
-.controller('candidaturasCtrl', function ($scope, $stateParams, $http, $ionicPopup) {
+.controller('candidaturasCtrl', function ($scope, $stateParams, $http, $ionicPopup, $state) {
 	//dados dos alunos
 	$scope.candidato = [];
 	//pegando os dados no localStorage
@@ -225,7 +264,6 @@ angular.module('app.controllers', [])
 			template: 'Não foi possível carregar a vaga!'
 		});
 	});
-
 })
    
 .controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -318,23 +356,198 @@ function ($scope, $stateParams) {
 
 })
    
-.controller('agendarCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('agendarCtrl',function ($scope, $stateParams, $state, $ionicPopup, $http, $window) {
+	//dados dos alunos
+	$scope.candidato = [];
+	//pegando os dados no localStorage
+	var dado = localStorage.getItem("candidato");
+	$scope.candidato = angular.fromJson(dado);
 
+	$scope.idCandidatura;
+	$scope.candidatura = [];
 
-}])
+	//motando objeto
+	var req = {
+		method: 'GET',
+		url: "http://localhost:8080/rhecruta-java/rest/candidatura",
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Authorization': 'Bearer ' + $scope.candidato.senha
+		}
 
-.controller('entrevistasCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+	}
 
-}])
+	$http(req).then(function (resp) {
+		
+		//salvando na variavel
+		$scope.candidatura = resp.data; 
+		//console.log($scope.candidatura);
+		for(item of $scope.candidatura){
+			//console.log(item.vagaId);
+			if (item.vagaId == $stateParams.id) {
+				$scope.idCandidatura = item.id;
+				//console.log($scope.idCandidatura);
+			}
+		}
+	}, function (err) {
+		//alerta de erro
+		var alertPopup = $ionicPopup.alert({
+			title: 'Erro!',
+			template: 'Não foi possível carregar a vaga!'
+		});
+	});
 
-.controller('detalhesEntrevistaCtrl', function ($scope, $stateParams) {
+	$scope.agendar = function(data){
+	console.log(data);
+	//motando objeto
+	var req = {
+		method: 'POST',
+		url: "http://localhost:8080/rhecruta-java/rest/entrevista/" + $scope.idCandidatura,
+		data: 'diaDaEntrevista=' + data.dia +'&horarioDaEntrevista=' + data.hora,
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Authorization': 'Bearer ' + $scope.candidato.senha
+		}
 
+	}
+
+	console.log(req.data);
+
+	$http(req).then(function (resp) {
+
+		//alerta de sucesso
+		var Popup = $ionicPopup.show({
+			title: 'Sucesso!',
+			template: 'Cadastro feito com sucesso!',
+			buttons: [
+			{
+				text: '<b>Okay</b>',
+				type: 'button-positive',
+				onTap: function (e) {
+					//atualizando pagina
+					$window.location.reload(true);
+					//levando pra pagina
+					$state.go('menu.entrevistas');
+				}
+			}]
+		});
+
+		}, function (err) {
+			//alerta de erro
+			var alertPopup = $ionicPopup.alert({
+				title: 'Erro!',
+				template: 'Não foi possível agendar!'
+			});
+		});
+	}
+})
+
+.controller('entrevistasCtrl', function ($scope, $stateParams, $http, $ionicPopup, $window) {
+	//dados dos alunos
+	$scope.candidato = [];
+	//pegando os dados no localStorage
+	var dado = localStorage.getItem("candidato");
+	$scope.candidato = angular.fromJson(dado);
+
+	// var das enquetes
+	$scope.entrevista = [];
+	$scope.teste = [];
+	$scope.vagas = [];
+
+	//motando objeto
+	var req = {
+		method: 'GET',
+		url: "http://localhost:8080/rhecruta-java/rest/entrevista",
+		headers: {
+			'Authorization': 'Bearer ' + $scope.candidato.senha
+		}
+
+	}
+
+	$http(req).then(function (resp) {
+		$scope.interesseVaga = [];
+		//salvando na variavel
+		$scope.entrevista = resp.data;
+
+		for(item of $scope.entrevista){
+			$scope.teste = item;
+			console.log(item);
+			$http.get("http://localhost:8080/rhecruta-java/rest/vaga/" + item.candidatura.vagaId).then(function (resp) {
+					$scope.vagas.push(resp.data);
+					console.log($scope.vagas);
+			});
+		}
+
+	}, function (err) {
+		//alerta de erro
+		var alertPopup = $ionicPopup.alert({
+			title: 'Erro!',
+			template: 'Não foi possível carregar as entrevistas!'
+		});
+	});
+
+	$scope.cancelar = function(){
+		//motando objeto
+		var req = {
+			method: 'GET',
+			url: "http://localhost:8080/rhecruta-java/rest/entrevista",
+			headers: {
+				'Authorization': 'Bearer ' + $scope.candidato.senha
+			}
+
+		}
+
+		$http(req).then(function (resp) {
+			$scope.interesseVaga = [];
+			//salvando na variavel
+			$scope.entrevista = resp.data;
+
+			for(item of $scope.entrevista){
+				$scope.teste = item;
+				console.log(item);
+				$http.get("http://localhost:8080/rhecruta-java/rest/vaga/" + item.candidatura.vagaId).then(function (resp) {
+						if(item.candidatura.vagaId == resp.data.id){
+							$scope.delete(item.id);
+						}
+				});
+			}
+
+		}, function (err) {
+			//alerta de erro
+			var alertPopup = $ionicPopup.alert({
+				title: 'Erro!',
+				template: 'Não foi possível carregar as entrevistas!'
+			});
+		});
+
+	}
+
+	$scope.delete = function(id){
+		//motando objeto
+		var req2 = {
+			method: 'DELETE',
+			url: "http://localhost:8080/rhecruta-java/rest/entrevista/" + id,
+			headers: {
+				'Authorization': 'Bearer ' + $scope.candidato.senha
+			}
+
+		}
+
+		$http(req2).then(function (resp) {
+			//atualizando pagina
+			$window.location.reload(true);
+		}, function (err) {
+			//alerta de erro
+			var alertPopup = $ionicPopup.alert({
+				title: 'Erro!',
+				template: 'Não foi possível cancelar!'
+			});
+		});
+	}
+
+})
+
+.controller('detalhesEntrevistaCtrl', function ($scope, $stateParams, $http, $ionicPopup) {
 
 })
 

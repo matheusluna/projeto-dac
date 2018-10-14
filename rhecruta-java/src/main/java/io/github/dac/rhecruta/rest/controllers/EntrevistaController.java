@@ -167,6 +167,4 @@ public class EntrevistaController {
 
         return Response.ok(entrevista).build();
     }
-
-
 }
