@@ -1,3 +1,5 @@
+#!/bin/sh
+
 mvn clean
 docker stop app
 docker rm app

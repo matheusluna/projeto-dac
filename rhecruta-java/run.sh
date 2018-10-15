@@ -1,3 +1,5 @@
+#!/bin/sh
+
 mvn clean package
 docker build -t dac/banco ./banco
 docker build -t dac/app .
