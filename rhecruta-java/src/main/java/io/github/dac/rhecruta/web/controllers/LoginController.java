@@ -39,22 +39,19 @@ public class LoginController {
 
         switch (tipoUsuario.toLowerCase()) {
             case "gerente":
-                if (this.gerenteService.login(email, senha))
-                    return "homeGerente.xhtml";
-                break;
+                if (this.gerenteService.login(email, senha)) return "homeGerente.xhtml";
+                else return "index.xhtml?error=1";
             case "avaliador":
                 if (this.avaliadorService.login(email, senha))
                     return "homeAvaliador.xhtml";
-                break;
+                else return "index.xhtml?error=1";
             case "candidato":
                 if (this.candidatoController.login(email, senha))
                     return "homeCandidato.xhtml";
-                break;
+                else return "index.xhtml?error=1";
             default:
                 return "index.xhtml?error=2";
         }
-
-        return "index.xhtml?error=1";
     }
 
 

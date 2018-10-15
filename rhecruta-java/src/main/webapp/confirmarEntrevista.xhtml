@@ -36,17 +36,15 @@
                     <div class="card-content">
                         <div class="input-field">
 
-                            <!--
-                            <input type="date" id="ano" jsf:value="${controllerAlbum.album.anoDeLancamento}" jsf:converter="converter.Date" />
-                            -->
-
                             <input name="diaDaEntrevista" type="text" contenteditable="false"
-                                   jsf:id="diaDaEntrevista" jsf:value="${entrevistaController.entrevista.diaDaEntrevista}" />
+                                   jsf:id="diaDaEntrevista" jsf:converter="converter.Date"
+                                   jsf:value="${entrevistaController.entrevista.diaDaEntrevista}" />
                             <label for="diaDaEntrevista">Dia da Entrevista</label>
                         </div>
                         <div class="input-field">
                             <input name="horarioDaEntrevista" type="text" contenteditable="false"
-                                   jsf:id="horarioDaEntrevista" jsf:value="${entrevistaController.entrevista.horarioDaEntrevista}" />
+                                   jsf:id="horarioDaEntrevista" jsf:converter="converter.Time"
+                                   jsf:value="${entrevistaController.entrevista.horarioDaEntrevista}" />
                             <label for="horarioDaEntrevista">Horário da Entrevista</label>
                         </div>
                     </div>

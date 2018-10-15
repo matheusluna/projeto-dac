@@ -63,11 +63,15 @@ public class GerenteDao implements GerenteDaoInterface {
 
     @Override
     public Boolean login(String email, String password) throws NoResultException {
-        return entityManager
-                .createQuery("FROM Gerente a WHERE a.email = :email AND a.senha = :senha")
-                .setParameter("email", email)
-                .setParameter("senha", password)
-                .getSingleResult() != null;
+        try {
+            return entityManager
+                    .createQuery("FROM Gerente a WHERE a.email = :email AND a.senha = :senha")
+                    .setParameter("email", email)
+                    .setParameter("senha", password)
+                    .getSingleResult() != null;
+        } catch (NoResultException ex) {
+            return false;
+        }
 
     }
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Meus Interesses</title>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.5/dist/sweetalert2.all.min.js" />
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+    </head>
+    <body>
+      <!--SideNav-->
+      <ul id="slide-out" class="sidenav">
+        <h:form>
+          <li><a jsf:action="${redirectController.buscarVagas()}">Buscar Vagas</a></li>
+          <li><a jsf:action="${redirectController.minhasEntrevistas()}">Minhas Entrevistas</a></li>
+          <li><a jsf:action="${redirectController.minhasCandidaturas()}">Minhas Candidaturas</a></li>
+          <li><a jsf:action="${redirectController.meusInteresses()}">Meus Interesses</a></li>
+        </h:form>
+      </ul>
+
+      <div class="navbar-fixed">
+          <nav>
+              <div class="nav-wrapper light-green accent-4">
+                  <a  data-target="slide-out" class="sidenav-trigger show-on-large brand-logo"><i class="material-icons">menu</i>Rhecruta</a>
+              </div>
+          </nav>
+      </div>
+
+      <div class="container">
+          <div>
+            <h:form>
+                <h:dataTable value="${candidatoController.candidato.interesses}" var="vaga">
+                    <h:column>
+                        <f:facet name="header">Título</f:facet>
+                        ${vagasController.tituloDaVagaComId(vaga)}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Ações:</f:facet>
+                        <button class="btn waves-effect waves-light btn light-green accent-4"
+                                jsf:action="${candidaturaController.iniciarCandidatura(vaga)}">
+                            <i class="material-icons left">send</i>Candidatar-se
+                        </button>
+                        <button class="btn waves-effect waves-light btn light-green accent-4"
+                                jsf:action="${candidatoController.removerInteresse(vaga)}">
+                            <i class="material-icons left">send</i>Remover
+                        </button>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+      </div>
+
+      <script
+              src="https://code.jquery.com/jquery-3.3.1.min.js"
+              integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+              crossorigin="anonymous" />
+
+      <script
+              src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" />
+
+      <script type="text/javascript">
+
+          //  Inicializa os Elementos Select do Materialize com JQuery
+          $(document).ready(function(){
+              $('select').formSelect();
+          });
+          $(document).ready(function(){
+            $('.sidenav').sidenav();
+          });
+
+
+          //  Verifica Códigos de Erro
+          var erro = "${param.error}";
+          if(erro == "1") {
+              swal("Oops...", "Não foi possivel cadastrar, verifique os dados e tente novamente", "error");
+          } else if(erro == "2") {
+              swal("Erro", "Por favor, selecione um tipo de usuário válido", "error");
+          }
+      </script>
+    </body>
+</html>

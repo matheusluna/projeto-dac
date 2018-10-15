@@ -2,6 +2,7 @@ package io.github.dac.rhecruta.service;
 
 import io.github.dac.rhecruta.dao.interfaces.CandidatoDaoInterface;
 import io.github.dac.rhecruta.models.Candidato;
+import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Local
 @Stateless
-public class CandidatoService {
+public class CandidatoService{
 
     @EJB
     private CandidatoDaoInterface candidatoDao;

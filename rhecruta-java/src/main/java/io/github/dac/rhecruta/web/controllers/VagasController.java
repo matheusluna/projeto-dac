@@ -6,18 +6,19 @@ import io.github.dac.rhecruta.service.VagaService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.json.JsonArray;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @Named
-@RequestScoped
-public class VagasController {
+@SessionScoped
+public class VagasController implements Serializable {
 
     @EJB
     private VagaService vagaService;

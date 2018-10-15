@@ -28,76 +28,77 @@
 
 <div class="container" style="margin-top: 3%">
 
-    <h:form>
-
-        <div class="row">
-            <div class="col s12 m6 l6 offset-m3 offset-l3">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="input-field">
-                            <input name="titulo" type="text" contenteditable="false"
-                                   jsf:id="titulo" jsf:value="${candidaturaController.vaga.title}" />
-                            <label for="titulo">Titulo</label>
-                        </div>
-                        <div class="input-field">
-                            <input name="empresa" type="text" contenteditable="false"
-                                   jsf:id="empresa" jsf:value="${candidaturaController.vaga.company_name}" />
-                            <label for="empresa">Empresa</label>
-                        </div>
-                        <div class="input-field">
-                            <input name="email" type="email" contenteditable="false"
-                                   jsf:id="email" jsf:value="${candidaturaController.vaga.company_email}" />
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="input-field">
-                            <input name="localTrabalho" type="text" contenteditable="false"
-                                   jsf:id="localTrabalho" jsf:value="${candidaturaController.vaga.workplace}" />
-                            <label for="localTrabalho">Local de Trabalho</label>
-                        </div>
-                        <div class="input-field">
-                            <input name="descricao" type="text" contenteditable="false"
-                                   jsf:id="descricao" jsf:value="${candidaturaController.vaga.description}" />
-                            <label for="descricao">Descricao</label>
-                        </div>
-                        <div class="input-field">
-                            <input name="requisitos" type="text" contenteditable="false"
-                                   jsf:id="requisitos" jsf:value="${candidaturaController.vaga.requirements}" />
-                            <label for="requisitos">Requisitos</label>
-                        </div>
-                        <div class="input-field">
-                            <input name="dataCandidatura" type="text" contenteditable="false"
-                                   jsf:id="dataCandidatura" jsf:value="${candidaturaController.candidatura.dataCandidatura}" />
-                            <label for="dataCandidatura">Data De Candidatura</label>
-                        </div>
-                        <div class="input-field">
-                            <input name="parecer" type="text" contenteditable="false"
-                                   jsf:id="parecer" jsf:value="${candidaturaController.candidatura.parecer}" />
-                            <label for="parecer">Parecer</label>
-                        </div>
-                        <div class="input-field red" jsf:rendered="${not empty candidatura.curriculoCandidato}">
-                            <input name="curriculo" type="text" contenteditable="false"
-                                   jsf:id="curriculo" value="Sim" />
-                            <label for="curriculo">Curriculo Atribuido</label>
-                        </div>
-                        <div class="input-field red" jsf:rendered="${empty candidatura.curriculoCandidato}">
-                            <input name="curriculo" type="text" contenteditable="false"
-                                   jsf:id="curriculo" value="Não" />
-                            <label for="curriculo">Curriculo Atribuido</label>
-                        </div>
+    <div class="row">
+        <div class="col s12 m6 l6 offset-m3 offset-l3">
+            <div class="card">
+                <div class="card-content">
+                    <div class="input-field">
+                        <input name="titulo" type="text" contenteditable="false"
+                               jsf:id="titulo" jsf:value="${candidaturaController.vaga.title}" />
+                        <label for="titulo">Titulo</label>
                     </div>
-                    <div class="card-action">
-                        <div class="center-align">
+                    <div class="input-field">
+                        <input name="empresa" type="text" contenteditable="false"
+                               jsf:id="empresa" jsf:value="${candidaturaController.vaga.company_name}" />
+                        <label for="empresa">Empresa</label>
+                    </div>
+                    <div class="input-field">
+                        <input name="email" type="email" contenteditable="false"
+                               jsf:id="email" jsf:value="${candidaturaController.vaga.company_email}" />
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input name="localTrabalho" type="text" contenteditable="false"
+                               jsf:id="localTrabalho" jsf:value="${candidaturaController.vaga.workplace}" />
+                        <label for="localTrabalho">Local de Trabalho</label>
+                    </div>
+                    <div class="input-field">
+                        <input name="descricao" type="text" contenteditable="false"
+                               jsf:id="descricao" jsf:value="${candidaturaController.vaga.description}" />
+                        <label for="descricao">Descricao</label>
+                    </div>
+                    <div class="input-field">
+                        <input name="requisitos" type="text" contenteditable="false"
+                               jsf:id="requisitos" jsf:value="${candidaturaController.vaga.requirements}" />
+                        <label for="requisitos">Requisitos</label>
+                    </div>
+                    <div class="input-field">
+                        <input name="dataCandidatura" type="text" contenteditable="false"
+                               jsf:id="dataCandidatura" jsf:value="${candidaturaController.candidatura.dataCandidatura}" />
+                        <label for="dataCandidatura">Data De Candidatura</label>
+                    </div>
+                    <div class="input-field">
+                        <input name="parecer" type="text" contenteditable="false"
+                               jsf:id="parecer" jsf:value="${candidaturaController.candidatura.parecer}" />
+                        <label for="parecer">Parecer</label>
+                    </div>
+                    <div class="input-field red" jsf:rendered="${not empty candidatura.curriculoCandidato}">
+                        <input name="curriculoSim" type="text" contenteditable="false"
+                               jsf:id="curriculoSim" value="Sim" />
+                        <label for="curriculoSim">Curriculo Atribuido</label>
+                    </div>
+                    <div class="input-field red" jsf:rendered="${empty candidatura.curriculoCandidato}">
+                        <input name="curriculoNao" type="text" contenteditable="false"
+                               jsf:id="curriculoNao" value="Não" />
+                        <label for="curriculoNao">Curriculo Atribuido</label>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <div class="center-align">
+
+                        <h:form>
                             <button class="btn waves-effect waves-light btn light-green accent-4"
-                                    jsf:action="${entrevistaController.iniciarEntrevista(candidaturaController.candidatura.id)}">
+                                    jsf:action="#{entrevistaController.iniciarEntrevista(candidaturaController.candidatura.id)}">
                                 <i class="material-icons left">send</i>Marcar Entrevista
                             </button>
-                        </div>
+                        </h:form>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-    </h:form>
 
 </div>
 

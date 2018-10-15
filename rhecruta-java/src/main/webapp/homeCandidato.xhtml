@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+        xmlns:jsf="http://xmlns.jcp.org/jsf"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
 <head>
     <title>Home</title>
     <meta charset="UTF-8" />
@@ -18,14 +18,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
 </head>
 <body class="grey lighten-3">
+
+
+    <!--SideNav-->
+    <ul id="slide-out" class="sidenav">
+      <h:form>
+        <li><a jsf:action="${redirectController.buscarVagas()}">Buscar Vagas</a></li>
+        <li><a jsf:action="${redirectController.minhasEntrevistas()}">Minhas Entrevistas</a></li>
+        <li><a jsf:action="${redirectController.minhasCandidaturas()}">Minhas Candidaturas</a></li>
+        <li><a jsf:action="${redirectController.meusInteresses()}">Meus Interesses</a></li>
+      </h:form>
+    </ul>
+
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper light-green accent-4">
-                <a class="brand-logo center">Rhecruta</a>
+                <a  data-target="slide-out" class="sidenav-trigger show-on-large brand-logo"><i class="material-icons">menu</i>Rhecruta</a>
             </div>
         </nav>
     </div>
-
+    <!-- Seção de busca de vagas -->
     <div class="container" style="margin-top: 3%">
 
         <div class="col s12 m6 l6 offset-m2 offset-l2">
@@ -56,6 +68,7 @@
                     </div>
                 </div>
             </h:form>
+            <!--Listando Vagas-->
             <div jsf:rendered="${not empty vagasController.vagas}">
                 <h:form>
                     <h:dataTable value="${vagasController.vagas}" var="vaga">
@@ -90,16 +103,6 @@
                 </h:form>
             </div>
         </div>
-
-        <div class="col s12 m2 l2 offset-m2 offset-l2">
-            <h:form>
-                <a jsf:action="${redirectController.buscarVagas()}">Buscar Vagas</a>
-                <a jsf:action="${redirectController.minhasEntrevistas()}">Minhas Entrevistas</a>
-                <a jsf:action="${redirectController.minhasCandidaturas()}">Minhas Candidaturas</a>
-                <a jsf:action="${redirectController.meusInteresses()}">Meus Interesses</a>
-            </h:form>
-        </div>
-
     </div>
 
     <script
@@ -116,6 +119,10 @@
         $(document).ready(function(){
             $('select').formSelect();
         });
+        $(document).ready(function(){
+          $('.sidenav').sidenav();
+        });
+
 
         //  Verifica Códigos de Erro
         var erro = "${param.error}";
