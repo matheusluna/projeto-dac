@@ -221,6 +221,43 @@ angular.module('app.controllers', [])
 		});
 	}
 
+	$scope.cancelar = function(){
+		for(item of $scope.interesses){
+			console.log(item);
+			for (item of $scope.interesses){
+				$http.get("http://localhost:8080/rhecruta-java/rest/vaga/" + item).then(function (resp) {
+					if(item == resp.data.id){
+						//console.log($scope.interesseVaga);
+						$scope.delete(item);
+					}
+				});
+			}
+		}
+
+	}
+
+	$scope.delete = function(id){
+		//motando objeto
+		var req2 = {
+			method: 'DELETE',
+			url: "http://localhost:8080/rhecruta-java/rest/candidato/interesse/" + id,
+			headers: {
+				'Authorization': 'Bearer ' + $scope.candidato.senha
+			}
+
+		}
+
+		$http(req2).then(function (resp) {
+			//atualizando pagina
+			$window.location.reload(true);
+		}, function (err) {
+			//alerta de erro
+			var alertPopup = $ionicPopup.alert({
+				title: 'Erro!',
+				template: 'Não foi possível cancelar!'
+			});
+		});
+	}
 
 })
    

@@ -6,9 +6,14 @@
         <ion-item  ng-repeat="item in interesseVaga"  href="#/side-menu21/detalhesVaga/{{item.id}}">
           <h4>{{item.title}}</h4>
           <p>{{item.company_name}}</p>
+
+          <ion-option-button class="button-assertive" ng-click="cancelar()">
+            Cancelar
+          </ion-option-button>
           <ion-option-button class="button-balanced" ng-click="candidatura({{item.id}})">
             Candidatar
           </ion-option-button>
+          
         </ion-item>
 
     </ion-list>
