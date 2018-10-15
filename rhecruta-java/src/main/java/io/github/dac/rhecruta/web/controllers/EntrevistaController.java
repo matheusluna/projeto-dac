@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -24,9 +25,36 @@ public class EntrevistaController implements Serializable {
 
     private Entrevista entrevista;
 
+    private List<Entrevista> entrevistas;
+
+    private String busca;
+    private String tipoBusca;
+    private Boolean aux;
+
     @PostConstruct
     public void init() {
         this.entrevista = new Entrevista();
+        this.entrevistas = listarTodas();
+        this.aux = false;
+    }
+
+    public void buscar() {
+
+        aux = true;
+
+        switch (tipoBusca.toLowerCase()) {
+            case "candidato":
+                this.entrevistas = this.entrevistaService.entrevistasPorCandidato(busca);
+                break;
+            case "empresa":
+                this.entrevistas = this.entrevistaService.entrevistasPorNomeEmpresa(busca);
+                break;
+        }
+
+    }
+
+    public void limpar() {
+        this.entrevistas = listarTodas();
     }
 
     public String iniciarEntrevista(Integer idCandidatura) {
@@ -80,5 +108,29 @@ public class EntrevistaController implements Serializable {
 
     public void setEntrevista(Entrevista entrevista) {
         this.entrevista = entrevista;
+    }
+
+    public List<Entrevista> getEntrevistas() {
+        return entrevistas;
+    }
+
+    public void setEntrevistas(List<Entrevista> entrevistas) {
+        this.entrevistas = entrevistas;
+    }
+
+    public String getBusca() {
+        return busca;
+    }
+
+    public void setBusca(String busca) {
+        this.busca = busca;
+    }
+
+    public String getTipoBusca() {
+        return tipoBusca;
+    }
+
+    public void setTipoBusca(String tipoBusca) {
+        this.tipoBusca = tipoBusca;
     }
 }

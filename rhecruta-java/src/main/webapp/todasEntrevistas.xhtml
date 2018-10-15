@@ -34,53 +34,88 @@
 
       <div class="container">
           <!--<div jsf:rendered="${not empty entrevistaController.listar(candidatoController.candidato.email)}">-->
-          <div>
-            <h:form>
-                <h:dataTable value="${entrevistaController.listarTodas()}" var="entrevista">
-                    <h:column>
-                        <f:facet name="header">Dia</f:facet>
-                        ${entrevista.diaDaEntrevista}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Hora</f:facet>
-                        ${entrevista.horarioDaEntrevista}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Local</f:facet>
-                        Rua: ${entrevista.local.rua}
-                        <br/>
-                        Bairro: ${entrevista.local.bairro}
-                        <br/>
-                        Número: ${entrevista.local.numero}
-                        <br/>
-                        Cidade: ${entrevista.local.cidade}
-                        <br/>
-                        Estado: ${entrevista.local.estado}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Candidato</f:facet>
-                        Nome: ${entrevista.candidatura.candidato.nome}
-                        <br/>
-                        Email: ${entrevista.candidatura.candidato.email}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Vaga</f:facet>
-                        ${vagasController.tituloDaVagaComId(entrevista.candidatura.vagaId)}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Ações:</f:facet>
-                        <button class="btn waves-effect waves-light btn accent-4"
-                                jsf:action="${entrevistaController.editar(entrevista)}">
-                            <i class="material-icons left">send</i>Editar
-                        </button>
-                        <button class="btn waves-effect waves-light btn red accent-4"
-                                jsf:action="${entrevistaController.removerEntrevista(entrevista)}">
-                            <i class="material-icons left">delete</i>Cancelar
-                        </button>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </div>
+
+          <div class="col s12 m6 l6 offset-m2 offset-l2">
+              <div>
+                  <h:form>
+                      <div class="card">
+                          <div class="card-content">
+                              <div class="input-field">
+                                  <input name="query" type="text" required="true"
+                                         jsf:id="query" jsf:value="${entrevistaController.busca}" />
+                                  <label for="query">Digite para Buscar</label>
+                              </div>
+                              <div class="input-field s12">
+                                  <h:selectOneMenu id="tipoBusca" value="${entrevistaController.tipoBusca}">
+                                      <f:selectItem itemValue="Candidato" itemLabel="Email de Candidato" />
+                                      <f:selectItem itemValue="Empresa" itemLabel="Empresa da Vaga" />
+                                  </h:selectOneMenu>
+                                  <label for="tipoBusca">Buscar por:</label>
+                              </div>
+                          </div>
+                          <div class="card-action">
+                              <div class="center-align">
+                                  <button class="btn waves-effect waves-light btn light-green accent-4"
+                                          jsf:action="${entrevistaController.buscar()}">
+                                      <i class="material-icons left">search</i>Buscar
+                                  </button>
+                                  <button class="btn waves-effect waves-light btn light-green accent-4"
+                                          jsf:action="${entrevistaController.limpar()}">
+                                      <i class="material-icons left">delete</i>Limpar
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </h:form>
+              </div>
+              <div>
+                <h:form>
+                    <h:dataTable value="${entrevistaController.entrevistas}" var="entrevista">
+                        <h:column>
+                            <f:facet name="header">Dia</f:facet>
+                            ${entrevista.diaDaEntrevista}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Hora</f:facet>
+                            ${entrevista.horarioDaEntrevista}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Local</f:facet>
+                            Rua: ${entrevista.local.rua}
+                            <br/>
+                            Bairro: ${entrevista.local.bairro}
+                            <br/>
+                            Número: ${entrevista.local.numero}
+                            <br/>
+                            Cidade: ${entrevista.local.cidade}
+                            <br/>
+                            Estado: ${entrevista.local.estado}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Candidato</f:facet>
+                            Nome: ${entrevista.candidatura.candidato.nome}
+                            <br/>
+                            Email: ${entrevista.candidatura.candidato.email}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Vaga</f:facet>
+                            ${vagasController.tituloDaVagaComId(entrevista.candidatura.vagaId)}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Ações:</f:facet>
+                            <button class="btn waves-effect waves-light btn accent-4"
+                                    jsf:action="${entrevistaController.editar(entrevista)}">
+                                <i class="material-icons left">send</i>Editar
+                            </button>
+                            <button class="btn waves-effect waves-light btn red accent-4"
+                                    jsf:action="${entrevistaController.removerEntrevista(entrevista)}">
+                                <i class="material-icons left">delete</i>Cancelar
+                            </button>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+              </div>
+          </div>
       </div>
       <script
               src="https://code.jquery.com/jquery-3.3.1.min.js"
