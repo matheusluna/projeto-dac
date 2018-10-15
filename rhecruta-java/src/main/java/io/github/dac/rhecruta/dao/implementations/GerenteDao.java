@@ -65,7 +65,7 @@ public class GerenteDao implements GerenteDaoInterface {
     public Boolean login(String email, String password) throws NoResultException {
         try {
             return entityManager
-                    .createQuery("FROM Gerente a WHERE a.email = :email AND a.senha = :senha")
+                    .createQuery("FROM Gerente g where g.email = :email AND g.senha = :senha")
                     .setParameter("email", email)
                     .setParameter("senha", password)
                     .getSingleResult() != null;
