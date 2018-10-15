@@ -1,5 +1,6 @@
 package io.github.dac.rhecruta.web.controllers;
 
+import io.github.dac.rhecruta.enums.ClassificacaoEnum;
 import io.github.dac.rhecruta.models.Candidatura;
 import io.github.dac.rhecruta.models.Entrevista;
 import io.github.dac.rhecruta.service.CandidaturaService;
@@ -10,7 +11,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -29,18 +29,16 @@ public class EntrevistaController implements Serializable {
 
     private String busca;
     private String tipoBusca;
-    private Boolean aux;
+    private String avaliacao;
+    private Integer notaCandidato;
 
     @PostConstruct
     public void init() {
         this.entrevista = new Entrevista();
         this.entrevistas = listarTodas();
-        this.aux = false;
     }
 
     public void buscar() {
-
-        aux = true;
 
         switch (tipoBusca.toLowerCase()) {
             case "candidato":
@@ -51,6 +49,31 @@ public class EntrevistaController implements Serializable {
                 break;
         }
 
+    }
+
+    public String finalizarAvaliacao() {
+
+        this.entrevista.setNotaDoCandidato(
+                Float.parseFloat(notaCandidato.toString())
+        );
+
+        switch (avaliacao.toLowerCase()) {
+            case "aprovado":
+                this.entrevista.setClassificacaoDoCandito(ClassificacaoEnum.APROVADO);
+                this.entrevistaService.atualizar(entrevista);
+                break;
+            case "Reprovado":
+                this.entrevista.setClassificacaoDoCandito(ClassificacaoEnum.REPROVADO);
+                this.entrevistaService.atualizar(entrevista);
+                break;
+        }
+
+        return "todasEntrevistas.xhtml";
+    }
+
+    public String avaliar(Entrevista entrevista) {
+        this.entrevista = entrevista;
+        return "avaliarEntrevista.xhtml";
     }
 
     public void limpar() {
@@ -132,5 +155,21 @@ public class EntrevistaController implements Serializable {
 
     public void setTipoBusca(String tipoBusca) {
         this.tipoBusca = tipoBusca;
+    }
+
+    public String getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(String avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
+    public Integer getNotaCandidato() {
+        return notaCandidato;
+    }
+
+    public void setNotaCandidato(Integer notaCandidato) {
+        this.notaCandidato = notaCandidato;
     }
 }
