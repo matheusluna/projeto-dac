@@ -36,6 +36,8 @@ public class Entrevista {
 
     {
         this.local = new Localidade();
+        this.notaDoCandidato = Float.valueOf("-1.0");
+        this.classificacaoDoCandito = ClassificacaoEnum.NAO_DEFINIDO;
     }
 
     public Entrevista() {

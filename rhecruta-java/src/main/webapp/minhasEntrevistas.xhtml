@@ -60,6 +60,12 @@
                         Estado: ${entrevista.local.estado}
                     </h:column>
                     <h:column>
+                        <f:facet name="header">Classificacao</f:facet>
+                        Classificacao: ${entrevista.classificacaoDoCandito}
+                        <br/>
+                        Nota: ${entrevista.notaDoCandidato}
+                    </h:column>
+                    <h:column>
                         <f:facet name="header">Ações:</f:facet>
                         <button class="btn waves-effect waves-light btn red accent-4"
                                 jsf:action="${entrevistaController.cancelarEntrevista(entrevista)}">
