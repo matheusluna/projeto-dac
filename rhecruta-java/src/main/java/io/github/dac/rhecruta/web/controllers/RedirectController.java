@@ -31,6 +31,14 @@ public class RedirectController {
         return "homeCandidato.xhtml";
     }
 
+    public String homeAvaliador() {
+        return "homeAvaliador.xhtml";
+    }
+
+    public String homeGerente() {
+        return "homeGerente.xhtml";
+    }
+
     public String todasEntrevistas() {
         return "todasEntrevistas.xhtml";
     }
@@ -39,13 +47,12 @@ public class RedirectController {
         return "todasCandidaturas.xhtml";
     }
 
-    public String homeAvaliador() {
-        return "homeAvaliador.xhtml";
-    }
-
     public String todasCandidaturasGerente() {
         return "todasCandidaturasGerente.xhtml";
     }
 
+    public String buscarCurriculos() {
+        return "todosCurriculos.xhtml";
+    }
 
 }
