@@ -45,6 +45,12 @@ public class EntrevistaController implements Serializable {
 
         return "minhasEntrevistas.xhtml";
     }
+
+    public String cancelarEntrevista(Entrevista entrevista) {
+        this.entrevistaService.remover(entrevista);
+
+        return "minhasEntrevistas.xhtml";
+    }
     
     public List<Entrevista> listar(String email){
         return entrevistaService.entrevistasPorCandidato(email);

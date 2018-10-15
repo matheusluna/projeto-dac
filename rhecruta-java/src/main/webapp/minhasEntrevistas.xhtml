@@ -44,10 +44,14 @@
                         ${entrevista.diaDaEntrevista}
                     </h:column>
                     <h:column>
+                        <f:facet name="header">Hora</f:facet>
+                        ${entrevista.horarioDaEntrevista}
+                    </h:column>
+                    <h:column>
                         <f:facet name="header">Ações:</f:facet>
-                        <button class="btn waves-effect waves-light btn light-green accent-4"
-                                jsf:action="${candidaturaController.iniciarCandidatura(vaga)}">
-                            <i class="material-icons left">send</i>Candidatar-se
+                        <button class="btn waves-effect waves-light btn red accent-4"
+                                jsf:action="${entrevistaController.cancelarEntrevista(entrevista)}">
+                            <i class="material-icons left">delete</i>Cancelar
                         </button>
                     </h:column>
                 </h:dataTable>
