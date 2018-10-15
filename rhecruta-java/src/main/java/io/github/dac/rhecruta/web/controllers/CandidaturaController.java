@@ -1,6 +1,7 @@
 package io.github.dac.rhecruta.web.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.dac.rhecruta.enums.ParecerEnum;
 import io.github.dac.rhecruta.models.Candidato;
 import io.github.dac.rhecruta.models.Candidatura;
 import io.github.dac.rhecruta.models.Vaga;
@@ -35,6 +36,8 @@ public class CandidaturaController implements Serializable {
     private Candidatura candidatura;
 
     private Vaga vaga;
+
+    private String parecer;
 
     @PostConstruct
     public void init() {
@@ -73,6 +76,29 @@ public class CandidaturaController implements Serializable {
     public String finalizarAdicionarCurriculo() {
         this.candidaturaService.atualizar(this.candidatura);
         return verMais(candidatura.getId());
+    }
+
+    public String iniciarAvaliacao(Integer idCandidatura) {
+        this.candidatura = this.candidaturaService.candidaturaComId(idCandidatura);
+        this.vaga = convertToVaga(this.vagaService.recuperarVagaComId(candidatura.getVagaId()));
+        return "avaliarCandidatura.xhtml";
+    }
+
+    public String finalizarAvaliacao() {
+
+        switch (parecer.toLowerCase()) {
+            case "classificado":
+                this.candidatura.setParecer(ParecerEnum.CLASSIFICADO);
+                this.candidaturaService.atualizar(this.candidatura);
+                break;
+
+            case "reprovado":
+                this.candidatura.setParecer(ParecerEnum.REPROVADO);
+                this.candidaturaService.atualizar(this.candidatura);
+                break;
+        }
+
+        return "todasCandidaturasGerente.xhtml";
     }
 
     public List<Candidatura> listarCandidaturas() {
@@ -118,5 +144,13 @@ public class CandidaturaController implements Serializable {
 
     public void setCandidatura(Candidatura candidatura) {
         this.candidatura = candidatura;
+    }
+
+    public String getParecer() {
+        return parecer;
+    }
+
+    public void setParecer(String parecer) {
+        this.parecer = parecer;
     }
 }

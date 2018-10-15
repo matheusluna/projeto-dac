@@ -43,4 +43,9 @@ public class RedirectController {
         return "homeAvaliador.xhtml";
     }
 
+    public String todasCandidaturasGerente() {
+        return "todasCandidaturasGerente.xhtml";
+    }
+
+
 }
