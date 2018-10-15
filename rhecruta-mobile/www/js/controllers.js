@@ -261,7 +261,7 @@ angular.module('app.controllers', [])
 
 })
    
-.controller('candidaturasCtrl', function ($scope, $stateParams, $http, $ionicPopup, $state) {
+.controller('candidaturasCtrl', function ($scope, $stateParams, $http, $ionicPopup, $state, $window) {
 	//dados dos alunos
 	$scope.candidato = [];
 	//pegando os dados no localStorage
@@ -301,6 +301,42 @@ angular.module('app.controllers', [])
 			template: 'Não foi possível carregar a vaga!'
 		});
 	});
+
+	$scope.cancelar = function(){
+		for(item of $scope.candidatura){
+			//console.log(item.vagaId);
+			$http.get("http://localhost:8080/rhecruta-java/rest/vaga/" + item.vagaId).then(function (resp) {
+				//console.log();
+				if(item.vagaId == resp.data.id){
+					$scope.delete(item.id);
+				}
+			});
+		}
+
+	}
+
+	$scope.delete = function(id){
+		//motando objeto
+		var req2 = {
+			method: 'DELETE',
+			url: "http://localhost:8080/rhecruta-java/rest/candidatura/" + id,
+			headers: {
+				'Authorization': 'Bearer ' + $scope.candidato.senha
+			}
+
+		}
+
+		$http(req2).then(function (resp) {
+			//atualizando pagina
+			$window.location.reload(true);
+		}, function (err) {
+			//alerta de erro
+			var alertPopup = $ionicPopup.alert({
+				title: 'Erro!',
+				template: 'Não foi possível cancelar!'
+			});
+		});
+	}
 })
    
 .controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller

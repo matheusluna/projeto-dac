@@ -5,8 +5,11 @@
         <ion-item  ng-repeat="item in candidaturaVagas" href="#/side-menu21/agendar/{{item.id}}">
           <h4>{{item.title}}</h4>
           <p>{{item.company_name}}</p>
+           	<ion-option-button class="button-assertive" ng-click="cancelar()">
+           	 Cancelar
+        	</ion-option-button>
         </ion-item>
-
+       
     </ion-list>
   </ion-content>
 </ion-view>
