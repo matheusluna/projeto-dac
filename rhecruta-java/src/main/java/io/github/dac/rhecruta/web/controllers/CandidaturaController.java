@@ -66,6 +66,10 @@ public class CandidaturaController implements Serializable {
         return this.candidaturaService.candidaturasPorCandidato(candidato);
     }
 
+    public List<Candidatura> listarTodasCandidaturas() {
+        return this.candidaturaService.listarTodas();
+    }
+
     public String excluir(Integer idCandidatura) {
         Candidatura candidatura = this.candidaturaService.candidaturaComId(idCandidatura);
         this.candidaturaService.remover(candidatura);
