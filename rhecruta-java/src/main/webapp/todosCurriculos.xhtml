@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Todas Entrevistas</title>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.5/dist/sweetalert2.all.min.js" />
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+    </head>
+    <body>
+      <!--SideNav-->
+      <ul id="slide-out" class="sidenav">
+        <h:form>
+          <li><a jsf:action="${redirectController.homeGerente()}">Home</a></li>
+            <li><a jsf:action="${redirectController.todasEntrevistas()}">Todas Entrevistas</a></li>
+            <li><a jsf:action="${redirectController.todasCandidaturas()}">Todas Candidaturas</a></li>
+        </h:form>
+      </ul>
+
+      <div class="navbar-fixed">
+          <nav>
+              <div class="nav-wrapper light-green accent-4">
+                  <a  data-target="slide-out" class="sidenav-trigger show-on-large brand-logo"><i class="material-icons">menu</i>Rhecruta</a>
+              </div>
+          </nav>
+      </div>
+
+      <div class="container">
+          <!--<div jsf:rendered="${not empty entrevistaController.listar(candidatoController.candidato.email)}">-->
+
+          <div class="col s12 m6 l6 offset-m2 offset-l2">
+              <div>
+                  <h:form>
+                      <div class="card">
+                          <div class="card-content">
+                              <div class="input-field">
+                                  <input name="query" type="text" required="true"
+                                         jsf:id="query" jsf:value="${curriculoController.busca}" />
+                                  <label for="query">Digite para Buscar</label>
+                              </div>
+                              <div class="input-field s12">
+                                  <h:selectOneMenu id="tipoBusca" value="${curriculoController.tipoBusca}">
+                                      <f:selectItem itemValue="Candidato" itemLabel="Email de Candidato" />
+                                      <f:selectItem itemValue="Empresa" itemLabel="Empresa da Vaga" />
+                                  </h:selectOneMenu>
+                                  <label for="tipoBusca">Buscar por:</label>
+                              </div>
+                          </div>
+                          <div class="card-action">
+                              <div class="center-align">
+                                  <button class="btn waves-effect waves-light btn light-green accent-4"
+                                          jsf:action="${curriculoController.buscar()}">
+                                      <i class="material-icons left">search</i>Buscar
+                                  </button>
+                                  <button class="btn waves-effect waves-light btn light-green accent-4"
+                                          jsf:action="${curriculoController.limpar()}">
+                                      <i class="material-icons left">delete</i>Limpar
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </h:form>
+              </div>
+              <div>
+                <h:form>
+                    <h:dataTable value="${curriculoController.entrevistas}" var="entrevista">
+                        <h:column>
+                            <f:facet name="header">Candidato</f:facet>
+                            Nome: ${entrevista.candidatura.candidato.nome}
+                            <br/>
+                            Email: ${entrevista.candidatura.candidato.email}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Vaga</f:facet>
+                            ${vagasController.tituloDaVagaComId(entrevista.candidatura.vagaId)}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Curriculo</f:facet>
+                            ${entrevista.candidatura.curriculoCandidato}
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+              </div>
+          </div>
+      </div>
+      <script
+              src="https://code.jquery.com/jquery-3.3.1.min.js"
+              integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+              crossorigin="anonymous" />
+
+      <script
+              src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" />
+
+      <script type="text/javascript">
+
+          //  Inicializa os Elementos Select do Materialize com JQuery
+          $(document).ready(function(){
+              $('select').formSelect();
+          });
+          $(document).ready(function(){
+            $('.sidenav').sidenav();
+          });
+
+
+          //  Verifica Códigos de Erro
+          var erro = "${param.error}";
+          if(erro == "1") {
+              swal("Oops...", "Não foi possivel cadastrar, verifique os dados e tente novamente", "error");
+          } else if(erro == "2") {
+              swal("Erro", "Por favor, selecione um tipo de usuário válido", "error");
+          }
+      </script>
+    </body>
+</html>

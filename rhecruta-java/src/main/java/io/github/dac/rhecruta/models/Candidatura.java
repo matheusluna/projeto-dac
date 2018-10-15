@@ -20,7 +20,7 @@ public class Candidatura {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    private File curriculoCandidato;
+    private String curriculoCandidato;
 
     @Enumerated(EnumType.STRING)
     private ParecerEnum parecer;
@@ -41,7 +41,7 @@ public class Candidatura {
 
     }
 
-    public Candidatura(Integer vagaId, File curriculoCandidato, ParecerEnum parecer,
+    public Candidatura(Integer vagaId, String curriculoCandidato, ParecerEnum parecer,
                        LocalDate dataCandidatura, Candidato candidato) {
         this.vagaId = vagaId;
         this.curriculoCandidato = curriculoCandidato;
@@ -74,11 +74,11 @@ public class Candidatura {
         this.vagaId = vagaId;
     }
 
-    public File getCurriculoCandidato() {
+    public String getCurriculoCandidato() {
         return curriculoCandidato;
     }
 
-    public void setCurriculoCandidato(File curriculoCandidato) {
+    public void setCurriculoCandidato(String curriculoCandidato) {
         this.curriculoCandidato = curriculoCandidato;
     }
 
@@ -112,42 +112,43 @@ public class Candidatura {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Candidatura that = (Candidatura) o;
 
-        if (!id.equals(that.id)) return false;
-        if (!vagaId.equals(that.vagaId)) return false;
-        if (!curriculoCandidato.equals(that.curriculoCandidato)) return false;
-        if (parecer != null ? !parecer.equals(that.parecer) : that.parecer != null) return false;
-        if (!dataCandidatura.equals(that.dataCandidatura)) return false;
-        return candidato.equals(that.candidato);
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (vagaId != null ? !vagaId.equals(that.vagaId) : that.vagaId != null) return false;
+        if (curriculoCandidato != null ? !curriculoCandidato.equals(that.curriculoCandidato) : that.curriculoCandidato != null)
+            return false;
+        if (parecer != that.parecer) return false;
+        if (dataCandidatura != null ? !dataCandidatura.equals(that.dataCandidatura) : that.dataCandidatura != null)
+            return false;
+        return candidato != null ? candidato.equals(that.candidato) : that.candidato == null;
     }
 
     @Override
     public int hashCode() {
-
-        int result = id.hashCode();
-        result = 31 * result + vagaId.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (vagaId != null ? vagaId.hashCode() : 0);
+        result = 31 * result + (curriculoCandidato != null ? curriculoCandidato.hashCode() : 0);
         result = 31 * result + (parecer != null ? parecer.hashCode() : 0);
-        result = 31 * result + dataCandidatura.hashCode();
-        result = 31 * result + candidato.hashCode();
+        result = 31 * result + (dataCandidatura != null ? dataCandidatura.hashCode() : 0);
+        result = 31 * result + (candidato != null ? candidato.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-
         final StringBuilder sb = new StringBuilder("Candidatura{");
         sb.append("id=").append(id);
         sb.append(", vagaId=").append(vagaId);
-        sb.append(", curriculoCandidato=").append(curriculoCandidato);
+        sb.append(", curriculoCandidato='").append(curriculoCandidato).append('\'');
         sb.append(", parecer=").append(parecer);
         sb.append(", dataCandidatura=").append(dataCandidatura);
         sb.append(", candidato=").append(candidato);
         sb.append('}');
         return sb.toString();
     }
+
 }
