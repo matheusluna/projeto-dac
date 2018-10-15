@@ -1,11 +1,6 @@
 package io.github.dac.rhecruta.web.controllers;
 
-import io.github.dac.rhecruta.service.AvaliadorService;
-import io.github.dac.rhecruta.service.CandidatoService;
-import io.github.dac.rhecruta.service.GerenteService;
-
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -39,7 +34,8 @@ public class LoginController {
 
         switch (tipoUsuario.toLowerCase()) {
             case "gerente":
-                if (this.gerenteController.login(email, senha)) return "homeGerente.xhtml";
+                if (this.gerenteController.login(email, senha))
+                    return "homeGerente.xhtml";
                 else return "index.xhtml?error=1";
             case "avaliador":
                 if (this.avaliadorController.login(email, senha))
