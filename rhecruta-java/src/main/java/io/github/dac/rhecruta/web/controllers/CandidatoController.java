@@ -1,5 +1,6 @@
 package io.github.dac.rhecruta.web.controllers;
 
+import io.github.dac.rhecruta.javamail.NewsweekController;
 import io.github.dac.rhecruta.models.Candidato;
 import io.github.dac.rhecruta.service.CandidatoService;
 
@@ -14,6 +15,9 @@ public class CandidatoController implements Serializable {
 
     @EJB
     private CandidatoService candidatoService;
+
+    @EJB
+    private NewsweekController newsweekController;
 
     private Candidato candidato;
 
@@ -47,6 +51,10 @@ public class CandidatoController implements Serializable {
             return false;
         }
 
+    }
+
+    public void registarNaNewsweek() {
+        this.newsweekController.cadastrarEmail(this.candidato.getEmail());
     }
 
     public Candidato getCandidato() {

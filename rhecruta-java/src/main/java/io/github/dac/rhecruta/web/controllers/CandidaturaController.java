@@ -2,6 +2,7 @@ package io.github.dac.rhecruta.web.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.dac.rhecruta.enums.ParecerEnum;
+import io.github.dac.rhecruta.javamail.jms.senders.NotificacaoSender;
 import io.github.dac.rhecruta.models.Candidato;
 import io.github.dac.rhecruta.models.Candidatura;
 import io.github.dac.rhecruta.models.Vaga;
@@ -32,6 +33,9 @@ public class CandidaturaController implements Serializable {
 
     @Inject
     private CandidatoController candidatoController;
+
+    @EJB
+    private NotificacaoSender notificacaoSender;
 
     private Candidatura candidatura;
 
@@ -90,11 +94,13 @@ public class CandidaturaController implements Serializable {
             case "classificado":
                 this.candidatura.setParecer(ParecerEnum.CLASSIFICADO);
                 this.candidaturaService.atualizar(this.candidatura);
+                this.notificacaoSender.notificarFinalizacaoRecrutamento(this.candidatura);
                 break;
 
             case "reprovado":
                 this.candidatura.setParecer(ParecerEnum.REPROVADO);
                 this.candidaturaService.atualizar(this.candidatura);
+                this.notificacaoSender.notificarFinalizacaoRecrutamento(this.candidatura);
                 break;
         }
 
