@@ -48,6 +48,18 @@
                         ${entrevista.horarioDaEntrevista}
                     </h:column>
                     <h:column>
+                        <f:facet name="header">Local</f:facet>
+                        Rua: ${entrevista.local.rua}
+                        <br/>
+                        Bairro: ${entrevista.local.bairro}
+                        <br/>
+                        Número: ${entrevista.local.numero}
+                        <br/>
+                        Cidade: ${entrevista.local.cidade}
+                        <br/>
+                        Estado: ${entrevista.local.estado}
+                    </h:column>
+                    <h:column>
                         <f:facet name="header">Ações:</f:facet>
                         <button class="btn waves-effect waves-light btn red accent-4"
                                 jsf:action="${entrevistaController.cancelarEntrevista(entrevista)}">

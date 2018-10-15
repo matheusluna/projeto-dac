@@ -19,6 +19,9 @@ public class Entrevista {
 
     private Float notaDoCandidato;
 
+    @Embedded
+    private Localidade local;
+
     @Convert(converter = DateConverter.class)
     private LocalDate diaDaEntrevista;
 
@@ -31,15 +34,18 @@ public class Entrevista {
     @OneToOne(fetch = FetchType.LAZY)
     private Candidatura candidatura;
 
+    {
+        this.local = new Localidade();
+    }
+
     public Entrevista() {
 
     }
 
-    public Entrevista(Integer id, Float notaDoCandidato, LocalDate diaDaEntrevista,
-                      LocalTime horarioDaEntrevista, ClassificacaoEnum classificacaoDoCandito,
-                      Candidatura candidatura) {
-        this.id = id;
+    public Entrevista(Float notaDoCandidato, Localidade local, LocalDate diaDaEntrevista, LocalTime horarioDaEntrevista,
+                      ClassificacaoEnum classificacaoDoCandito, Candidatura candidatura) {
         this.notaDoCandidato = notaDoCandidato;
+        this.local = local;
         this.diaDaEntrevista = diaDaEntrevista;
         this.horarioDaEntrevista = horarioDaEntrevista;
         this.classificacaoDoCandito = classificacaoDoCandito;
@@ -60,6 +66,14 @@ public class Entrevista {
 
     public void setNotaDoCandidato(Float notaDoCandidato) {
         this.notaDoCandidato = notaDoCandidato;
+    }
+
+    public Localidade getLocal() {
+        return local;
+    }
+
+    public void setLocal(Localidade local) {
+        this.local = local;
     }
 
     public LocalDate getDiaDaEntrevista() {
@@ -96,42 +110,41 @@ public class Entrevista {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Entrevista that = (Entrevista) o;
 
-        if (!id.equals(that.id)) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (notaDoCandidato != null ? !notaDoCandidato.equals(that.notaDoCandidato) : that.notaDoCandidato != null)
             return false;
+        if (local != null ? !local.equals(that.local) : that.local != null) return false;
         if (diaDaEntrevista != null ? !diaDaEntrevista.equals(that.diaDaEntrevista) : that.diaDaEntrevista != null)
             return false;
         if (horarioDaEntrevista != null ? !horarioDaEntrevista.equals(that.horarioDaEntrevista) : that.horarioDaEntrevista != null)
             return false;
-        if (classificacaoDoCandito != null ? !classificacaoDoCandito.equals(that.classificacaoDoCandito) : that.classificacaoDoCandito != null)
-            return false;
-        return candidatura.equals(that.candidatura);
+        if (classificacaoDoCandito != that.classificacaoDoCandito) return false;
+        return candidatura != null ? candidatura.equals(that.candidatura) : that.candidatura == null;
     }
 
     @Override
     public int hashCode() {
-
-        int result = id.hashCode();
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (notaDoCandidato != null ? notaDoCandidato.hashCode() : 0);
+        result = 31 * result + (local != null ? local.hashCode() : 0);
         result = 31 * result + (diaDaEntrevista != null ? diaDaEntrevista.hashCode() : 0);
         result = 31 * result + (horarioDaEntrevista != null ? horarioDaEntrevista.hashCode() : 0);
         result = 31 * result + (classificacaoDoCandito != null ? classificacaoDoCandito.hashCode() : 0);
-        result = 31 * result + candidatura.hashCode();
+        result = 31 * result + (candidatura != null ? candidatura.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-
         final StringBuilder sb = new StringBuilder("Entrevista{");
         sb.append("id=").append(id);
         sb.append(", notaDoCandidato=").append(notaDoCandidato);
+        sb.append(", local=").append(local);
         sb.append(", diaDaEntrevista=").append(diaDaEntrevista);
         sb.append(", horarioDaEntrevista=").append(horarioDaEntrevista);
         sb.append(", classificacaoDoCandito=").append(classificacaoDoCandito);

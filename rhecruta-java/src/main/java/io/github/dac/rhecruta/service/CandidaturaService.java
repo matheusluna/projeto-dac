@@ -43,6 +43,17 @@ public class CandidaturaService {
         candidaturaDao.atualizar(candidatura);
     }
 
+    public List<Candidatura> listarTodas() {
+        try {
+            return Collections.unmodifiableList(
+                    candidaturaDao.listarTodas()
+            );
+
+        } catch (NoResultException ex) {
+            return Collections.emptyList();
+        }
+    }
+
     public Candidatura candidaturaComId(Integer id) {
         try {
             return this.candidaturaDao.candidaturaComId(id);

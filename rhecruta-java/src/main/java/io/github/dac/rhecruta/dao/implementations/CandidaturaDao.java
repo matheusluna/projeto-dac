@@ -29,14 +29,21 @@ public class CandidaturaDao implements CandidaturaDaoInterface {
     }
 
     @Override
+    public void atualizar(Candidatura candidatura) {
+        entityManager.merge(candidatura);
+    }
+
+    @Override
     public void remover(Candidatura candidatura) throws NoResultException {
         Candidatura candidaturaToRemove = entityManager.find(Candidatura.class, candidatura.getId());
         entityManager.remove(candidaturaToRemove);
     }
 
     @Override
-    public void atualizar(Candidatura candidatura) {
-        entityManager.merge(candidatura);
+    public List<Candidatura> listarTodas() throws NoResultException {
+        return entityManager
+                .createQuery("FROM Candidatura c")
+                .getResultList();
     }
 
     @Override

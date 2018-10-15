@@ -33,10 +33,16 @@
                 <div class="card">
                     <div class="card-content">
                         <h:form>
-                            <h:dataTable value="${candidaturaController.listarCandidaturas()}" var="candidatura">
+                            <h:dataTable value="${candidaturaController.listarTodasCandidaturas()}" var="candidatura">
                                 <h:column>
                                     <f:facet name="header">Nome da Vaga</f:facet>
                                     ${vagasController.tituloDaVagaComId(candidatura.vagaId)}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Candidato</f:facet>
+                                    Nome: ${candidatura.candidato.nome}
+                                    <br/>
+                                    Email: ${candidatura.candidato.email}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Data De Candidatura</f:facet>
