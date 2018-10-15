@@ -102,12 +102,24 @@
                             ${vagasController.tituloDaVagaComId(entrevista.candidatura.vagaId)}
                         </h:column>
                         <h:column>
+                            <f:facet name="header">Classificacao</f:facet>
+                            Classificacao: ${entrevista.classificacaoDoCandito}
+                            <br/>
+                            Nota: ${entrevista.notaDoCandidato}
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">Ações:</f:facet>
-                            <button class="btn waves-effect waves-light btn accent-4"
+                            <button class="btn waves-effect waves-light blue accent-4" style="width: 120%"
+                                    jsf:action="${entrevistaController.avaliar(entrevista)}">
+                                <i class="material-icons left">send</i>Avaliar
+                            </button>
+                            <br/>
+                            <button class="btn waves-effect waves-light btn accent-4" style="width: 120%"
                                     jsf:action="${entrevistaController.editar(entrevista)}">
                                 <i class="material-icons left">send</i>Editar
                             </button>
-                            <button class="btn waves-effect waves-light btn red accent-4"
+                            <br/>
+                            <button class="btn waves-effect waves-light btn red accent-4" style="width: 120%"
                                     jsf:action="${entrevistaController.removerEntrevista(entrevista)}">
                                 <i class="material-icons left">delete</i>Cancelar
                             </button>
