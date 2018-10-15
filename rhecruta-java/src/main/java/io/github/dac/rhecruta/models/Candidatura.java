@@ -131,7 +131,6 @@ public class Candidatura {
 
         int result = id.hashCode();
         result = 31 * result + vagaId.hashCode();
-        result = 31 * result + curriculoCandidato.hashCode();
         result = 31 * result + (parecer != null ? parecer.hashCode() : 0);
         result = 31 * result + dataCandidatura.hashCode();
         result = 31 * result + candidato.hashCode();

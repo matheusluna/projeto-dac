@@ -3,6 +3,7 @@ package io.github.dac.rhecruta.service;
 import io.github.dac.rhecruta.dao.interfaces.CandidaturaDaoInterface;
 import io.github.dac.rhecruta.models.Candidato;
 import io.github.dac.rhecruta.models.Candidatura;
+import io.github.dac.rhecruta.models.Entrevista;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -18,6 +19,9 @@ public class CandidaturaService {
     @EJB
     private CandidaturaDaoInterface candidaturaDao;
 
+    @EJB
+    private EntrevistaService entrevistaService;
+
     public Integer salvar(Candidatura candidatura) {
         candidaturaDao.salvar(candidatura);
         return candidatura.getId();
@@ -25,7 +29,11 @@ public class CandidaturaService {
 
     public void remover(Candidatura candidatura) {
         try {
-            candidaturaDao.remover(candidatura);
+            this.entrevistaService.remover(
+                    this.entrevistaService.entrevistaDaCandidatura(candidatura)
+            );
+
+            this.candidaturaDao.remover(candidatura);
         } catch (NoResultException ex) {
 //            ex.printStackTrace();
         }

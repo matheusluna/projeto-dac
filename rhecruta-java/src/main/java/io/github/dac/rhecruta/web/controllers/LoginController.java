@@ -16,14 +16,14 @@ import java.util.List;
 @RequestScoped
 public class LoginController {
 
-    @EJB
-    private AvaliadorService avaliadorService;
+    @Inject
+    private AvaliadorController avaliadorController;
 
     @Inject
     private CandidatoController candidatoController;
 
-    @EJB
-    private GerenteService gerenteService;
+    @Inject
+    private GerenteController gerenteController;
 
     private String email;
     private String senha;
@@ -39,10 +39,10 @@ public class LoginController {
 
         switch (tipoUsuario.toLowerCase()) {
             case "gerente":
-                if (this.gerenteService.login(email, senha)) return "homeGerente.xhtml";
+                if (this.gerenteController.login(email, senha)) return "homeGerente.xhtml";
                 else return "index.xhtml?error=1";
             case "avaliador":
-                if (this.avaliadorService.login(email, senha))
+                if (this.avaliadorController.login(email, senha))
                     return "homeAvaliador.xhtml";
                 else return "index.xhtml?error=1";
             case "candidato":
