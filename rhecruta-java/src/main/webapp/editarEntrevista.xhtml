@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Editar Entrevista</title>
+    <meta charset="UTF-8" />
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.5/dist/sweetalert2.all.min.js" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+</head>
+<body class="grey lighten-3">
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper light-green accent-4">
+            <a class="brand-logo center">Rhecruta</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container" style="margin-top: 3%">
+
+    <h:form>
+
+        <div class="row">
+            <div class="col s12 m6 l6 offset-m3 offset-l3">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="input-field">
+
+                            <input name="diaDaEntrevista" type="text" contenteditable="false"
+                                   jsf:id="diaDaEntrevista" jsf:converter="converter.Date"
+                                   jsf:value="${entrevistaController.entrevista.diaDaEntrevista}" />
+                            <label for="diaDaEntrevista">Dia da Entrevista</label>
+                        </div>
+                        <div class="input-field">
+                            <input name="horarioDaEntrevista" type="text" contenteditable="false"
+                                   jsf:id="horarioDaEntrevista" jsf:converter="converter.Time"
+                                   jsf:value="${entrevistaController.entrevista.horarioDaEntrevista}" />
+                            <label for="horarioDaEntrevista">Horário da Entrevista</label>
+                        </div>
+                        <div class="input-field">
+                            <input name="rua" type="text" contenteditable="false"
+                                   jsf:id="rua"
+                                   jsf:value="${entrevistaController.entrevista.local.rua}" />
+                            <label for="rua">Rua da Entrevista</label>
+                        </div>
+                        <div class="input-field">
+                            <input name="bairro" type="text" contenteditable="false"
+                                   jsf:id="bairro"
+                                   jsf:value="${entrevistaController.entrevista.local.bairro}" />
+                            <label for="bairro">Bairro da Entrevista</label>
+                        </div>
+                        <div class="input-field">
+                            <input name="cidade" type="text" contenteditable="false"
+                                   jsf:id="cidade"
+                                   jsf:value="${entrevistaController.entrevista.local.cidade}" />
+                            <label for="cidade">Cidade da Entrevista</label>
+                        </div>
+                        <div class="input-field">
+                            <input name="estado" type="text" contenteditable="false"
+                                   jsf:id="estado"
+                                   jsf:value="${entrevistaController.entrevista.local.estado}" />
+                            <label for="estado">Estado da Entrevista</label>
+                        </div>
+                        <div class="input-field">
+                            <input name="numero" type="number" max="9999" min="1" contenteditable="false"
+                                   jsf:id="numero"
+                                   jsf:value="${entrevistaController.entrevista.local.numero}" />
+                            <label for="numero">Numero do Local da Entrevista</label>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <div class="center-align">
+                            <button class="btn waves-effect waves-light btn light-green accent-4"
+                                    jsf:action="${entrevistaController.atualizarEntrevista()}">
+                                <i class="material-icons left">send</i>Atualizar Entrevista
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </h:form>
+
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous" />
+
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" />
+
+</body>
+</html>
