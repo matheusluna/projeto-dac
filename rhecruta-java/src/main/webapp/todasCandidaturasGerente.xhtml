@@ -18,10 +18,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
 </head>
 <body class="grey lighten-3">
+
+    <!--SideNav-->
+    <ul id="slide-out" class="sidenav">
+        <h:form>
+            <li><a jsf:action="${redirectController.homeGerente()}">Home</a></li>
+            <li><a jsf:action="${redirectController.todasEntrevistas()}">Todas Entrevistas</a></li>
+            <li><a jsf:action="${redirectController.buscarCurriculos()}">Buscar Curriculos</a></li>
+        </h:form>
+    </ul>
+
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper light-green accent-4">
-                <a class="brand-logo center">Rhecruta</a>
+                <a  data-target="slide-out" class="sidenav-trigger show-on-large brand-logo"><i class="material-icons">menu</i>Rhecruta</a>
             </div>
         </nav>
     </div>
