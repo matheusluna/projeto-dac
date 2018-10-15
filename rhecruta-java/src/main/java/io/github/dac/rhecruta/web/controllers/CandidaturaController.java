@@ -61,6 +61,20 @@ public class CandidaturaController implements Serializable {
         return "candidatura.xhtml";
     }
 
+    public void removerCurriculo() {
+        this.candidatura.setCurriculoCandidato(null);
+        this.candidaturaService.atualizar(this.candidatura);
+    }
+
+    public String iniciarAdicionarCurriculo() {
+        return "confirmarCurriculo.xhtml";
+    }
+
+    public String finalizarAdicionarCurriculo() {
+        this.candidaturaService.atualizar(this.candidatura);
+        return verMais(candidatura.getId());
+    }
+
     public List<Candidatura> listarCandidaturas() {
         Candidato candidato = this.candidatoController.getCandidato();
         return this.candidaturaService.candidaturasPorCandidato(candidato);
