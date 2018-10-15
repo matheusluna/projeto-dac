@@ -34,6 +34,10 @@ public class Entrevista {
     @OneToOne(fetch = FetchType.LAZY)
     private Candidatura candidatura;
 
+    {
+        this.local = new Localidade();
+    }
+
     public Entrevista() {
 
     }
