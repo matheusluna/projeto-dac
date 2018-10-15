@@ -67,20 +67,38 @@
                                jsf:id="dataCandidatura" jsf:value="${candidaturaController.candidatura.dataCandidatura}" />
                         <label for="dataCandidatura">Data De Candidatura</label>
                     </div>
+
                     <div class="input-field">
                         <input name="parecer" type="text" contenteditable="false"
                                jsf:id="parecer" jsf:value="${candidaturaController.candidatura.parecer}" />
                         <label for="parecer">Parecer</label>
                     </div>
-                    <div class="input-field red" jsf:rendered="${not empty candidatura.curriculoCandidato}">
+
+                    <div class="input-field" jsf:rendered="${not empty candidaturaController.candidatura.curriculoCandidato}">
                         <input name="curriculoSim" type="text" contenteditable="false"
-                               jsf:id="curriculoSim" value="Sim" />
+                               jsf:id="curriculoSim" value="${candidaturaController.candidatura.curriculoCandidato}" />
                         <label for="curriculoSim">Curriculo Atribuido</label>
+
+                        <h:form>
+                            <button class="btn waves-effect waves-light red accent-4"
+                                    jsf:action="#{candidaturaController.removerCurriculo()}">
+                                <i class="material-icons left">remove</i>Remover
+                            </button>
+                        </h:form>
+
                     </div>
-                    <div class="input-field red" jsf:rendered="${empty candidatura.curriculoCandidato}">
-                        <input name="curriculoNao" type="text" contenteditable="false"
+                    <div class="input-field" jsf:rendered="${empty candidaturaController.candidatura.curriculoCandidato}">
+                        <input name="curriculoNao" class="red" type="text" contenteditable="false"
                                jsf:id="curriculoNao" value="Não" />
                         <label for="curriculoNao">Curriculo Atribuido</label>
+
+                        <h:form>
+                            <button class="btn waves-effect waves-light light-green accent-4"
+                                    jsf:action="#{candidaturaController.iniciarAdicionarCurriculo()}">
+                                <i class="material-icons left">send</i>Adicionar
+                            </button>
+                        </h:form>
+
                     </div>
                 </div>
                 <div class="card-action">
