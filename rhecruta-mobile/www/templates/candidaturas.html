@@ -1,0 +1,12 @@
+<ion-view title="Candidaturas" id="page3" style="background-color:#C73610;">
+  <ion-content padding="true" class="has-header">
+     <ion-list id="vagas-list2">
+
+        <ion-item  ng-repeat="item in candidaturaVagas" href="#/side-menu21/agendar/{{item.id}}">
+          <h4>{{item.title}}</h4>
+          <p>{{item.company_name}}</p>
+        </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

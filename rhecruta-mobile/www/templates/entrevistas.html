@@ -1,0 +1,20 @@
+<ion-view title="Lista de entrevistas" style="background-color:#C73610;">
+  <ion-content padding="true" class="has-header">
+
+    <ion-list id="listaDeInteresses-list4">
+
+      <ion-item  ng-repeat="item in vagas">
+          <h4>{{item.title}}</h4>
+          <p>Empresa: {{item.company_name}}</p>
+          <p>Local: {{item.workplace}}</p>
+          <p>Data: {{teste.diaDaEntrevista}}</p>
+          <p>Hora: {{teste.horarioDaEntrevista}}</p>
+          <ion-option-button class="button-assertive" ng-click="cancelar()">
+          Cancelar
+        </ion-option-button>
+      </ion-item>
+
+    </ion-list>
+
+  </ion-content>
+</ion-view>

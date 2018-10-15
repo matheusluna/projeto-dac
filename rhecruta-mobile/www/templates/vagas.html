@@ -1,0 +1,38 @@
+<ion-view title="Vagas" id="page1" style="background-color:#C73610;">
+  <ion-content padding="true" class="has-header">
+    <form id="vagas-form1" class="list">
+      <label class="item item-select" id="vagas-select1">
+        <span class="input-label">Filtro</span>
+        <select ng-model="filtro.escolha">
+          <option selected>cidade</option>
+          <option>descricao</option>
+          <option>empresa</option>
+        </select>
+      </label>
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="" name="busca" ng-model="filtro.busca">
+        </label>
+        <button class="button button-small" ng-click="buscar(filtro)">
+          Buscar
+        </button>
+      </div>
+    </form>
+
+    <ion-list id="vagas-list2">
+
+      <ion-item id="vagas-list-item7" ng-repeat="item in vagas"  href="#/side-menu21/detalhesVaga/{{item.id}}">
+        <h4>{{item.title}}</h4>
+        <p>{{item.company_name}}</p>
+        <ion-option-button class="button-balanced" ng-click="candidatura({{item.id}})">
+          Candidatar
+        </ion-option-button>
+        <ion-option-button class="button-positive" ng-click="interesse({{item.id}})">
+          Interesse
+        </ion-option-button>
+      </ion-item>
+
+    </ion-list>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,23 @@
+<ion-view title="Detalhe entrevista" id="pageEntrevista" style="background-color:#C73610;">
+    <ion-content padding="true" class="has-header">
+        <div class="list card">
+
+            <div class="item">
+                <h3>{{vaga.title}}</h3>
+                <p>Data: {{vaga.created_at}}</p>
+                <p>Empresa: {{vaga.company_name}}</p>
+                <p>Email: {{vaga.company_email}}</p>
+                <p>Local: {{vaga.workplace}}</p>
+                <p>Link:{{vaga.application_link}}</p>
+            </div>
+
+            <div class="item item-body">
+                <h3>Requisitos: </h3>
+                <p>{{vaga.requirements}}</p>
+                <h3>Descriçao: </h3>
+                <p>{{vaga.description}}</p>
+            </div>
+            
+        </div>
+    </ion-content>
+</ion-view>

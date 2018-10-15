@@ -1,0 +1,26 @@
+<ion-view title="Cadastro" id="page5" style="background-color:#C73610;">
+  <ion-content padding="true" class="has-header">
+    <form id="cadastro-form4" class="list">
+      <ion-list id="cadastro-list6">
+        <label class="item item-input" id="cadastro-input4">
+          <span class="input-label">Nome</span>
+          <input type="text" placeholder="" name="nome" ng-model="candidato.nome">
+        </label>
+        <label class="item item-input" id="cadastro-input8">
+          <span class="input-label">CPF</span>
+          <input type="text" placeholder="" name="cpf" ng-model="candidato.cpf">
+        </label>
+        <label class="item item-input" id="cadastro-input5">
+          <span class="input-label">Email</span>
+          <input type="email" placeholder="" name="email" ng-model="candidato.email">
+        </label>
+        <label class="item item-input" id="cadastro-input6">
+          <span class="input-label">Senha</span>
+          <input type="password" placeholder="" name="senha" ng-model="candidato.senha">
+        </label>
+      </ion-list>
+      <div class="spacer" style="width: 300px; height: 64px;"></div>
+      <a ng-click="cadastro(candidato)" id="cadastro-button4" class="button button-balanced button-block">Cadastrar</a>
+    </form>
+  </ion-content>
+</ion-view>
